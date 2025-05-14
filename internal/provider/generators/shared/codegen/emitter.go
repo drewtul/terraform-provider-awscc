@@ -14,6 +14,7 @@ import (
 
 	cfschema "github.com/hashicorp/aws-cloudformation-resource-schema-sdk-go"
 	"github.com/hashicorp/cli"
+
 	tfmaps "github.com/hashicorp/terraform-provider-awscc/internal/maps"
 	"github.com/hashicorp/terraform-provider-awscc/internal/naming"
 )
@@ -753,8 +754,8 @@ func (e Emitter) emitAttribute(tfType string, attributeNameMap map[string]string
 		features.UsesRegexpInValidation = false
 	}
 
-	if computed && !parentComputedOnly {
-		// Computed.
+	if computedOnly && !parentComputedOnly {
+		// Computed Only.
 		// If our parent is Computed-only (and hence we are) then we don't need our own plan modifier.
 		planModifiers = append(planModifiers, fmt.Sprintf("%s.UseStateForUnknown()", fwPlanModifierPackage))
 		features.FrameworkPlanModifierPackages = append(features.FrameworkPlanModifierPackages, fwPlanModifierPackage)
