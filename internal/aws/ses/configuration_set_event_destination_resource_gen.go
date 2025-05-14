@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -190,9 +187,6 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]{1,256}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DimensionName
 									"dimension_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -204,9 +198,6 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_:-]{1,256}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DimensionValueSource
 									"dimension_value_source": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -216,9 +207,6 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -227,25 +215,18 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 							Computed:    true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An object that contains the names, default values, and sources of the dimensions associated with an Amazon CloudWatch event destination.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Enabled
 				"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "Sets whether Amazon SES publishes events to this destination when you send an email with the associated configuration set. Set to true to enable publishing to this destination; set to false to prevent publishing to this destination. The default value is false.   ",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EventBridgeDestination
 				"event_bridge_destination": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -259,17 +240,11 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z0-9-]*:events:[a-z0-9-]+:\\d{12}:event-bus/[^:]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An object that contains Event bus ARN associated with the event bridge destination.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: KinesisFirehoseDestination
 				"kinesis_firehose_destination": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -282,9 +257,6 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: IAMRoleARN
 						"iam_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -294,17 +266,11 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An object that contains the delivery stream ARN and the IAM role ARN associated with an Amazon Kinesis Firehose event destination.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MatchingEventTypes
 				"matching_event_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -323,9 +289,6 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]{0,64}$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SnsDestination
 				"sns_destination": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -339,17 +302,11 @@ func configurationSetEventDestinationResource(ctx context.Context) (resource.Res
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z0-9-]*:sns:[a-z0-9-]+:\\d{12}:[^:]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An object that contains SNS topic ARN associated event destination.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The event destination object.",

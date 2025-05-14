@@ -15,11 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -71,7 +68,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -291,9 +287,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							int64validator.AtLeast(0),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ExecutionRole
 					"execution_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -336,17 +329,11 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(1, 16384),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Defines the configuration for attaching additional Amazon Elastic Block Store (EBS) volumes to the instances in the SageMaker HyperPod cluster instance group. The additional EBS volume is attached to each instance within the SageMaker HyperPod cluster instance group and mounted to /opt/sagemaker.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -358,7 +345,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 						}, /*END VALIDATORS*/
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: InstanceType
@@ -407,7 +393,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 						}, /*END VALIDATORS*/
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OverrideVpcConfig
@@ -429,7 +414,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 								}, /*END VALIDATORS*/
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Subnets
@@ -448,16 +432,12 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 								}, /*END VALIDATORS*/
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Specifies an Amazon Virtual Private Cloud (VPC) that your SageMaker jobs, hosted models, and compute resources have access to. You can control access to and from your resources by configuring a VPC.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ThreadsPerCore
 					"threads_per_core": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -467,9 +447,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							int64validator.Between(1, 2),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -503,9 +480,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 					"None",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Orchestrator
 		// CloudFormation resource type schema:
@@ -547,9 +521,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies parameter(s) related to EKS as orchestrator, e.g. the EKS cluster nodes will attach to,",
@@ -558,16 +529,12 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies parameter(s) specific to the orchestrator, e.g. specify the EKS cluster.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -619,9 +586,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -633,9 +597,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -645,9 +606,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcConfig
 		// CloudFormation resource type schema:
@@ -705,7 +663,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Subnets
@@ -724,7 +681,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
@@ -732,7 +688,6 @@ func clusterResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

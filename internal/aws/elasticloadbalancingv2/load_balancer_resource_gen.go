@@ -10,11 +10,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -70,9 +66,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "[Network Load Balancers with UDP listeners] Indicates whether to use an IPv6 prefix from each subnet for source NAT. The IP address type must be ``dualstack``. The default value is ``off``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic
 		// CloudFormation resource type schema:
@@ -85,9 +78,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether to evaluate inbound security group rules for traffic sent to a Network Load Balancer through privatelink. The default is ``on``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IpAddressType
 		// CloudFormation resource type schema:
@@ -100,9 +90,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The IP address type. Internal load balancers must use ``ipv4``.\n [Application Load Balancers] The possible values are ``ipv4`` (IPv4 addresses), ``dualstack`` (IPv4 and IPv6 addresses), and ``dualstack-without-public-ipv4`` (public IPv6 addresses and private IPv4 and IPv6 addresses).\n Application Load Balancer authentication supports IPv4 addresses only when connecting to an Identity Provider (IdP) or Amazon Cognito endpoint. Without a public IPv4 address the load balancer can't complete the authentication process, resulting in HTTP 500 errors.\n [Network Load Balancers and Gateway Load Balancers] The possible values are ``ipv4`` (IPv4 addresses) and ``dualstack`` (IPv4 and IPv6 addresses).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Ipv4IpamPoolId
 		// CloudFormation resource type schema:
@@ -115,9 +102,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LoadBalancerArn
 		// CloudFormation resource type schema:
@@ -166,27 +150,18 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The name of the attribute.\n The following attributes are supported by all load balancers:\n  +   ``deletion_protection.enabled`` - Indicates whether deletion protection is enabled. The value is ``true`` or ``false``. The default is ``false``.\n  +   ``load_balancing.cross_zone.enabled`` - Indicates whether cross-zone load balancing is enabled. The possible values are ``true`` and ``false``. The default for Network Load Balancers and Gateway Load Balancers is ``false``. The default for Application Load Balancers is ``true``, and can't be changed.\n  \n The following attributes are supported by both Application Load Balancers and Network Load Balancers:\n  +   ``access_logs.s3.enabled`` - Indicates whether access logs are enabled. The value is ``true`` or ``false``. The default is ``false``.\n  +   ``access_logs.s3.bucket`` - The name of the S3 bucket for the access logs. This attribute is required if access logs are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permissions to write to the bucket.\n  +   ``access_logs.s3.prefix`` - The prefix for the location in the S3 bucket for the access logs.\n  +   ``ipv6.deny_all_igw_traffic`` - Blocks internet gateway (IGW) access to the load balancer. It is set to ``false`` for internet-facing load balancers and ``true`` for internal load balancers, preventing unintended access to your internal load balancer through an internet gateway.\n  +   ``zonal_shift.config.enabled`` - Indicates whether zonal shift is enabled. The possible values are ``true`` and ``false``. The default is ``false``.\n  \n The following attributes are supported by only Application Load Balancers:\n  +   ``idle_timeout.timeout_seconds`` - The idle timeout value, in seconds. The valid range is 1-4000 seconds. The default is 60 seconds.\n  +   ``client_keep_alive.seconds`` - The client keep alive value, in seconds. The valid range is 60-604800 seconds. The default is 3600 seconds.\n  +   ``connection_logs.s3.enabled`` - Indicates whether connection logs are enabled. The value is ``true`` or ``false``. The default is ``false``.\n  +   ``connection_logs.s3.bucket`` - The name of the S3 bucket for the connection logs. This attribute is required if connection logs are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permissions to write to the bucket.\n  +   ``connection_logs.s3.prefix`` - The prefix for the location in the S3 bucket for the connection logs.\n  +   ``routing.http.desync_mitigation_mode`` - Determines how the load balancer handles requests that might pose a security risk to your application. The possible values are ``monitor``, ``defensive``, and ``strictest``. The default is ``defensive``.\n  +   ``routing.http.drop_invalid_header_fields.enabled`` - Indicates whether HTTP headers with invalid header fields are removed by the load balancer (``true``) or routed to targets (``false``). The default is ``false``.\n  +   ``routing.http.preserve_host_header.enabled`` - Indicates whether the Application Load Balancer should preserve the ``Host`` header in the HTTP request and send it to the target without any change. The possible values are ``true`` and ``false``. The default is ``false``.\n  +   ``routing.http.x_amzn_tls_version_and_cipher_suite.enabled`` - Indicates whether the two headers (``x-amzn-tls-version`` and ``x-amzn-tls-cipher-suite``), which contain information about the negotiated TLS version and cipher suite, are added to the client request before sending it to the target. The ``x-amzn-tls-version`` header has information about the TLS protocol version negotiated with the client, and the ``x-amzn-tls-cipher-suite`` header has information about the cipher suite negotiated with the client. Both headers are in OpenSSL format. The possible values for the attribute are ``true`` and ``false``. The default is ``false``.\n  +   ``routing.http.xff_client_port.enabled`` - Indicates whether the ``X-Forwarded-For`` header should preserve the source port that the client used to connect to the load balancer. The possible values are ``true`` and ``false``. The default is ``false``.\n  +   ``routing.http.xff_header_processing.mode`` - Enables you to modify, preserve, or remove the ``X-Forwarded-For`` header in the HTTP request before the Application Load Balancer sends the request to the target. The possible values are ``append``, ``preserve``, and ``remove``. The default is ``append``.\n  +  If the value is ``append``, the Application Load Balancer adds the client IP address (of the last hop) to the ``X-Forwarded-For`` header in the HTTP request before it sends it to targets.\n  +  If the value is ``preserve`` the Application Load Balancer preserves the ``X-Forwarded-For`` header in the HTTP request, and sends it to targets without any change.\n  +  If the value is ``remove``, the Application Load Balancer removes the ``X-Forwarded-For`` header in the HTTP request before it sends it to targets.\n  \n  +   ``routing.http2.enabled`` - Indicates whether HTTP/2 is enabled. The possible values are ``true`` and ``false``. The default is ``true``. Elastic Load Balancing requires that message header names contain only alphanumeric characters and hyphens.\n  +   ``waf.fail_open.enabled`` - Indicates whether to allow a WAF-enabled load balancer to route requests to targets if it is unable to forward the request to AWS WAF. The possible values are ``true`` and ``false``. The default is ``false``.\n  \n The following attributes are supported by only Network Load Balancers:\n  +   ``dns_record.client_routing_policy`` - Indicates how traffic is distributed among the load balancer Availability Zones. The possible values are ``availability_zone_affinity`` with 100 percent zonal affinity, ``partial_availability_zone_affinity`` with 85 percent zonal affinity, and ``any_availability_zone`` with 0 percent zonal affinity.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The value of the attribute.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The load balancer attributes.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LoadBalancerFullName
 		// CloudFormation resource type schema:
@@ -243,17 +218,11 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The minimum capacity for a load balancer.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -267,7 +236,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -283,7 +251,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -304,9 +271,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "[Application Load Balancers and Network Load Balancers] The IDs of the security groups for the load balancer.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SubnetMappings
 		// CloudFormation resource type schema:
@@ -355,36 +319,24 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 						Description: "[Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: IPv6Address
 					"i_pv_6_address": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "[Network Load Balancers] The IPv6 address.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PrivateIPv4Address
 					"private_i_pv_4_address": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "[Network Load Balancers] The private IPv4 address for an internal load balancer.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SourceNatIpv6Prefix
 					"source_nat_ipv_6_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "[Network Load Balancers with UDP listeners] The IPv6 prefix to use for source NAT. Specify an IPv6 prefix (/80 netmask) from the subnet CIDR block or ``auto_assigned`` to use an IPv6 prefix selected at random from the subnet CIDR block.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SubnetId
 					"subnet_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -394,18 +346,12 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The IDs of the subnets. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings, but not both.\n [Application Load Balancers] You must specify subnets from at least two Availability Zones. You can't specify Elastic IP addresses for your subnets.\n [Application Load Balancers on Outposts] You must specify one Outpost subnet.\n [Application Load Balancers on Local Zones] You can specify subnets from one or more Local Zones.\n [Network Load Balancers] You can specify subnets from one or more Availability Zones. You can specify one Elastic IP address per subnet if you need static IP addresses for your internet-facing load balancer. For internal load balancers, you can specify one private IP address per subnet from the IPv4 range of the subnet. For internet-facing load balancer, you can specify one IPv6 address per subnet.\n [Gateway Load Balancers] You can specify subnets from one or more Availability Zones. You can't specify Elastic IP addresses for your subnets.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Subnets
 		// CloudFormation resource type schema:
@@ -424,9 +370,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The IDs of the subnets. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings, but not both. To specify an Elastic IP address, specify subnet mappings instead of subnets.\n [Application Load Balancers] You must specify subnets from at least two Availability Zones.\n [Application Load Balancers on Outposts] You must specify one Outpost subnet.\n [Application Load Balancers on Local Zones] You can specify subnets from one or more Local Zones.\n [Network Load Balancers and Gateway Load Balancers] You can specify subnets from one or more Availability Zones.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -466,18 +409,12 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The value of the tag.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -486,7 +423,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Type
@@ -501,7 +437,6 @@ func loadBalancerResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

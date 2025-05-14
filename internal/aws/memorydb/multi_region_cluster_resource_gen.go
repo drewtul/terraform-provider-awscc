@@ -14,9 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -57,9 +55,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Description: "Description of the multi region cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Engine
 		// CloudFormation resource type schema:
@@ -72,9 +67,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Description: "The engine type used by the multi region cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EngineVersion
 		// CloudFormation resource type schema:
@@ -88,7 +80,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -122,7 +113,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-z][a-z0-9\\-]*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// MultiRegionClusterNameSuffix is a write-only property.
@@ -139,7 +129,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -165,9 +154,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Description: "The number of shards the multi region cluster will contain.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Status
 		// CloudFormation resource type schema:
@@ -195,7 +181,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -246,9 +231,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -259,9 +241,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -271,9 +250,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UpdateStrategy
 		// CloudFormation resource type schema:
@@ -296,9 +272,6 @@ func multiRegionClusterResource(ctx context.Context) (resource.Resource, error) 
 					"UNCOORDINATED",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// UpdateStrategy is a write-only property.
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

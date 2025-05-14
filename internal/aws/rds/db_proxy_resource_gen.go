@@ -13,8 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -94,9 +92,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 								"SECRETS",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ClientPasswordAuthType
 					"client_password_auth_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -111,18 +106,12 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 								"SQL_SERVER_AUTHENTICATION",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "A user-specified description about the authentication used by a proxy to log in as a specific database user. ",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: IAMAuth
 					"iam_auth": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -136,18 +125,12 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 								"ENABLED",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SecretArn
 					"secret_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The Amazon Resource Name (ARN) representing the secret that the proxy uses to authenticate to the RDS DB instance or Aurora DB cluster. These secrets are stored within Amazon Secrets Manager. ",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -205,9 +188,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Whether the proxy includes detailed information about SQL statements in its logs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Endpoint
 		// CloudFormation resource type schema:
@@ -260,9 +240,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of seconds that a connection to the proxy can be inactive before the proxy disconnects it.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RequireTLS
 		// CloudFormation resource type schema:
@@ -275,9 +252,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A Boolean parameter that specifies whether Transport Layer Security (TLS) encryption is required for connections to the proxy.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
 		// CloudFormation resource type schema:
@@ -325,9 +299,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(128),
 							stringvalidator.RegexMatches(regexp.MustCompile("(\\w|\\d|\\s|\\\\|-|\\.:=+-)*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -337,9 +308,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(128),
 							stringvalidator.RegexMatches(regexp.MustCompile("(\\w|\\d|\\s|\\\\|-|\\.:=+-)*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -348,7 +316,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcId
@@ -387,7 +354,6 @@ func dBProxyResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcSubnetIds

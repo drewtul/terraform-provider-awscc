@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -56,9 +55,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The default netmask length for allocations made from this pool. This value is used when the netmask length of an allocation isn't specified.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AllocationMaxNetmaskLength
 		// CloudFormation resource type schema:
@@ -71,9 +67,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The maximum allowed netmask length for allocations made from this pool.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AllocationMinNetmaskLength
 		// CloudFormation resource type schema:
@@ -86,9 +79,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The minimum allowed netmask length for allocations made from this pool.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AllocationResourceTags
 		// CloudFormation resource type schema:
@@ -134,9 +124,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -147,18 +134,12 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "When specified, an allocation will not be allowed unless a resource has a matching set of tags.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -185,9 +166,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Determines what to do if IPAM discovers resources that haven't been assigned an allocation. If set to true, an allocation will be made automatically.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AwsService
 		// CloudFormation resource type schema:
@@ -209,7 +187,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -222,9 +199,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 		"description": schema.StringAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IpamArn
 		// CloudFormation resource type schema:
@@ -312,7 +286,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -364,18 +337,12 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "A list of cidrs representing the address space available for allocation in this pool.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PublicIpSource
 		// CloudFormation resource type schema:
@@ -399,7 +366,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -415,7 +381,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -431,7 +396,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -472,9 +436,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceOwner
 				"resource_owner": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -483,9 +444,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceRegion
 				"resource_region": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -494,9 +452,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceType
 				"resource_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -505,16 +460,12 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The resource associated with this pool's space. Depending on the ResourceType, setting a SourceResource changes which space can be provisioned in this pool and which types of resources can receive allocations",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -598,9 +549,6 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -611,18 +559,12 @@ func iPAMPoolResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "An array of key-value pairs to apply to this resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

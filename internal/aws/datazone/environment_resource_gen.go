@@ -106,9 +106,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(2048),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainId
 		// CloudFormation resource type schema:
@@ -160,7 +157,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^\\d{12}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// EnvironmentAccountIdentifier is a write-only property.
@@ -181,7 +177,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-z]{2}-[a-z]{4,10}-\\d$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// EnvironmentAccountRegion is a write-only property.
@@ -232,7 +227,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]{0,36}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// EnvironmentProfileIdentifier is a write-only property.
@@ -248,9 +242,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Environment role arn for custom aws environment permissions",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// EnvironmentRoleArn is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: GlossaryTerms
@@ -280,7 +271,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
@@ -440,18 +430,12 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The name of an environment parameter.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The value of an environment parameter.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -460,7 +444,6 @@ func environmentResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

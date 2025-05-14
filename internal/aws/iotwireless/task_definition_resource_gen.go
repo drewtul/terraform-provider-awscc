@@ -12,10 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -134,9 +131,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 4096),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PackageVersion
 						"package_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -145,9 +139,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 32),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Station
 						"station": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -156,16 +147,10 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 4096),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: UpdateVersion
 				"update_version": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -177,9 +162,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 4096),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PackageVersion
 						"package_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -188,9 +170,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 32),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Station
 						"station": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -199,24 +178,15 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 4096),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The list of task definitions.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -234,9 +204,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 256),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -274,9 +241,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 127),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -285,9 +249,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 255),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -297,9 +258,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TaskDefinitionType
 		// CloudFormation resource type schema:
@@ -320,9 +278,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					"UPDATE",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Update
 		// CloudFormation resource type schema:
@@ -416,9 +371,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 4096),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PackageVersion
 								"package_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -427,9 +379,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 32),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Station
 								"station": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -438,24 +387,15 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 4096),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SigKeyCrc
 						"sig_key_crc": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: UpdateSignature
 						"update_signature": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -464,9 +404,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 4096),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: UpdateVersion
 						"update_version": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -478,9 +415,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 4096),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PackageVersion
 								"package_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -489,9 +423,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 32),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Station
 								"station": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -500,23 +431,14 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 4096),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: UpdateDataRole
 				"update_data_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -525,9 +447,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: UpdateDataSource
 				"update_data_source": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -536,17 +455,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 4096),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Information about the gateways to update.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

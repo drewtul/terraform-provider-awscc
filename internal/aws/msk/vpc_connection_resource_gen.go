@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -129,9 +128,6 @@ func vpcConnectionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A key-value pair to associate with a resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetClusterArn
 		// CloudFormation resource type schema:

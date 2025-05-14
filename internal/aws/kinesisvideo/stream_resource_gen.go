@@ -14,8 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -62,9 +60,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(0, 87600),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DeviceName
 		// CloudFormation resource type schema:
@@ -84,9 +79,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 128),
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_.-]+"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: KmsKeyId
 		// CloudFormation resource type schema:
@@ -106,9 +98,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 2048),
 				stringvalidator.RegexMatches(regexp.MustCompile(".+"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MediaType
 		// CloudFormation resource type schema:
@@ -128,9 +117,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 128),
 				stringvalidator.RegexMatches(regexp.MustCompile("[\\w\\-\\.\\+]+/[\\w\\-\\.\\+]+(,[\\w\\-\\.\\+]+/[\\w\\-\\.\\+]+)*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -151,7 +137,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_.-]+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -201,9 +186,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -214,9 +196,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -228,7 +207,6 @@ func streamResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

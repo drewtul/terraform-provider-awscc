@@ -15,11 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -64,9 +60,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 512),
 				stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RuleGroup
 		// CloudFormation resource type schema:
@@ -620,24 +613,15 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^(arn:aws.*)$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuleVariables
 				"rule_variables": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -658,17 +642,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PortSets
 						"port_sets":               // Pattern: ""
@@ -686,24 +664,15 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RulesSource
 				"rules_source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -722,9 +691,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TargetTypes
 								"target_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -740,9 +706,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Targets
 								"targets": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -752,16 +715,10 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RulesString
 						"rules_string": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -770,9 +727,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(0, 1000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StatefulRules
 						"stateful_rules": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -791,9 +745,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Header
 									"header": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -807,9 +758,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DestinationPort
 											"destination_port": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -820,9 +768,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Direction
 											"direction": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -835,9 +780,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Protocol
 											"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -867,9 +809,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Source
 											"source": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -880,9 +819,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SourcePort
 											"source_port": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -893,9 +829,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
@@ -903,9 +836,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RuleOptions
 									"rule_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -920,9 +850,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Settings
 												"settings": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -935,9 +862,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -946,17 +870,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.List{ /*START VALIDATORS*/
 											fwvalidators.NotNullList(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StatelessRulesAndCustomActions
 						"stateless_rules_and_custom_actions": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -984,9 +902,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9-_ ]+$"), ""),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -995,16 +910,10 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.List{ /*START VALIDATORS*/
 																	fwvalidators.NotNullList(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
@@ -1012,9 +921,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ActionName
 											"action_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1025,17 +931,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StatelessRules
 								"stateless_rules": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1049,9 +949,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 													int64validator.Between(1, 65535),
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RuleDefinition
 											"rule_definition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1064,9 +961,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.List{ /*START VALIDATORS*/
 															fwvalidators.NotNullList(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MatchAttributes
 													"match_attributes": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1083,9 +977,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				int64validator.Between(0, 65535),
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ToPort
 																		"to_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1095,17 +986,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				int64validator.Between(0, 65535),
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Destinations
 															"destinations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1120,17 +1005,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.RegexMatches(regexp.MustCompile("^([a-fA-F\\d:\\.]+/\\d{1,3})$"), ""),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Protocols
 															"protocols": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1142,9 +1021,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																		int64validator.Between(0, 255),
 																	),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SourcePorts
 															"source_ports": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1158,9 +1034,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				int64validator.Between(0, 65535),
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ToPort
 																		"to_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1170,17 +1043,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				int64validator.Between(0, 65535),
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sources
 															"sources": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1195,17 +1062,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.RegexMatches(regexp.MustCompile("^([a-fA-F\\d:\\.]+/\\d{1,3})$"), ""),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: TCPFlags
 															"tcp_flags": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1231,9 +1092,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																				),
 																				fwvalidators.NotNullList(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																				listplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Masks
 																		"masks": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1254,17 +1112,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 																					),
 																				),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																				listplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Optional: true,
@@ -1272,9 +1124,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Object{ /*START VALIDATORS*/
 															fwvalidators.NotNullObject(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
@@ -1282,9 +1131,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1293,16 +1139,10 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
@@ -1310,9 +1150,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StatefulRuleOptions
 				"stateful_rule_options": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1327,23 +1164,14 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 									"STRICT_ORDER",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RuleGroupArn
 		// CloudFormation resource type schema:
@@ -1438,9 +1266,6 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1451,17 +1276,11 @@ func ruleGroupResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^.*$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Type
 		// CloudFormation resource type schema:

@@ -33,9 +33,6 @@ func userPoolUICustomizationAttachmentResource(ctx context.Context) (resource.Re
 		"css": schema.StringAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ClientId
 		// CloudFormation resource type schema:

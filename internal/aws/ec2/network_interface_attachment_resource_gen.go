@@ -11,8 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -54,9 +52,6 @@ func networkInterfaceAttachmentResource(ctx context.Context) (resource.Resource,
 			Optional:    true,
 			Computed:    true,
 			Default:     booldefault.StaticBool(true),
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DeviceIndex
 		// CloudFormation resource type schema:
@@ -103,9 +98,6 @@ func networkInterfaceAttachmentResource(ctx context.Context) (resource.Resource,
 					Description: "Indicates whether ENA Express is enabled for the network interface.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EnaSrdUdpSpecification
 				"ena_srd_udp_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -114,25 +106,16 @@ func networkInterfaceAttachmentResource(ctx context.Context) (resource.Resource,
 						"ena_srd_udp_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Configures ENA Express for UDP network traffic.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Configures ENA Express for the network interface that this action attaches to the instance.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InstanceId
 		// CloudFormation resource type schema:

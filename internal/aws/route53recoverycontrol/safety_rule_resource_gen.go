@@ -11,10 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -71,7 +67,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: WaitPeriodMs
@@ -82,17 +77,11 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An assertion rule enforces that, when a routing control state is changed, that the criteria set by the rule configuration is met. Otherwise, the change to the routing control is not accepted.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ControlPanelArn
 		// CloudFormation resource type schema:
@@ -105,9 +94,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Amazon Resource Name (ARN) of the control panel.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: GatingRule
 		// CloudFormation resource type schema:
@@ -157,7 +143,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TargetControls
@@ -171,7 +156,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: WaitPeriodMs
@@ -182,17 +166,11 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A gating rule verifies that a set of gating controls evaluates as true, based on a rule configuration that you specify. If the gating rule evaluates to true, Amazon Route 53 Application Recovery Controller allows a set of routing control state changes to run and complete against the set of target controls.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -205,9 +183,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name for the safety rule.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RuleConfig
 		// CloudFormation resource type schema:
@@ -251,9 +226,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Bool{ /*START VALIDATORS*/
 						fwvalidators.NotNullBool(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Threshold
 				"threshold": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -263,9 +235,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Type
 				"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -280,17 +249,11 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The rule configuration for an assertion rule or gating rule. This is the criteria that you set for specific assertion controls (routing controls) or gating controls. This configuration specifies how many controls must be enabled after a transaction completes.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SafetyRuleArn
 		// CloudFormation resource type schema:
@@ -363,9 +326,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -375,9 +335,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -386,7 +343,6 @@ func safetyRuleResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

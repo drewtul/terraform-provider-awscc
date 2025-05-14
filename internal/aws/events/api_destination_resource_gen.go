@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -87,9 +86,6 @@ func apiDestinationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(512),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HttpMethod
 		// CloudFormation resource type schema:
@@ -148,9 +144,6 @@ func apiDestinationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.AtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -171,7 +164,6 @@ func apiDestinationResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_A-Za-z0-9]+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

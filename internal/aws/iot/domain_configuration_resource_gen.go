@@ -13,11 +13,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -57,9 +54,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					"DEFAULT",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -98,9 +92,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					"DEFAULT",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AuthorizerConfig
 		// CloudFormation resource type schema:
@@ -126,9 +117,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				"allow_authorizer_override": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DefaultAuthorizerName
 				"default_authorizer_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -138,16 +126,10 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 						stringvalidator.LengthBetween(1, 128),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[\\w=,@-]+$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ClientCertificateConfig
 		// CloudFormation resource type schema:
@@ -172,16 +154,10 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 170),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainConfigurationName
 		// CloudFormation resource type schema:
@@ -200,7 +176,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				stringvalidator.RegexMatches(regexp.MustCompile("^[\\w.-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -223,9 +198,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					"DISABLED",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainName
 		// CloudFormation resource type schema:
@@ -242,7 +214,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				stringvalidator.LengthBetween(1, 253),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -290,7 +261,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ServerCertificateArns is a write-only property.
@@ -324,9 +294,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				"enable_ocsp_check": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: OcspAuthorizedResponderArn
 				"ocsp_authorized_responder_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -336,9 +303,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 						stringvalidator.LengthBetween(1, 2048),
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\\d{1}:\\d{12}:certificate/[a-zA-Z0-9/-]+$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: OcspLambdaArn
 				"ocsp_lambda_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -347,16 +311,10 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 170),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ServerCertificates
 		// CloudFormation resource type schema:
@@ -431,7 +389,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -469,9 +426,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -480,17 +434,11 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TlsConfig
 		// CloudFormation resource type schema:
@@ -514,16 +462,10 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(128),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ValidationCertificateArn
 		// CloudFormation resource type schema:
@@ -539,7 +481,6 @@ func domainConfigurationResource(ctx context.Context) (resource.Resource, error)
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\\d{1}:\\d{12}:certificate/[a-zA-Z0-9/-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ValidationCertificateArn is a write-only property.

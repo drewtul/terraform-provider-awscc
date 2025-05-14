@@ -13,9 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
@@ -711,18 +708,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The command that's passed to the container. This parameter maps to ``Cmd`` in the docker container create command and the ``COMMAND`` parameter to docker run. If there are multiple arguments, each argument is a separated string in the array.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Cpu
 					"cpu": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "The number of ``cpu`` units reserved for the container. This parameter maps to ``CpuShares`` in the docker container create commandand the ``--cpu-shares`` option to docker run.\n This field is optional for tasks using the Fargate launch type, and the only requirement is that the total amount of CPU reserved for all containers within a task be lower than the task-level ``cpu`` value.\n  You can determine the number of CPU units that are available per EC2 instance type by multiplying the vCPUs listed for that instance type on the [Amazon EC2 Instances](https://docs.aws.amazon.com/ec2/instance-types/) detail page by 1,024.\n  Linux containers share unallocated CPU units with other containers on the container instance with the same ratio as their allocated amount. For example, if you run a single-container task on a single-core instance type with 512 CPU units specified for that container, and that's the only task running on the container instance, that container could use the full 1,024 CPU unit share at any given time. However, if you launched another copy of the same task on that container instance, each task is guaranteed a minimum of 512 CPU units when needed. Moreover, each container could float to higher CPU usage if the other container was not using it. If both tasks were 100% active all of the time, they would be limited to 512 CPU units.\n On Linux container instances, the Docker daemon on the container instance uses the CPU value to calculate the relative CPU share ratios for running containers. The minimum valid CPU share value that the Linux kernel allows is 2, and the maximum valid CPU share value that the Linux kernel allows is 262144. However, the CPU parameter isn't required, and you can use CPU values below 2 or above 262144 in your container definitions. For CPU values below 2 (including null) or above 262144, the behavior varies based on your Amazon ECS container agent version:\n  +  *Agent versions less than or equal to 1.1.0:* Null and zero CPU values are passed to Docker as 0, which Docker then converts to 1,024 CPU shares. CPU values of 1 are passed to Docker as 1, which the Linux kernel converts to two CPU shares.\n  +  *Agent versions greater than or equal to 1.2.0:* Null, zero, and CPU values of 1 are passed to Docker as 2.\n  +  *Agent versions greater than or equal to 1.84.0:* CPU values greater than 256 vCPU are passed to Docker as 256, which is equivalent to 262144 CPU shares.\n  \n On Windows container instances, the CPU limit is enforced as an absolute limit, or a quota. Windows containers only have access to the specified amount of CPU that's described in the task definition. A null or zero CPU value is passed to Docker as ``0``, which Windows interprets as 1% of one CPU.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: CredentialSpecs
 					"credential_specs": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -732,7 +723,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DependsOn
@@ -744,18 +734,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The dependency condition of the container. The following are the available conditions and their behavior:\n  +  ``START`` - This condition emulates the behavior of links and volumes today. It validates that a dependent container is started before permitting other containers to start.\n  +  ``COMPLETE`` - This condition validates that a dependent container runs to completion (exits) before permitting other containers to start. This can be useful for nonessential containers that run a script and then exit. This condition can't be set on an essential container.\n  +  ``SUCCESS`` - This condition is the same as ``COMPLETE``, but it also requires that the container exits with a ``zero`` status. This condition can't be set on an essential container.\n  +  ``HEALTHY`` - This condition validates that the dependent container passes its Docker health check before permitting other containers to start. This requires that the dependent container has health checks configured. This condition is confirmed only at task startup.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContainerName
 								"container_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of a container.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -764,7 +748,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DisableNetworking
@@ -772,9 +755,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "When this parameter is true, networking is off within the container. This parameter maps to ``NetworkDisabled`` in the docker container create command.\n  This parameter is not supported for Windows containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DnsSearchDomains
 					"dns_search_domains": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -784,7 +764,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DnsServers
@@ -795,7 +774,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DockerLabels
@@ -805,9 +783,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "A key/value map of labels to add to the container. This parameter maps to ``Labels`` in the docker container create command and the ``--label`` option to docker run. This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: ``sudo docker version --format '{{.Server.APIVersion}}'``",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DockerSecurityOptions
 					"docker_security_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -817,7 +792,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EntryPoint
@@ -826,9 +800,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Early versions of the Amazon ECS container agent don't properly handle ``entryPoint`` parameters. If you have problems using ``entryPoint``, update your container agent or enter your commands and arguments as ``command`` array items instead.\n  The entry point that's passed to the container. This parameter maps to ``Entrypoint`` in the docker container create command and the ``--entrypoint`` option to docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Environment
 					"environment": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -839,27 +810,18 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The name of the key-value pair. For environment variables, this is the name of the environment variable.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The value of the key-value pair. For environment variables, this is the value of the environment variable.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "The environment variables to pass to a container. This parameter maps to ``Env`` in the docker container create command and the ``--env`` option to docker run.\n  We don't recommend that you use plaintext environment variables for sensitive information, such as credential data.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EnvironmentFiles
 					"environment_files": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -870,36 +832,24 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The file type to use. Environment files are objects in Amazon S3. The only supported value is ``s3``.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The Amazon Resource Name (ARN) of the Amazon S3 object containing the environment variable file.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "A list of files containing the environment variables to pass to a container. This parameter maps to the ``--env-file`` option to docker run.\n You can specify up to ten environment files. The file must have a ``.env`` file extension. Each line in an environment file contains an environment variable in ``VARIABLE=VALUE`` format. Lines beginning with ``#`` are treated as comments and are ignored.\n If there are environment variables specified using the ``environment`` parameter in a container definition, they take precedence over the variables contained within an environment file. If multiple environment files are specified that contain the same variable, they're processed from the top down. We recommend that you use unique variable names. For more information, see [Specifying Environment Variables](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/taskdef-envfiles.html) in the *Amazon Elastic Container Service Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Essential
 					"essential": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "If the ``essential`` parameter of a container is marked as ``true``, and that container fails or stops for any reason, all other containers that are part of the task are stopped. If the ``essential`` parameter of a container is marked as ``false``, its failure doesn't affect the rest of the containers in a task. If this parameter is omitted, a container is assumed to be essential.\n All tasks must have at least one essential container. If you have an application that's composed of multiple containers, group containers that are used for a common purpose into components, and separate the different components into multiple task definitions. For more information, see [Application Architecture](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html) in the *Amazon Elastic Container Service Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ExtraHosts
 					"extra_hosts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -910,18 +860,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The hostname to use in the ``/etc/hosts`` entry.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IpAddress
 								"ip_address": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The IP address to use in the ``/etc/hosts`` entry.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -930,7 +874,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FirelensConfiguration
@@ -943,26 +886,17 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The options to use when configuring the log router. This field is optional and can be used to add additional metadata, such as the task, task definition, cluster, and container instance details to the log event.\n  If specified, valid option keys are:\n  +  ``enable-ecs-log-metadata``, which can be ``true`` or ``false``\n  +  ``config-file-type``, which can be ``s3`` or ``file``\n  +  ``config-file-value``, which is either an S3 ARN or a file path",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Type
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The log router to use. The valid values are ``fluentd`` or ``fluentbit``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The FireLens configuration for the container. This is used to specify and configure a log router for container logs. For more information, see [Custom Log Routing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html) in the *Amazon Elastic Container Service Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: HealthCheck
 					"health_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -973,62 +907,41 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "A string array representing the command that the container runs to determine if it is healthy. The string array must start with ``CMD`` to run the command arguments directly, or ``CMD-SHELL`` to run the command with the container's default shell. \n  When you use the AWS Management Console JSON panel, the CLIlong, or the APIs, enclose the list of commands in double quotes and brackets.\n  ``[ \"CMD-SHELL\", \"curl -f http://localhost/ || exit 1\" ]`` \n You don't include the double quotes and brackets when you use the AWS Management Console.\n  ``CMD-SHELL, curl -f http://localhost/ || exit 1`` \n An exit code of 0 indicates success, and non-zero exit code indicates failure. For more information, see ``HealthCheck`` in the docker container create command.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Interval
 							"interval": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The time period in seconds between each health check execution. You may specify between 5 and 300 seconds. The default value is 30 seconds. This value applies only when you specify a ``command``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Retries
 							"retries": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The number of times to retry a failed health check before the container is considered unhealthy. You may specify between 1 and 10 retries. The default value is 3. This value applies only when you specify a ``command``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StartPeriod
 							"start_period": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The optional grace period to provide containers time to bootstrap before failed health checks count towards the maximum number of retries. You can specify between 0 and 300 seconds. By default, the ``startPeriod`` is off. This value applies only when you specify a ``command``. \n  If a health check succeeds within the ``startPeriod``, then the container is considered healthy and any subsequent failures count toward the maximum number of retries.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Timeout
 							"timeout": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The time period in seconds to wait for a health check to succeed before it is considered a failure. You may specify between 2 and 60 seconds. The default value is 5. This value applies only when you specify a ``command``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The container health check command and associated configuration parameters for the container. This parameter maps to ``HealthCheck`` in the docker container create command and the ``HEALTHCHECK`` parameter of docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Hostname
 					"hostname": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The hostname to use for your container. This parameter maps to ``Hostname`` in the docker container create command and the ``--hostname`` option to docker run.\n  The ``hostname`` parameter is not supported if you're using the ``awsvpc`` network mode.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Image
 					"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1038,18 +951,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Interactive
 					"interactive": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "When this parameter is ``true``, you can deploy containerized applications that require ``stdin`` or a ``tty`` to be allocated. This parameter maps to ``OpenStdin`` in the docker container create command and the ``--interactive`` option to docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Links
 					"links": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1057,9 +964,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The ``links`` parameter allows containers to communicate with each other without the need for port mappings. This parameter is only supported if the network mode of a task definition is ``bridge``. The ``name:internalName`` construct is analogous to ``name:alias`` in Docker links. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.. This parameter maps to ``Links`` in the docker container create command and the ``--link`` option to docker run.\n  This parameter is not supported for Windows containers.\n   Containers that are collocated on a single container instance may be able to communicate with each other without requiring links or host port mappings. Network isolation is achieved on the container instance using security groups and VPC settings.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LinuxParameters
 					"linux_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1075,7 +979,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Drop
@@ -1086,16 +989,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The Linux capabilities for the container that are added to or dropped from the default configuration provided by Docker.\n  For tasks that use the Fargate launch type, ``capabilities`` is supported for all platform versions but the ``add`` parameter is only supported if using platform version 1.4.0 or later.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Devices
 							"devices": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1106,18 +1005,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The path inside the container at which to expose the host device.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: HostPath
 										"host_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The path for the device on the host container instance.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Permissions
 										"permissions": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1125,9 +1018,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The explicit permissions to provide to the container for the device. By default, the container has permissions for ``read``, ``write``, and ``mknod`` for the device.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-												setplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1136,7 +1026,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed:    true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: InitProcessEnabled
@@ -1144,36 +1033,24 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "Run an ``init`` process inside the container that forwards signals and reaps processes. This parameter maps to the ``--init`` option to docker run. This parameter requires version 1.25 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: ``sudo docker version --format '{{.Server.APIVersion}}'``",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: MaxSwap
 							"max_swap": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The total amount of swap memory (in MiB) a container can use. This parameter will be translated to the ``--memory-swap`` option to docker run where the value would be the sum of the container memory plus the ``maxSwap`` value.\n If a ``maxSwap`` value of ``0`` is specified, the container will not use swap. Accepted values are ``0`` or any positive integer. If the ``maxSwap`` parameter is omitted, the container will use the swap configuration for the container instance it is running on. A ``maxSwap`` value must be set for the ``swappiness`` parameter to be used.\n  If you're using tasks that use the Fargate launch type, the ``maxSwap`` parameter isn't supported.\n If you're using tasks on Amazon Linux 2023 the ``swappiness`` parameter isn't supported.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SharedMemorySize
 							"shared_memory_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The value for the size (in MiB) of the ``/dev/shm`` volume. This parameter maps to the ``--shm-size`` option to docker run.\n  If you are using tasks that use the Fargate launch type, the ``sharedMemorySize`` parameter is not supported.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Swappiness
 							"swappiness": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "This allows you to tune a container's memory swappiness behavior. A ``swappiness`` value of ``0`` will cause swapping to not happen unless absolutely necessary. A ``swappiness`` value of ``100`` will cause pages to be swapped very aggressively. Accepted values are whole numbers between ``0`` and ``100``. If the ``swappiness`` parameter is not specified, a default value of ``60`` is used. If a value is not specified for ``maxSwap`` then this parameter is ignored. This parameter maps to the ``--memory-swappiness`` option to docker run.\n  If you're using tasks that use the Fargate launch type, the ``swappiness`` parameter isn't supported.\n If you're using tasks on Amazon Linux 2023 the ``swappiness`` parameter isn't supported.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Tmpfs
 							"tmpfs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1184,9 +1061,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The absolute file path where the tmpfs volume is to be mounted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MountOptions
 										"mount_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1196,7 +1070,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed:    true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Size
@@ -1207,9 +1080,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1218,16 +1088,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed:    true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Linux-specific modifications that are applied to the container, such as Linux kernel capabilities. For more information see [KernelCapabilities](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_KernelCapabilities.html).\n  This parameter is not supported for Windows containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LogConfiguration
 					"log_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1240,9 +1106,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Options
 							"options":           // Pattern: ""
@@ -1251,9 +1114,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The configuration options to send to the log driver.\n The options you can specify depend on the log driver. Some of the options you can specify when you use the ``awslogs`` log driver to route logs to Amazon CloudWatch include the following:\n  + awslogs-create-group Required: No Specify whether you want the log group to be created automatically. If this option isn't specified, it defaults to false. Your IAM policy must include the logs:CreateLogGroup permission before you attempt to use awslogs-create-group. + awslogs-region Required: Yes Specify the Region that the awslogs log driver is to send your Docker logs to. You can choose to send all of your logs from clusters in different Regions to a single region in CloudWatch Logs. This is so that they're all visible in one location. Otherwise, you can separate them by Region for more granularity. Make sure that the specified log group exists in the Region that you specify with this option. + awslogs-group Required: Yes Make sure to specify a log group that the awslogs log driver sends its log streams to. + awslogs-stream-prefix Required: Yes, when using Fargate.Optional when using EC2. Use the awslogs-stream-prefix option to associate a log stream with the specified prefix, the container name, and the ID of the Amazon ECS task that the container belongs to. If you specify a prefix with this option, then the log stream takes the format prefix-name/container-name/ecs-task-id. If you don't specify a prefix with this option, then the log stream is named after the container ID that's assigned by the Docker daemon on the container instance. Because it's difficult to trace logs back to the container that sent them with just the Docker container ID (which is only available on the container instance), we recommend that you specify a prefix with this option. For Amazon ECS services, you can use the service name as the prefix. Doing so, you can trace log streams to the service that the container belongs to, the name of the container that sent them, and the ID of the task that the container belongs to. You must specify a stream-prefix for your logs to have your logs appear in the Log pane when using the Amazon ECS console. + awslogs-datetime-format Required: No This option defines a multiline start pattern in Python strftime format. A log message consists of a line that matches the pattern and any following lines that don’t match the pattern. The matched line is the delimiter between log messages. One example of a use case for using this format is for parsing output such as a stack dump, which might otherwise be logged in multiple entries. The correct pattern allows it to be captured in a single entry. For more information, see awslogs-datetime-format. You cannot configure both the awslogs-datetime-format and awslogs-multiline-pattern options. Multiline logging performs regular expression parsing and matching of all log messages. This might have a negative impact on logging performance. + awslogs-multiline-pattern Required: No This option defines a multiline start pattern that uses a regular expression. A log message consists of a line that matches the pattern and any following lines that don’t match the pattern. The matched line is the delimiter between log messages. For more information, see awslogs-multiline-pattern. This option is ignored if awslogs-datetime-format is also configured. You cannot configure both the awslogs-datetime-format and awslogs-multiline-pattern options. Multiline logging performs regular expression parsing and matching of all log messages. This might have a negative impact on logging performance. \n The following options apply to all supported log drivers.\n  + mode Required: No Valid values: non-blocking | blocking This option defines the delivery mode of log messages from the container to the log driver specified using logDriver. The delivery mode you choose affects application availability when the flow of logs from container is interrupted. If you use the blocking mode and the flow of logs is interrupted, calls from container code to write to the stdout and stderr streams will block. The logging thread of the application will block as a result. This may cause the application to become unresponsive and lead to container healthcheck failure. If you use the non-blocking mode, the container's logs are instead stored in an in-memory intermediate buffer configured with the max-buffer-size option. This prevents the application from becoming unresponsive when logs cannot be sent. We recommend using this mode if you want to ensure service availability and are okay with some log loss. For more information, see Preventing log loss with non-blocking mode in the awslogs container log driver. You can set a default mode for all containers in a specific Region by using the defaultLogDriverMode account setting. If you don't specify the mode option or configure the account setting, Amazon ECS will default to the blocking mode. For more information about the account setting, see Default log driver mode in the Amazon Elastic Container Service Developer Guide. + max-buffer-size Required: No Default value: 1m When non-blocking mode is used, the max-buffer-size log option controls the size of the buffer that's used for intermediate message storage. Make sure to specify an adequate buffer size based on your application. When the buffer fills up, further logs cannot be stored. Logs that cannot be stored are lost. \n To route logs using the ``splunk`` log router, you need to specify a ``splunk-token`` and a ``splunk-url``.\n When you use the ``awsfirelens`` log router to route logs to an AWS Service or AWS Partner Network destination for log storage and analytics, you can set the ``log-driver-buffer-limit`` option to limit the number of events that are buffered in memory, before being sent to the log router container. It can help to resolve potential log loss issue because high throughput might result in memory running out for the buffer inside of Docker.\n Other options you can specify when using ``awsfirelens`` to route logs depend on the destination. When you export logs to Amazon Data Firehose, you can specify the AWS Region with ``region`` and a name for the log stream with ``delivery_stream``.\n When you export logs to Amazon Kinesis Data Streams, you can specify an AWS Region with ``region`` and a data stream name with ``stream``.\n  When you export logs to Amazon OpenSearch Service, you can specify options like ``Name``, ``Host`` (OpenSearch Service endpoint without protocol), ``Port``, ``Index``, ``Type``, ``Aws_auth``, ``Aws_region``, ``Suppress_Type_Name``, and ``tls``. For more information, see [Under the hood: FireLens for Amazon ECS Tasks](https://docs.aws.amazon.com/containers/under-the-hood-firelens-for-amazon-ecs-tasks/).\n When you export logs to Amazon S3, you can specify the bucket using the ``bucket`` option. You can also specify ``region``, ``total_file_size``, ``upload_timeout``, and ``use_put_object`` as options.\n This parameter requires version 1.19 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: ``sudo docker version --format '{{.Server.APIVersion}}'``",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SecretOptions
 							"secret_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1267,9 +1127,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ValueFrom
 										"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1279,9 +1136,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1290,34 +1144,24 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed:    true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The log configuration specification for the container.\n This parameter maps to ``LogConfig`` in the docker Create a container command and the ``--log-driver`` option to docker run. By default, containers use the same logging driver that the Docker daemon uses. However, the container may use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition. To use a different logging driver for a container, the log system must be configured properly on the container instance (or on a different log server for remote logging options). For more information on the options for different supported log drivers, see [Configure logging drivers](https://docs.aws.amazon.com/https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation.\n  Amazon ECS currently supports a subset of the logging drivers available to the Docker daemon (shown in the [LogConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html) data type). Additional log drivers may be available in future releases of the Amazon ECS container agent.\n  This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: ``sudo docker version --format '{{.Server.APIVersion}}'``\n  The Amazon ECS container agent running on a container instance must register the logging drivers available on that instance with the ``ECS_AVAILABLE_LOGGING_DRIVERS`` environment variable before containers placed on that instance can use these log configuration options. For more information, see [Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Memory
 					"memory": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "The amount (in MiB) of memory to present to the container. If your container attempts to exceed the memory specified here, the container is killed. The total amount of memory reserved for all containers within a task must be lower than the task ``memory`` value, if one is specified. This parameter maps to ``Memory`` in the [Create a container](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/) and the ``--memory`` option to [docker run](https://docs.aws.amazon.com/https://docs.docker.com/engine/reference/run/#security-configuration).\n If using the Fargate launch type, this parameter is optional.\n If using the EC2 launch type, you must specify either a task-level memory value or a container-level memory value. If you specify both a container-level ``memory`` and ``memoryReservation`` value, ``memory`` must be greater than ``memoryReservation``. If you specify ``memoryReservation``, then that value is subtracted from the available memory resources for the container instance where the container is placed. Otherwise, the value of ``memory`` is used.\n The Docker 20.10.0 or later daemon reserves a minimum of 6 MiB of memory for a container, so you should not specify fewer than 6 MiB of memory for your containers.\n The Docker 19.03.13-ce or earlier daemon reserves a minimum of 4 MiB of memory for a container, so you should not specify fewer than 4 MiB of memory for your containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MemoryReservation
 					"memory_reservation": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "The soft limit (in MiB) of memory to reserve for the container. When system memory is under heavy contention, Docker attempts to keep the container memory to this soft limit. However, your container can consume more memory when it needs to, up to either the hard limit specified with the ``memory`` parameter (if applicable), or all of the available memory on the container instance, whichever comes first. This parameter maps to ``MemoryReservation`` in the docker container create command and the ``--memory-reservation`` option to docker run.\n If a task-level memory value is not specified, you must specify a non-zero integer for one or both of ``memory`` or ``memoryReservation`` in a container definition. If you specify both, ``memory`` must be greater than ``memoryReservation``. If you specify ``memoryReservation``, then that value is subtracted from the available memory resources for the container instance where the container is placed. Otherwise, the value of ``memory`` is used.\n For example, if your container normally uses 128 MiB of memory, but occasionally bursts to 256 MiB of memory for short periods of time, you can set a ``memoryReservation`` of 128 MiB, and a ``memory`` hard limit of 300 MiB. This configuration would allow the container to only reserve 128 MiB of memory from the remaining resources on the container instance, but also allow the container to consume more memory resources when needed.\n The Docker 20.10.0 or later daemon reserves a minimum of 6 MiB of memory for a container. So, don't specify less than 6 MiB of memory for your containers. \n The Docker 19.03.13-ce or earlier daemon reserves a minimum of 4 MiB of memory for a container. So, don't specify less than 4 MiB of memory for your containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MountPoints
 					"mount_points": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1328,27 +1172,18 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The path on the container to mount the host volume at.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ReadOnly
 								"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "If this value is ``true``, the container has read-only access to the volume. If this value is ``false``, then the container can write to the volume. The default value is ``false``.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SourceVolume
 								"source_volume": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of the volume to mount. Must be a volume name referenced in the ``name`` parameter of task definition ``volume``.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1358,9 +1193,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.UniqueValues(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1370,9 +1202,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PortMappings
 					"port_mappings": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -1390,90 +1219,60 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"grpc",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContainerPort
 								"container_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "The port number on the container that's bound to the user-specified or automatically assigned host port.\n If you use containers in a task with the ``awsvpc`` or ``host`` network mode, specify the exposed ports using ``containerPort``.\n If you use containers in a task with the ``bridge`` network mode and you specify a container port and not a host port, your container automatically receives a host port in the ephemeral port range. For more information, see ``hostPort``. Port mappings that are automatically assigned in this way do not count toward the 100 reserved ports limit of a container instance.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContainerPortRange
 								"container_port_range": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The port number range on the container that's bound to the dynamically mapped host port range. \n The following rules apply when you specify a ``containerPortRange``:\n  +  You must use either the ``bridge`` network mode or the ``awsvpc`` network mode.\n  +  This parameter is available for both the EC2 and FARGATElong launch types.\n  +  This parameter is available for both the Linux and Windows operating systems.\n  +  The container instance must have at least version 1.67.0 of the container agent and at least version 1.67.0-1 of the ``ecs-init`` package \n  +  You can specify a maximum of 100 port ranges per container.\n  +  You do not specify a ``hostPortRange``. The value of the ``hostPortRange`` is set as follows:\n  +  For containers in a task with the ``awsvpc`` network mode, the ``hostPortRange`` is set to the same value as the ``containerPortRange``. This is a static mapping strategy.\n  +  For containers in a task with the ``bridge`` network mode, the Amazon ECS agent finds open host ports from the default ephemeral range and passes it to docker to bind them to the container ports.\n  \n  +  The ``containerPortRange`` valid values are between 1 and 65535.\n  +  A port can only be included in one port mapping per container.\n  +  You cannot specify overlapping port ranges.\n  +  The first port in the range must be less than last port in the range.\n  +  Docker recommends that you turn off the docker-proxy in the Docker daemon config file when you have a large number of ports.\n For more information, see [Issue #11185](https://docs.aws.amazon.com/https://github.com/moby/moby/issues/11185) on the Github website.\n For information about how to turn off the docker-proxy in the Docker daemon config file, see [Docker daemon](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/bootstrap_container_instance.html#bootstrap_docker_daemon) in the *Amazon ECS Developer Guide*.\n  \n You can call [DescribeTasks](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeTasks.html) to view the ``hostPortRange`` which are the host ports that are bound to the container ports.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: HostPort
 								"host_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "The port number on the container instance to reserve for your container.\n If you specify a ``containerPortRange``, leave this field empty and the value of the ``hostPort`` is set as follows:\n  +  For containers in a task with the ``awsvpc`` network mode, the ``hostPort`` is set to the same value as the ``containerPort``. This is a static mapping strategy.\n  +  For containers in a task with the ``bridge`` network mode, the Amazon ECS agent finds open ports on the host and automatically binds them to the container ports. This is a dynamic mapping strategy.\n  \n If you use containers in a task with the ``awsvpc`` or ``host`` network mode, the ``hostPort`` can either be left blank or set to the same value as the ``containerPort``.\n If you use containers in a task with the ``bridge`` network mode, you can specify a non-reserved host port for your container port mapping, or you can omit the ``hostPort`` (or set it to ``0``) while specifying a ``containerPort`` and your container automatically receives a port in the ephemeral port range for your container instance operating system and Docker version.\n The default ephemeral port range for Docker version 1.6.0 and later is listed on the instance under ``/proc/sys/net/ipv4/ip_local_port_range``. If this kernel parameter is unavailable, the default ephemeral port range from 49153 through 65535 (Linux) or 49152 through 65535 (Windows) is used. Do not attempt to specify a host port in the ephemeral port range as these are reserved for automatic assignment. In general, ports below 32768 are outside of the ephemeral port range.\n The default reserved ports are 22 for SSH, the Docker ports 2375 and 2376, and the Amazon ECS container agent ports 51678-51680. Any host port that was previously specified in a running task is also reserved while the task is running. That is, after a task stops, the host port is released. The current reserved ports are displayed in the ``remainingResources`` of [DescribeContainerInstances](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeContainerInstances.html) output. A container instance can have up to 100 reserved ports at a time. This number includes the default reserved ports. Automatically assigned ports aren't included in the 100 reserved ports quota.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Name
 								"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name that's used for the port mapping. This parameter is the name that you use in the ``serviceConnectConfiguration`` and the ``vpcLatticeConfigurations`` of a service. The name can include up to 64 characters. The characters can include lowercase letters, numbers, underscores (_), and hyphens (-). The name can't start with a hyphen.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Protocol
 								"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The protocol used for the port mapping. Valid values are ``tcp`` and ``udp``. The default is ``tcp``. ``protocol`` is immutable in a Service Connect service. Updating this field requires a service deletion and redeployment.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "The list of port mappings for the container. Port mappings allow containers to access ports on the host container instance to send or receive traffic.\n For task definitions that use the ``awsvpc`` network mode, you should only specify the ``containerPort``. The ``hostPort`` can be left blank or it must be the same value as the ``containerPort``.\n Port mappings on Windows use the ``NetNAT`` gateway address rather than ``localhost``. There is no loopback for port mappings on Windows, so you cannot access a container's mapped port from the host itself. \n This parameter maps to ``PortBindings`` in the [Create a container](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/) and the ``--publish`` option to [docker run](https://docs.aws.amazon.com/https://docs.docker.com/engine/reference/run/). If the network mode of a task definition is set to ``none``, then you can't specify port mappings. If the network mode of a task definition is set to ``host``, then host ports must either be undefined or they must match the container port in the port mapping.\n  After a task reaches the ``RUNNING`` status, manual and automatic host and container port assignments are visible in the *Network Bindings* section of a container description for a selected task in the Amazon ECS console. The assignments are also visible in the ``networkBindings`` section [DescribeTasks](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeTasks.html) responses.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Privileged
 					"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "When this parameter is true, the container is given elevated privileges on the host container instance (similar to the ``root`` user). This parameter maps to ``Privileged`` in the docker container create command and the ``--privileged`` option to docker run\n  This parameter is not supported for Windows containers or tasks run on FARGATElong.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PseudoTerminal
 					"pseudo_terminal": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "When this parameter is ``true``, a TTY is allocated. This parameter maps to ``Tty`` in the docker container create command and the ``--tty`` option to docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReadonlyRootFilesystem
 					"readonly_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "When this parameter is true, the container is given read-only access to its root file system. This parameter maps to ``ReadonlyRootfs`` in the docker container create command and the ``--read-only`` option to docker run.\n  This parameter is not supported for Windows containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RepositoryCredentials
 					"repository_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1483,17 +1282,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The Amazon Resource Name (ARN) of the secret containing the private repository credentials.\n  When you use the Amazon ECS API, CLI, or AWS SDK, if the secret exists in the same Region as the task that you're launching then you can use either the full ARN or the name of the secret. When you use the AWS Management Console, you must specify the full ARN of the secret.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The private repository authentication credentials to use.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceRequirements
 					"resource_requirements": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1507,9 +1300,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1519,9 +1309,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1530,7 +1317,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RestartPolicy
@@ -1541,9 +1327,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "Specifies whether a restart policy is enabled for the container.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IgnoredExitCodes
 							"ignored_exit_codes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1553,7 +1336,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed:    true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RestartAttemptPeriod
@@ -1561,17 +1343,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "A period of time (in seconds) that the container must run for before a restart can be attempted. A container can be restarted only once every ``restartAttemptPeriod`` seconds. If a container isn't able to run for this time period and exits early, it will not be restarted. You can set a minimum ``restartAttemptPeriod`` of 60 seconds and a maximum ``restartAttemptPeriod`` of 1800 seconds. By default, a container must run for 300 seconds before it can be restarted.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The restart policy for a container. When you set up a restart policy, Amazon ECS can restart the container without needing to replace the task. For more information, see [Restart individual containers in Amazon ECS tasks with container restart policies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-restart-policy.html) in the *Amazon Elastic Container Service Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Secrets
 					"secrets": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1585,9 +1361,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ValueFrom
 								"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1597,9 +1370,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1608,7 +1378,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StartTimeout
@@ -1616,18 +1385,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Time duration (in seconds) to wait before giving up on resolving dependencies for a container. For example, you specify two containers in a task definition with containerA having a dependency on containerB reaching a ``COMPLETE``, ``SUCCESS``, or ``HEALTHY`` status. If a ``startTimeout`` value is specified for containerB and it doesn't reach the desired status within that time then containerA gives up and not start. This results in the task transitioning to a ``STOPPED`` state.\n  When the ``ECS_CONTAINER_START_TIMEOUT`` container agent configuration variable is used, it's enforced independently from this start timeout value.\n  For tasks using the Fargate launch type, the task or service requires the following platforms:\n  +  Linux platform version ``1.3.0`` or later.\n  +  Windows platform version ``1.0.0`` or later.\n  \n For tasks using the EC2 launch type, your container instances require at least version ``1.26.0`` of the container agent to use a container start timeout value. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*. If you're using an Amazon ECS-optimized Linux AMI, your instance needs at least version ``1.26.0-1`` of the ``ecs-init`` package. If your container instances are launched from version ``20190301`` or later, then they contain the required versions of the container agent and ``ecs-init``. For more information, see [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*.\n The valid values for Fargate are 2-120 seconds.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StopTimeout
 					"stop_timeout": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "Time duration (in seconds) to wait before the container is forcefully killed if it doesn't exit normally on its own.\n For tasks using the Fargate launch type, the task or service requires the following platforms:\n  +  Linux platform version ``1.3.0`` or later.\n  +  Windows platform version ``1.0.0`` or later.\n  \n For tasks that use the Fargate launch type, the max stop timeout value is 120 seconds and if the parameter is not specified, the default value of 30 seconds is used.\n For tasks that use the EC2 launch type, if the ``stopTimeout`` parameter isn't specified, the value set for the Amazon ECS container agent configuration variable ``ECS_CONTAINER_STOP_TIMEOUT`` is used. If neither the ``stopTimeout`` parameter or the ``ECS_CONTAINER_STOP_TIMEOUT`` agent configuration variable are set, then the default values of 30 seconds for Linux containers and 30 seconds on Windows containers are used. Your container instances require at least version 1.26.0 of the container agent to use a container stop timeout value. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html) in the *Amazon Elastic Container Service Developer Guide*. If you're using an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1 of the ``ecs-init`` package. If your container instances are launched from version ``20190301`` or later, then they contain the required versions of the container agent and ``ecs-init``. For more information, see [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*.\n The valid values for Fargate are 2-120 seconds.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SystemControls
 					"system_controls": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1638,18 +1401,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The namespaced kernel parameter to set a ``value`` for.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The namespaced kernel parameter to set a ``value`` for.\n Valid IPC namespace values: ``\"kernel.msgmax\" | \"kernel.msgmnb\" | \"kernel.msgmni\" | \"kernel.sem\" | \"kernel.shmall\" | \"kernel.shmmax\" | \"kernel.shmmni\" | \"kernel.shm_rmid_forced\"``, and ``Sysctls`` that start with ``\"fs.mqueue.*\"``\n Valid network namespace values: ``Sysctls`` that start with ``\"net.*\"``\n All of these values are supported by Fargate.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1658,7 +1415,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Ulimits
@@ -1673,9 +1429,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Name
 								"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1685,9 +1438,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SoftLimit
 								"soft_limit": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1697,9 +1447,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1708,7 +1455,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: User
@@ -1716,9 +1462,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The user to use inside the container. This parameter maps to ``User`` in the docker container create command and the ``--user`` option to docker run.\n  When running tasks using the ``host`` network mode, don't run containers using the root user (UID 0). We recommend using a non-root user for better security.\n  You can specify the ``user`` using the following formats. If specifying a UID or GID, you must specify it as a positive integer.\n  +   ``user`` \n  +   ``user:group`` \n  +   ``uid`` \n  +   ``uid:gid`` \n  +   ``user:gid`` \n  +   ``uid:group`` \n  \n  This parameter is not supported for Windows containers.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: VersionConsistency
 					"version_consistency": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1732,9 +1475,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								"disabled",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: VolumesFrom
 					"volumes_from": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -1745,36 +1485,24 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									Description: "If this value is ``true``, the container has read-only access to the volume. If this value is ``false``, then the container can write to the volume. The default value is ``false``.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SourceContainer
 								"source_container": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of another container within the same task definition to mount volumes from.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "Data volumes to mount from another container. This parameter maps to ``VolumesFrom`` in the docker container create command and the ``--volumes-from`` option to docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: WorkingDirectory
 					"working_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The working directory to run commands inside the container in. This parameter maps to ``WorkingDir`` in the docker container create command and the ``--workdir`` option to docker run.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1782,7 +1510,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1798,7 +1525,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1814,7 +1540,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1839,16 +1564,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The total amount, in GiB, of ephemeral storage to set for the task. The minimum supported value is ``21`` GiB and the maximum supported value is ``200`` GiB.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The ephemeral storage settings to use for tasks run with the task definition.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1864,7 +1585,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1880,7 +1600,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1916,18 +1635,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The Elastic Inference accelerator device name. The ``deviceName`` must also be referenced in a container definition as a [ResourceRequirement](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ResourceRequirement.html).",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DeviceType
 					"device_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The Elastic Inference accelerator type to use.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1935,7 +1648,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1951,7 +1663,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1967,7 +1678,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1983,7 +1693,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1999,7 +1708,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2038,9 +1746,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "A cluster query language expression to apply to the constraint. For more information, see [Cluster query language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html) in the *Amazon Elastic Container Service Developer Guide*.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Type
 					"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2050,9 +1755,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2060,7 +1762,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2116,9 +1817,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ProxyConfigurationProperties
 				"proxy_configuration_properties": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -2129,43 +1827,30 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The name of the key-value pair. For environment variables, this is the name of the environment variable.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Value
 							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The value of the key-value pair. For environment variables, this is the value of the environment variable.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Description: "The set of network configuration parameters to provide the Container Network Interface (CNI) plugin, specified as key-value pairs.\n  +  ``IgnoredUID`` - (Required) The user ID (UID) of the proxy container as defined by the ``user`` parameter in a container definition. This is used to ensure the proxy ignores its own traffic. If ``IgnoredGID`` is specified, this field can be empty.\n  +  ``IgnoredGID`` - (Required) The group ID (GID) of the proxy container as defined by the ``user`` parameter in a container definition. This is used to ensure the proxy ignores its own traffic. If ``IgnoredUID`` is specified, this field can be empty.\n  +  ``AppPorts`` - (Required) The list of ports that the application uses. Network traffic to these ports is forwarded to the ``ProxyIngressPort`` and ``ProxyEgressPort``.\n  +  ``ProxyIngressPort`` - (Required) Specifies the port that incoming traffic to the ``AppPorts`` is directed to.\n  +  ``ProxyEgressPort`` - (Required) Specifies the port that outgoing traffic from the ``AppPorts`` is directed to.\n  +  ``EgressIgnoredPorts`` - (Required) The egress traffic going to the specified ports is ignored and not redirected to the ``ProxyEgressPort``. It can be an empty list.\n  +  ``EgressIgnoredIPs`` - (Required) The egress traffic going to the specified IP addresses is ignored and not redirected to the ``ProxyEgressPort``. It can be an empty list.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Type
 				"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The proxy type. The only supported value is ``APPMESH``.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The configuration details for the App Mesh proxy.\n Your Amazon ECS container instances require at least version 1.26.0 of the container agent and at least version 1.26.0-1 of the ``ecs-init`` package to use a proxy configuration. If your container instances are launched from the Amazon ECS optimized AMI version ``20190301`` or later, they contain the required versions of the container agent and ``ecs-init``. For more information, see [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2187,7 +1872,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2216,25 +1900,18 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The CPU architecture.\n You can run your Linux tasks on an ARM-based platform by setting the value to ``ARM64``. This option is available for tasks that run on Linux Amazon EC2 instance or Linux containers on Fargate.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: OperatingSystemFamily
 				"operating_system_family": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The operating system.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The operating system that your tasks definitions run on. A platform family is specified only for tasks using the Fargate launch type.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2269,18 +1946,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "One part of a key-value pair that make up a tag. A ``key`` is a general label that acts like a category for more specific tag values.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The optional part of a key-value pair that make up a tag. A ``value`` acts as a descriptor within a tag category (key).",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2289,7 +1960,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TaskDefinitionArn
@@ -2318,7 +1988,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2491,9 +2160,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Indicates whether the volume should be configured at launch time. This is used to create Amazon EBS volumes for standalone tasks or tasks created as part of a service. Each task definition revision may only have one volume configured at launch in the volume configuration.\n To configure a volume at launch time, use this task definition revision and specify a ``volumeConfigurations`` object when calling the ``CreateService``, ``UpdateService``, ``RunTask`` or ``StartTask`` APIs.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DockerVolumeConfiguration
 					"docker_volume_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2503,18 +2169,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "If this value is ``true``, the Docker volume is created if it doesn't already exist.\n  This field is only used if the ``scope`` is ``shared``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Driver
 							"driver": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The Docker volume driver to use. The driver value must match the driver name provided by Docker because it is used for task placement. If the driver was installed using the Docker plugin CLI, use ``docker plugin ls`` to retrieve the driver name from your container instance. If the driver was installed using another method, use Docker plugin discovery to retrieve the driver name. This parameter maps to ``Driver`` in the docker container create command and the ``xxdriver`` option to docker volume create.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: DriverOpts
 							"driver_opts":       // Pattern: ""
@@ -2523,9 +2183,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "A map of Docker driver-specific options passed through. This parameter maps to ``DriverOpts`` in the docker create-volume command and the ``xxopt`` option to docker volume create.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Labels
 							"labels":            // Pattern: ""
@@ -2534,26 +2191,17 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "Custom metadata to add to your Docker volume. This parameter maps to ``Labels`` in the docker container create command and the ``xxlabel`` option to docker volume create.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Scope
 							"scope": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The scope for the Docker volume that determines its lifecycle. Docker volumes that are scoped to a ``task`` are automatically provisioned when the task starts and destroyed when the task stops. Docker volumes that are scoped as ``shared`` persist after the task stops.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This parameter is specified when you use Docker volumes.\n Windows containers only support the use of the ``local`` driver. To use bind mounts, specify the ``host`` parameter instead.\n  Docker volumes aren't supported by tasks run on FARGATElong.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EFSVolumeConfiguration
 					"efs_volume_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2566,9 +2214,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Description: "The Amazon EFS access point ID to use. If an access point is specified, the root directory value specified in the ``EFSVolumeConfiguration`` must either be omitted or set to ``/`` which will enforce the path set on the EFS access point. If an access point is used, transit encryption must be on in the ``EFSVolumeConfiguration``. For more information, see [Working with Amazon EFS access points](https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html) in the *Amazon Elastic File System User Guide*.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: IAM
 									"iam": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2581,17 +2226,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"DISABLED",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The authorization configuration details for the Amazon EFS file system.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: FilesystemId
 							"filesystem_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2601,18 +2240,12 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RootDirectory
 							"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The directory within the Amazon EFS file system to mount as the root directory inside the host. If this parameter is omitted, the root of the Amazon EFS volume will be used. Specifying ``/`` will have the same effect as omitting this parameter.\n  If an EFS access point is specified in the ``authorizationConfig``, the root directory parameter must either be omitted or set to ``/`` which will enforce the path set on the EFS access point.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TransitEncryption
 							"transit_encryption": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2625,26 +2258,17 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										"DISABLED",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TransitEncryptionPort
 							"transit_encryption_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The port to use when sending encrypted data between the Amazon ECS host and the Amazon EFS server. If you do not specify a transit encryption port, it will use the port selection strategy that the Amazon EFS mount helper uses. For more information, see [EFS mount helper](https://docs.aws.amazon.com/efs/latest/ug/efs-mount-helper.html) in the *Amazon Elastic File System User Guide*.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This parameter is specified when you use an Amazon Elastic File System file system for task storage.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FSxWindowsFileServerVolumeConfiguration
 					"fsx_windows_file_server_volume_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2660,9 +2284,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Domain
 									"domain": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2672,17 +2293,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The authorization configuration details for the Amazon FSx for Windows File Server file system.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: FileSystemId
 							"file_system_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2692,9 +2307,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RootDirectory
 							"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2704,17 +2316,11 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This parameter is specified when you use Amazon FSx for Windows File Server file system for task storage.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Host
 					"host": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2724,26 +2330,17 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Description: "When the ``host`` parameter is used, specify a ``sourcePath`` to declare the path on the host container instance that's presented to the container. If this parameter is empty, then the Docker daemon has assigned a host path for you. If the ``host`` parameter contains a ``sourcePath`` file location, then the data volume persists at the specified location on the host container instance until you delete it manually. If the ``sourcePath`` value doesn't exist on the host container instance, the Docker daemon creates it. If the location does exist, the contents of the source path folder are exported.\n If you're using the Fargate launch type, the ``sourcePath`` parameter is not supported.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This parameter is specified when you use bind mount host volumes. The contents of the ``host`` parameter determine whether your bind mount host volume persists on the host container instance and where it's stored. If the ``host`` parameter is empty, then the Docker daemon assigns a host path for your data volume. However, the data isn't guaranteed to persist after the containers that are associated with it stop running.\n Windows containers can mount whole directories on the same drive as ``$env:ProgramData``. Windows containers can't mount directories on a different drive, and mount point can't be across drives. For example, you can mount ``C:\\my\\path:C:\\my\\path`` and ``D:\\:D:\\``, but not ``D:\\my\\path:C:\\my\\path`` or ``D:\\:C:\\my\\path``.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The name of the volume. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.\n When using a volume configured at launch, the ``name`` is required and must also be specified as the volume name in the ``ServiceVolumeConfiguration`` or ``TaskVolumeConfiguration`` parameter when creating your service or standalone task.\n For all other types of volumes, this name is referenced in the ``sourceVolume`` parameter of the ``mountPoints`` object in the container definition.\n When a volume is using the ``efsVolumeConfiguration``, the name is required.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2751,7 +2348,6 @@ func taskDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

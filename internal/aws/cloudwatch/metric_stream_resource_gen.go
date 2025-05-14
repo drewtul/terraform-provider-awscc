@@ -12,8 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -115,9 +113,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 255),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Namespace
 					"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -128,9 +123,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 255),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -141,9 +133,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 				listvalidator.SizeAtMost(1000),
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FirehoseArn
 		// CloudFormation resource type schema:
@@ -161,9 +150,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(20, 2048),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IncludeFilters
 		// CloudFormation resource type schema:
@@ -215,9 +201,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 255),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Namespace
 					"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -228,9 +211,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 255),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -241,9 +221,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 				listvalidator.SizeAtMost(1000),
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IncludeLinkedAccountsMetrics
 		// CloudFormation resource type schema:
@@ -256,9 +233,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 			Description: "If you are creating a metric stream in a monitoring account, specify true to include metrics from source accounts that are linked to this monitoring account, in the metric stream. The default is false.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LastUpdateDate
 		// CloudFormation resource type schema:
@@ -295,7 +269,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 255),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -315,9 +288,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 255),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
 		// CloudFormation resource type schema:
@@ -335,9 +305,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(20, 2048),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: State
 		// CloudFormation resource type schema:
@@ -427,9 +394,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.UniqueValues(),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: IncludeMetrics
 					"include_metrics": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -444,9 +408,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 255),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Namespace
 								"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -457,9 +418,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 255),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -471,9 +429,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.UniqueValues(),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -484,9 +439,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 				listvalidator.SizeAtMost(100),
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -532,9 +484,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -545,9 +494,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -558,9 +504,6 @@ func metricStreamResource(ctx context.Context) (resource.Resource, error) {
 				listvalidator.SizeAtMost(50),
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

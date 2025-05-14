@@ -12,11 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -44,9 +39,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of capacity units that are allocated to this job.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Command
 		// CloudFormation resource type schema:
@@ -81,36 +73,24 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The name of the job command",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PythonVersion
 				"python_version": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The Python version being used to execute a Python shell job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Runtime
 				"runtime": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "Runtime is used to specify the versions of Ray, Python and additional libraries available in your environment",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ScriptLocation
 				"script_location": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "Specifies the Amazon Simple Storage Service (Amazon S3) path to a script that executes a job",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The code that executes a job.",
@@ -142,17 +122,11 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A list of connections used by the job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies the connections used by a job",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DefaultArguments
 		// CloudFormation resource type schema:
@@ -166,9 +140,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The default arguments for this job, specified as name-value pairs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -181,9 +152,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A description of the job.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ExecutionClass
 		// CloudFormation resource type schema:
@@ -196,9 +164,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the job is run with a standard or flexible execution class.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ExecutionProperty
 		// CloudFormation resource type schema:
@@ -221,17 +186,11 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The maximum number of concurrent runs allowed for the job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The maximum number of concurrent runs that are allowed for this job.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: GlueVersion
 		// CloudFormation resource type schema:
@@ -244,9 +203,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Glue version determines the versions of Apache Spark and Python that AWS Glue supports.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: JobMode
 		// CloudFormation resource type schema:
@@ -259,9 +215,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Property description not available.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: JobRunQueuingEnabled
 		// CloudFormation resource type schema:
@@ -274,9 +227,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Property description not available.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LogUri
 		// CloudFormation resource type schema:
@@ -289,9 +239,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This field is reserved for future use.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaintenanceWindow
 		// CloudFormation resource type schema:
@@ -304,9 +251,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Property description not available.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxCapacity
 		// CloudFormation resource type schema:
@@ -319,9 +263,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxRetries
 		// CloudFormation resource type schema:
@@ -334,9 +275,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The maximum number of times to retry this job after a JobRun fails",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -350,7 +288,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -366,9 +303,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Non-overridable arguments for this job, specified as name-value pairs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NotificationProperty
 		// CloudFormation resource type schema:
@@ -391,17 +325,11 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 					Description: "It is the number of minutes to wait before sending a job run delay notification after a job run starts",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies configuration properties of a notification.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NumberOfWorkers
 		// CloudFormation resource type schema:
@@ -414,9 +342,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of workers of a defined workerType that are allocated when a job runs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Role
 		// CloudFormation resource type schema:
@@ -440,9 +365,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the SecurityConfiguration structure to be used with this job.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -456,9 +378,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The tags to use with this job.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Timeout
 		// CloudFormation resource type schema:
@@ -471,9 +390,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The maximum time that a job run can consume resources before it is terminated and enters TIMEOUT status.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: WorkerType
 		// CloudFormation resource type schema:
@@ -506,9 +422,6 @@ func jobResource(ctx context.Context) (resource.Resource, error) {
 					"Z.2X",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

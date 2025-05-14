@@ -11,8 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
@@ -102,9 +100,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The Amazon Resource Name (ARN) of the component.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Parameters
 					"parameters": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -118,9 +113,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -131,9 +123,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -142,7 +131,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
@@ -151,7 +139,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -175,7 +162,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -191,7 +177,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -207,7 +192,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// DockerfileTemplateData is a write-only property.
@@ -224,7 +208,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// DockerfileTemplateUri is a write-only property.
@@ -241,7 +224,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ImageOsVersionOverride is a write-only property.
@@ -343,9 +325,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The device to which these mappings apply.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Ebs
 							"ebs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -355,63 +334,42 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Use to configure delete on termination of the associated device.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Encrypted
 									"encrypted": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Description: "Use to configure device encryption.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Iops
 									"iops": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "Use to configure device IOPS.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: KmsKeyId
 									"kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Use to configure the KMS key to use when encrypting the device.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SnapshotId
 									"snapshot_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "The snapshot that defines the device contents.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Throughput
 									"throughput": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "For GP3 volumes only - The throughput in MiB/s that the volume supports.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VolumeSize
 									"volume_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "Use to override the device's volume size.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VolumeType
 									"volume_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -429,35 +387,23 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 												"st1",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Use to manage Amazon EBS-specific configuration for this mapping.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: NoDevice
 							"no_device": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "Use to remove a mapping from the parent image.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: VirtualName
 							"virtual_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "Use to manage instance ephemeral devices.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -466,7 +412,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 					Computed:    true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Image
@@ -474,16 +419,12 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The AMI ID to use as the base image for a container build and test instance. If not specified, Image Builder will use the appropriate ECS-optimized AMI as a base image.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A group of options that can be used to configure an instance for building and testing container images.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -499,7 +440,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -515,7 +455,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -531,7 +470,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -557,7 +495,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// PlatformOverride is a write-only property.
@@ -582,7 +519,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
 				mapplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -614,9 +550,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The name of the container repository where the output container image is stored. This name is prefixed by the repository location.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Service
 				"service": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -628,16 +561,12 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 							"ECR",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The destination repository for the container image.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -653,7 +582,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -669,7 +597,6 @@ func containerRecipeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

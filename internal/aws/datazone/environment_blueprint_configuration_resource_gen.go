@@ -14,9 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -147,9 +145,6 @@ func environmentBlueprintConfigurationResource(ctx context.Context) (resource.Re
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[^:]*:iam::\\d{12}:(role|role/service-role)/[\\w+=,.@-]*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ProvisioningRoleArn
 		// CloudFormation resource type schema:
@@ -164,9 +159,6 @@ func environmentBlueprintConfigurationResource(ctx context.Context) (resource.Re
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[^:]*:iam::\\d{12}:(role|role/service-role)/[\\w+=,.@-]*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RegionalParameters
 		// CloudFormation resource type schema:
@@ -204,9 +196,6 @@ func environmentBlueprintConfigurationResource(ctx context.Context) (resource.Re
 						ElementType: types.StringType,
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Region
 					"region": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -215,17 +204,11 @@ func environmentBlueprintConfigurationResource(ctx context.Context) (resource.Re
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-z]{2}-?(iso|gov)?-{1}[a-z]*-{1}[0-9]$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UpdatedAt
 		// CloudFormation resource type schema:

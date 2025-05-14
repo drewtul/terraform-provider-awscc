@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -42,9 +39,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "AutomaticFailoverEnabled",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AutomaticFailoverEnabled is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CacheNodeType
@@ -58,9 +52,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "The cache node type of the Global Datastore",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CacheNodeType is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CacheParameterGroupName
@@ -74,9 +65,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "Cache parameter group name to use for the new engine version. This parameter cannot be modified independently.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Engine
 		// CloudFormation resource type schema:
@@ -89,9 +77,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "The engine of the Global Datastore.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EngineVersion
 		// CloudFormation resource type schema:
@@ -104,9 +89,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "The engine version of the Global Datastore.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// EngineVersion is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: GlobalNodeGroupCount
@@ -120,9 +102,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "Indicates the number of node groups in the Global Datastore.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// GlobalNodeGroupCount is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: GlobalReplicationGroupDescription
@@ -136,9 +115,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "The optional description of the Global Datastore",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: GlobalReplicationGroupId
 		// CloudFormation resource type schema:
@@ -165,9 +141,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Description: "The suffix name of a Global Datastore. Amazon ElastiCache automatically applies a prefix to the Global Datastore ID when it is created. Each AWS Region has its own prefix. ",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// GlobalReplicationGroupIdSuffix is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Members
@@ -209,18 +182,12 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 						Description: "Regionally unique identifier for the member i.e. ReplicationGroupId.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReplicationGroupRegion
 					"replication_group_region": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The AWS region of the Global Datastore member.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Role
 					"role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -233,9 +200,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 								"SECONDARY",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -299,18 +263,12 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 						Description: "The replication group id of the Global Datastore member.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReplicationGroupRegion
 					"replication_group_region": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The AWS region of the Global Datastore member.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReshardingConfigurations
 					"resharding_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -321,9 +279,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 									Description: "Unique identifier for the Node Group. This is either auto-generated by ElastiCache (4-digit id) or a user supplied id.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PreferredAvailabilityZones
 								"preferred_availability_zones": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -331,9 +286,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 									Description: "A list of preferred availability zones for the nodes of new node groups.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -343,9 +295,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.UniqueValues(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -355,9 +304,6 @@ func globalReplicationGroupResource(ctx context.Context) (resource.Resource, err
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RegionalConfigurations is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Status

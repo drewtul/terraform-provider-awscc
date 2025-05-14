@@ -15,9 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -186,9 +184,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 											"NFS4_1",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The NFS mount options that DataSync can use to mount your NFS share.",
@@ -197,17 +192,11 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "NFS protocol configuration for FSx ONTAP file system.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SMB
 				"smb": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -221,9 +210,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(253),
 								stringvalidator.RegexMatches(regexp.MustCompile("^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MountOptions
 						"mount_options": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -240,9 +226,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 											"SMB3",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The mount options used by DataSync to access the SMB server.",
@@ -251,9 +234,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Password
 						"password": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -265,9 +245,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^.{0,104}$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: User
 						"user": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -279,25 +256,16 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^[^\\x5B\\x5D\\\\/:;|=,+*?]{1,104}$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "SMB protocol configuration for FSx ONTAP file system.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Configuration settings for NFS or SMB protocol.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Protocol is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: SecurityGroupArns
@@ -368,9 +336,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(4096),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_\\-\\+\\./\\(\\)\\$\\p{Zs}]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Subdirectory is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
@@ -422,9 +387,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9\\s+=._:/-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -436,9 +398,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9\\s+=._:@/-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -448,9 +407,6 @@ func locationFSxONTAPResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeBetween(0, 50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

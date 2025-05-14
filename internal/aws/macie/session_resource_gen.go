@@ -84,9 +84,6 @@ func sessionResource(ctx context.Context) (resource.Resource, error) {
 					"SIX_HOURS",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ServiceRole
 		// CloudFormation resource type schema:
@@ -125,9 +122,6 @@ func sessionResource(ctx context.Context) (resource.Resource, error) {
 					"PAUSED",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

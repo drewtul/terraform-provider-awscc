@@ -14,10 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -64,9 +61,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^$|[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Constraints
 		// CloudFormation resource type schema:
@@ -189,9 +183,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "the identifier (name) for the task template field",
@@ -200,9 +191,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -212,9 +200,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.List{ /*START VALIDATORS*/
 						listvalidator.SizeAtMost(50),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ReadOnlyFields
 				"read_only_fields": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -232,9 +217,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "the identifier (name) for the task template field",
@@ -243,9 +225,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -255,9 +234,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.List{ /*START VALIDATORS*/
 						listvalidator.SizeAtMost(50),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RequiredFields
 				"required_fields": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -275,9 +251,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "the identifier (name) for the task template field",
@@ -286,9 +259,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -298,17 +268,11 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.List{ /*START VALIDATORS*/
 						listvalidator.SizeAtMost(50),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The constraints for the task template",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ContactFlowArn
 		// CloudFormation resource type schema:
@@ -325,9 +289,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^$|arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/contact-flow/[-a-zA-Z0-9]*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Defaults
 		// CloudFormation resource type schema:
@@ -382,9 +343,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 4096),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Id
 					"id": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -398,9 +356,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 100),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "the identifier (name) for the task template field",
@@ -409,9 +364,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Object{ /*START VALIDATORS*/
 							fwvalidators.NotNullObject(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -421,9 +373,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -441,9 +390,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 255),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Fields
 		// CloudFormation resource type schema:
@@ -529,9 +475,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(0, 255),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Id
 					"id": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -545,9 +488,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 100),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "the identifier (name) for the task template field",
@@ -556,9 +496,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Object{ /*START VALIDATORS*/
 							fwvalidators.NotNullObject(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SingleSelectOptions
 					"single_select_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -573,9 +510,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^[A-Za-z0-9](?:[A-Za-z0-9_.,\\s-]*[A-Za-z0-9_.,-])?$"), ""),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Type
 					"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -601,9 +535,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -613,9 +544,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InstanceArn
 		// CloudFormation resource type schema:
@@ -648,9 +576,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 100),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SelfAssignContactFlowArn
 		// CloudFormation resource type schema:
@@ -667,9 +592,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^$|arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/contact-flow/[-a-zA-Z0-9]*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Status
 		// CloudFormation resource type schema:
@@ -692,9 +614,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 					"INACTIVE",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -741,9 +660,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -754,9 +670,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -766,9 +679,6 @@ func taskTemplateResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

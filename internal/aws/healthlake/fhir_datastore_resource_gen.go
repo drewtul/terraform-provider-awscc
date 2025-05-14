@@ -12,8 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -136,7 +134,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 256),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -238,18 +235,12 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FineGrainedAuthorizationEnabled
 				"fine_grained_authorization_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "Flag to indicate if fine-grained authorization will be enabled for the datastore",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IdpLambdaArn
 				"idp_lambda_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -260,18 +251,12 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(49, 256),
 						stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[-a-z]*:lambda:[a-z]{2}-[a-z]+-\\d{1}:\\d{12}:function:[a-zA-Z0-9\\-_\\.]+(:(\\$LATEST|[a-zA-Z0-9\\-_]+))?"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Metadata
 				"metadata": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The JSON metadata elements for identity provider configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The identity provider configuration for the datastore",
@@ -282,7 +267,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 					"authorization_strategy":             "AWS_AUTH",
 					"fine_grained_authorization_enabled": false,
 				}),
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -319,16 +303,12 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The preloaded data configuration for the Data Store. Only data preloaded from Synthea is supported.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -392,9 +372,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KmsKeyId
 						"kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -405,9 +382,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 400),
 								stringvalidator.RegexMatches(regexp.MustCompile("(arn:aws((-us-gov)|(-iso)|(-iso-b)|(-cn))?:kms:)?([a-z]{2}-[a-z]+(-[a-z]+)?-\\d:)?(\\d{12}:)?(((key/)?[a-zA-Z0-9-_]+)|(alias/[a-zA-Z0-9:/_-]+))"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The customer-managed-key (CMK) used when creating a Data Store. If a customer owned key is not specified, an AWS owned key will be used for encryption.",
@@ -416,9 +390,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The server-side encryption key configuration for a customer provided encryption key.",
@@ -430,7 +401,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 						"cmk_type": "AWS_OWNED_KMS_KEY",
 					},
 				}),
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -476,9 +446,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -489,9 +456,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -499,7 +463,6 @@ func fHIRDatastoreResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

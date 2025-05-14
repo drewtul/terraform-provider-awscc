@@ -13,11 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -181,9 +177,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Equals
 								"equals": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -198,9 +191,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Field
 								"field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -212,9 +202,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("([\\w|\\d|\\.|_]+)"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotEndsWith
 								"not_ends_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -229,9 +216,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotEquals
 								"not_equals": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -246,9 +230,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotStartsWith
 								"not_starts_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -263,9 +244,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StartsWith
 								"starts_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -280,9 +258,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -293,9 +268,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 							setvalidator.SizeAtLeast(1),
 							fwvalidators.NotNullSet(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -305,18 +277,12 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 1000),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The advanced event selectors that were used to select events for the data store.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: BillingMode
 		// CloudFormation resource type schema:
@@ -329,9 +295,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The mode that the event data store will use to charge for event storage.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CreatedTimestamp
 		// CloudFormation resource type schema:
@@ -372,9 +335,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether federation is enabled on an event data store.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FederationRoleArn
 		// CloudFormation resource type schema:
@@ -387,9 +347,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ARN of the role used for event data store federation.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IngestionEnabled
 		// CloudFormation resource type schema:
@@ -402,9 +359,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the event data store is ingesting events.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InsightSelectors
 		// CloudFormation resource type schema:
@@ -434,18 +388,12 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The type of Insights to log on an event data store.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Lets you enable Insights event logging by specifying the Insights selectors that you want to enable on an existing event data store. Both InsightSelectors and InsightsDestination need to have a value in order to enable Insights events on an event data store.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InsightsDestination
 		// CloudFormation resource type schema:
@@ -458,9 +406,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies the ARN of the event data store that will collect Insights events. Both InsightSelectors and InsightsDestination need to have a value in order to enable Insights events on an event data store",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: KmsKeyId
 		// CloudFormation resource type schema:
@@ -473,9 +418,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies the KMS key ID to use to encrypt the events delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MultiRegionEnabled
 		// CloudFormation resource type schema:
@@ -488,9 +430,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the event data store includes events from all regions, or only from the region in which it was created.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -503,9 +442,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the event data store.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: OrganizationEnabled
 		// CloudFormation resource type schema:
@@ -518,9 +454,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates that an event data store is collecting logged events for an organization.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RetentionPeriod
 		// CloudFormation resource type schema:
@@ -533,9 +466,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The retention period, in days.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Status
 		// CloudFormation resource type schema:
@@ -589,9 +519,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -601,9 +528,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -611,7 +535,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TerminationProtectionEnabled
@@ -625,9 +548,6 @@ func eventDataStoreResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the event data store is protected from termination.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UpdatedTimestamp
 		// CloudFormation resource type schema:

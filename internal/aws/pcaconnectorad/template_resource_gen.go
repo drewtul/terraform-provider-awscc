@@ -14,11 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -1250,9 +1245,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1268,9 +1260,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1278,9 +1267,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ValidityPeriod
 								"validity_period": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1293,9 +1279,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1311,9 +1294,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1321,9 +1301,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1331,9 +1308,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EnrollmentFlags
 						"enrollment_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1342,41 +1316,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"enable_key_reuse_on_nt_token_keyset_storage_full": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IncludeSymmetricAlgorithms
 								"include_symmetric_algorithms": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NoSecurityExtension
 								"no_security_extension": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RemoveInvalidCertificateFromPersonalStore
 								"remove_invalid_certificate_from_personal_store": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UserInteractionRequired
 								"user_interaction_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1384,9 +1343,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Extensions
 						"extensions": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1398,9 +1354,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Policies
 										"policies": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1414,9 +1367,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 64),
 															stringvalidator.RegexMatches(regexp.MustCompile("^([0-2])\\.([0-9]|([0-3][0-9]))(\\.([0-9]+)){0,126}$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: PolicyType
 													"policy_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1493,9 +1443,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 																"WINDOWS_UPDATE",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1506,16 +1453,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												listvalidator.UniqueValues(),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyUsage
 								"key_usage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1524,9 +1465,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: UsageFlags
 										"usage_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1535,41 +1473,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												"data_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: DigitalSignature
 												"digital_signature": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyAgreement
 												"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyEncipherment
 												"key_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: NonRepudiation
 												"non_repudiation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1577,9 +1500,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1587,9 +1507,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1597,9 +1514,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GeneralFlags
 						"general_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1608,17 +1522,11 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"auto_enrollment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MachineType
 								"machine_type": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1626,9 +1534,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyAttributes
 						"private_key_attributes": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1645,9 +1550,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeySpec
 								"key_spec": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1660,9 +1562,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MinimalKeyLength
 								"minimal_key_length": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1672,9 +1571,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1682,9 +1578,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyFlags
 						"private_key_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1704,25 +1597,16 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExportableKey
 								"exportable_key": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StrongKeyProtectionRequired
 								"strong_key_protection_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1730,9 +1614,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SubjectNameFlags
 						"subject_name_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1741,81 +1622,51 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"require_common_name": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDirectoryPath
 								"require_directory_path": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDnsAsCn
 								"require_dns_as_cn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireEmail
 								"require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDirectoryGuid
 								"san_require_directory_guid": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDns
 								"san_require_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDomainDns
 								"san_require_domain_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireEmail
 								"san_require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireSpn
 								"san_require_spn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireUpn
 								"san_require_upn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1823,9 +1674,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SupersededTemplates
 						"superseded_templates": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1839,16 +1687,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TemplateV3
 				"template_v3": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1867,9 +1709,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1885,9 +1724,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1895,9 +1731,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ValidityPeriod
 								"validity_period": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1910,9 +1743,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1928,9 +1758,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1938,9 +1765,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1948,9 +1772,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EnrollmentFlags
 						"enrollment_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1959,41 +1780,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"enable_key_reuse_on_nt_token_keyset_storage_full": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IncludeSymmetricAlgorithms
 								"include_symmetric_algorithms": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NoSecurityExtension
 								"no_security_extension": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RemoveInvalidCertificateFromPersonalStore
 								"remove_invalid_certificate_from_personal_store": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UserInteractionRequired
 								"user_interaction_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2001,9 +1807,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Extensions
 						"extensions": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2015,9 +1818,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Policies
 										"policies": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2031,9 +1831,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 64),
 															stringvalidator.RegexMatches(regexp.MustCompile("^([0-2])\\.([0-9]|([0-3][0-9]))(\\.([0-9]+)){0,126}$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: PolicyType
 													"policy_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2110,9 +1907,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 																"WINDOWS_UPDATE",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -2123,16 +1917,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												listvalidator.UniqueValues(),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyUsage
 								"key_usage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2141,9 +1929,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: UsageFlags
 										"usage_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2152,41 +1937,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												"data_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: DigitalSignature
 												"digital_signature": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyAgreement
 												"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyEncipherment
 												"key_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: NonRepudiation
 												"non_repudiation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2194,9 +1964,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -2204,9 +1971,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2214,9 +1978,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GeneralFlags
 						"general_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2225,17 +1986,11 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"auto_enrollment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MachineType
 								"machine_type": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2243,9 +1998,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HashAlgorithm
 						"hash_algorithm": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2259,9 +2011,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyAttributes
 						"private_key_attributes": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2279,9 +2028,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CryptoProviders
 								"crypto_providers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2295,9 +2041,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeySpec
 								"key_spec": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2310,9 +2053,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyUsageProperty
 								"key_usage_property": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2324,32 +2064,20 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												"decrypt": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyAgreement
 												"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Sign
 												"sign": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PropertyType
 										"property_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2360,9 +2088,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 													"ALL",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -2370,9 +2095,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MinimalKeyLength
 								"minimal_key_length": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -2382,9 +2104,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2392,9 +2111,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyFlags
 						"private_key_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2413,33 +2129,21 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExportableKey
 								"exportable_key": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireAlternateSignatureAlgorithm
 								"require_alternate_signature_algorithm": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StrongKeyProtectionRequired
 								"strong_key_protection_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2447,9 +2151,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SubjectNameFlags
 						"subject_name_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2458,81 +2159,51 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"require_common_name": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDirectoryPath
 								"require_directory_path": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDnsAsCn
 								"require_dns_as_cn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireEmail
 								"require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDirectoryGuid
 								"san_require_directory_guid": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDns
 								"san_require_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDomainDns
 								"san_require_domain_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireEmail
 								"san_require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireSpn
 								"san_require_spn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireUpn
 								"san_require_upn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2540,9 +2211,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SupersededTemplates
 						"superseded_templates": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2556,16 +2224,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TemplateV4
 				"template_v4": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2584,9 +2246,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2602,9 +2261,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -2612,9 +2268,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ValidityPeriod
 								"validity_period": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2627,9 +2280,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(1.000000, 8766000.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PeriodType
 										"period_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2645,9 +2295,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -2655,9 +2302,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2665,9 +2309,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EnrollmentFlags
 						"enrollment_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2676,41 +2317,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"enable_key_reuse_on_nt_token_keyset_storage_full": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IncludeSymmetricAlgorithms
 								"include_symmetric_algorithms": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NoSecurityExtension
 								"no_security_extension": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RemoveInvalidCertificateFromPersonalStore
 								"remove_invalid_certificate_from_personal_store": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UserInteractionRequired
 								"user_interaction_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2718,9 +2344,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Extensions
 						"extensions": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2732,9 +2355,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Policies
 										"policies": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2748,9 +2368,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 64),
 															stringvalidator.RegexMatches(regexp.MustCompile("^([0-2])\\.([0-9]|([0-3][0-9]))(\\.([0-9]+)){0,126}$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: PolicyType
 													"policy_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2827,9 +2444,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 																"WINDOWS_UPDATE",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -2840,16 +2454,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												listvalidator.UniqueValues(),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyUsage
 								"key_usage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2858,9 +2466,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										"critical": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: UsageFlags
 										"usage_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2869,41 +2474,26 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												"data_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: DigitalSignature
 												"digital_signature": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyAgreement
 												"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyEncipherment
 												"key_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: NonRepudiation
 												"non_repudiation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2911,9 +2501,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -2921,9 +2508,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2931,9 +2515,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GeneralFlags
 						"general_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2942,17 +2523,11 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"auto_enrollment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MachineType
 								"machine_type": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -2960,9 +2535,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HashAlgorithm
 						"hash_algorithm": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2975,9 +2547,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									"SHA512",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyAttributes
 						"private_key_attributes": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2994,9 +2563,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											"ECDH_P521",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CryptoProviders
 								"crypto_providers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3010,9 +2576,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 100),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeySpec
 								"key_spec": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3025,9 +2588,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyUsageProperty
 								"key_usage_property": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3039,32 +2599,20 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 												"decrypt": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: KeyAgreement
 												"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Sign
 												"sign": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PropertyType
 										"property_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3075,16 +2623,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 													"ALL",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MinimalKeyLength
 								"minimal_key_length": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3094,9 +2636,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -3104,9 +2643,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PrivateKeyFlags
 						"private_key_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3123,49 +2659,31 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExportableKey
 								"exportable_key": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireAlternateSignatureAlgorithm
 								"require_alternate_signature_algorithm": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireSameKeyRenewal
 								"require_same_key_renewal": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StrongKeyProtectionRequired
 								"strong_key_protection_required": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UseLegacyProvider
 								"use_legacy_provider": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -3173,9 +2691,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SubjectNameFlags
 						"subject_name_flags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3184,81 +2699,51 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 								"require_common_name": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDirectoryPath
 								"require_directory_path": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireDnsAsCn
 								"require_dns_as_cn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RequireEmail
 								"require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDirectoryGuid
 								"san_require_directory_guid": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDns
 								"san_require_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireDomainDns
 								"san_require_domain_dns": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireEmail
 								"san_require_email": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireSpn
 								"san_require_spn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SanRequireUpn
 								"san_require_upn": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -3266,9 +2751,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SupersededTemplates
 						"superseded_templates": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3282,16 +2764,10 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Required: true,
@@ -3323,9 +2799,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 		"reenroll_all_certificate_holders": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ReenrollAllCertificateHolders is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
@@ -3345,9 +2818,6 @@ func templateResource(ctx context.Context) (resource.Resource, error) {
 			ElementType: types.StringType,
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TemplateArn
 		// CloudFormation resource type schema:

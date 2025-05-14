@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -87,16 +84,10 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(20, 2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: BasicAuthConfig
 		// CloudFormation resource type schema:
@@ -130,9 +121,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				"enable_basic_auth": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Password
 				"password": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -142,9 +130,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 255),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Username
 				"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -154,16 +139,10 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 255),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BasicAuthConfig is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BranchName
@@ -201,9 +180,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 25000),
 				stringvalidator.RegexMatches(regexp.MustCompile("(?s).+"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ComputeRoleArn
 		// CloudFormation resource type schema:
@@ -221,9 +197,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(0, 1000),
 				stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -240,9 +213,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(1000),
 				stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnableAutoBuild
 		// CloudFormation resource type schema:
@@ -253,9 +223,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 		"enable_auto_build": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnablePerformanceMode
 		// CloudFormation resource type schema:
@@ -266,9 +233,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 		"enable_performance_mode": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnablePullRequestPreview
 		// CloudFormation resource type schema:
@@ -279,9 +243,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 		"enable_pull_request_preview": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnableSkewProtection
 		// CloudFormation resource type schema:
@@ -292,9 +253,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 		"enable_skew_protection": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnvironmentVariables
 		// CloudFormation resource type schema:
@@ -335,9 +293,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -348,17 +303,11 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Framework
 		// CloudFormation resource type schema:
@@ -375,9 +324,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(255),
 				stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PullRequestEnvironmentName
 		// CloudFormation resource type schema:
@@ -394,9 +340,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(20),
 				stringvalidator.RegexMatches(regexp.MustCompile("(?s).*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Stage
 		// CloudFormation resource type schema:
@@ -423,9 +366,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 					"DEVELOPMENT",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -468,9 +408,6 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -481,17 +418,11 @@ func branchResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

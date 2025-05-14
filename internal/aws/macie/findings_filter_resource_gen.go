@@ -11,9 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -52,9 +49,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 					"NOOP",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -81,9 +75,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Findings filter description",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FindingCriteria
 		// CloudFormation resource type schema:
@@ -148,59 +139,38 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 								ElementType: types.StringType,
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: gt
 							"gt": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: gte
 							"gte": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: lt
 							"lt": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: lte
 							"lte": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: neq
 							"neq": schema.ListAttribute{ /*START ATTRIBUTE*/
 								ElementType: types.StringType,
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Description: "Map of filter criteria.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Findings filter criteria.",
@@ -242,9 +212,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Findings filter position.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -284,9 +251,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -296,9 +260,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -307,7 +268,6 @@ func findingsFilterResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

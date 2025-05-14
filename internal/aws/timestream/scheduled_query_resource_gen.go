@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -64,7 +63,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(32, 128),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -138,9 +136,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 									"SSE_KMS",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ObjectKeyPrefix
 						"object_key_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -151,9 +146,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 896),
 								stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9|!\\-_*'\\(\\)]([a-zA-Z0-9]|[!\\-_*'\\(\\)\\/.])+"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Details on S3 location for error reports that result from running a query.",
@@ -183,7 +175,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 2048),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -445,7 +436,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_.-]+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -493,9 +483,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -506,9 +493,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -520,7 +504,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetConfiguration
@@ -730,9 +713,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DimensionMappings
 						"dimension_mappings": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -749,9 +729,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Name
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -761,9 +738,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -775,7 +749,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MeasureNameColumn
@@ -783,9 +756,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Name of the measure name column from the query result.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MixedMeasureMappings
 						"mixed_measure_mappings": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -796,9 +766,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Refers to the value of the measure name in a result row. This field is required if MeasureNameColumn is provided.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MeasureValueType
 									"measure_value_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -815,9 +782,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MultiMeasureAttributeMappings
 									"multi_measure_attribute_mappings": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -838,9 +802,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SourceColumn
 												"source_column": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -850,18 +811,12 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TargetMultiMeasureAttributeName
 												"target_multi_measure_attribute_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Description: "Custom name to be used for attribute name in derived table. If not provided, source column name would be used.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -873,7 +828,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 										}, /*END VALIDATORS*/
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourceColumn
@@ -881,18 +835,12 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 										Description: "This field refers to the source column from which the measure value is to be read for result materialization.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TargetMeasureName
 									"target_measure_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Target measure name to be used. If not provided, the target measure name by default would be MeasureName if provided, or SourceColumn otherwise.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -904,7 +852,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MultiMeasureMappings
@@ -929,9 +876,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SourceColumn
 											"source_column": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -941,18 +885,12 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: TargetMultiMeasureAttributeName
 											"target_multi_measure_attribute_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Custom name to be used for attribute name in derived table. If not provided, source column name would be used.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -965,7 +903,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 									}, /*END VALIDATORS*/
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TargetMultiMeasureName
@@ -973,17 +910,11 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Name of the target multi-measure in the derived table. Required if MeasureNameColumn is not provided. If MeasureNameColumn is provided then the value from that column will be used as the multi-measure name.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Only one of MixedMeasureMappings or MultiMeasureMappings is to be provided. MultiMeasureMappings can be used to ingest data as multi measures in the derived table.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TableName
 						"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -993,9 +924,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TimeColumn
 						"time_column": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1005,9 +933,6 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Configuration needed to write data into the Timestream database and table.",
@@ -1016,16 +941,12 @@ func scheduledQueryResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Configuration of target store where scheduled query results are written to.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

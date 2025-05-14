@@ -10,12 +10,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -42,9 +37,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies how the scaling adjustment is interpreted. The valid values are ChangeInCapacity, ExactCapacity, and PercentChangeInCapacity.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -85,9 +77,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The duration of the policy's cooldown period, in seconds. When a cooldown period is specified here, it overrides the default cooldown period defined for the Auto Scaling group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EstimatedInstanceWarmup
 		// CloudFormation resource type schema:
@@ -100,9 +89,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The estimated time, in seconds, until a newly launched instance can contribute to the CloudWatch metrics. If not provided, the default is to use the value from the default cooldown period for the Auto Scaling group. Valid only if the policy type is TargetTrackingScaling or StepScaling.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MetricAggregationType
 		// CloudFormation resource type schema:
@@ -115,9 +101,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The aggregation type for the CloudWatch metrics. The valid values are Minimum, Maximum, and Average. If the aggregation type is null, the value is treated as Average. Valid only if the policy type is StepScaling.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MinAdjustmentMagnitude
 		// CloudFormation resource type schema:
@@ -130,9 +113,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The minimum value to scale by when the adjustment type is PercentChangeInCapacity. For example, suppose that you create a step scaling policy to scale out an Auto Scaling group by 25 percent and you specify a MinAdjustmentMagnitude of 2. If the group has 4 instances and the scaling policy is performed, 25 percent of 4 is 1. However, because you specified a MinAdjustmentMagnitude of 2, Amazon EC2 Auto Scaling scales out the group by 2 instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PolicyName
 		// CloudFormation resource type schema:
@@ -157,9 +137,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "One of the following policy types: TargetTrackingScaling, StepScaling, SimpleScaling (default), PredictiveScaling",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PredictiveScalingConfiguration
 		// CloudFormation resource type schema:
@@ -518,17 +495,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 				"max_capacity_breach_behavior": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxCapacityBuffer
 				"max_capacity_buffer": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MetricSpecifications
 				"metric_specifications": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -545,9 +516,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 												"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Id
 												"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -556,17 +524,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Label
 												"label": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MetricStat
 												"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -585,9 +547,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -596,17 +555,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																	}, /*END NESTED OBJECT*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-																		setplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: MetricName
 																"metric_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -615,9 +568,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Namespace
 																"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -626,9 +576,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
@@ -636,9 +583,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Object{ /*START VALIDATORS*/
 																fwvalidators.NotNullObject(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Stat
 														"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -647,32 +591,20 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Unit
 														"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReturnData
 												"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -681,16 +613,10 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Set{ /*START VALIDATORS*/
 											fwvalidators.NotNullSet(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: CustomizedLoadMetricSpecification
 							"customized_load_metric_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -703,9 +629,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 												"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Id
 												"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -714,17 +637,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Label
 												"label": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MetricStat
 												"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -743,9 +660,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -754,17 +668,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																	}, /*END NESTED OBJECT*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-																		setplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: MetricName
 																"metric_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -773,9 +681,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Namespace
 																"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -784,9 +689,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
@@ -794,9 +696,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Object{ /*START VALIDATORS*/
 																fwvalidators.NotNullObject(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Stat
 														"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -805,32 +704,20 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Unit
 														"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReturnData
 												"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -839,16 +726,10 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Set{ /*START VALIDATORS*/
 											fwvalidators.NotNullSet(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: CustomizedScalingMetricSpecification
 							"customized_scaling_metric_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -861,9 +742,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 												"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Id
 												"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -872,17 +750,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Label
 												"label": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MetricStat
 												"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -901,9 +773,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -912,17 +781,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																	}, /*END NESTED OBJECT*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-																		setplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: MetricName
 																"metric_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -931,9 +794,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Namespace
 																"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -942,9 +802,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
@@ -952,9 +809,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Object{ /*START VALIDATORS*/
 																fwvalidators.NotNullObject(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Stat
 														"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -963,32 +817,20 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Unit
 														"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReturnData
 												"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -997,16 +839,10 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Set{ /*START VALIDATORS*/
 											fwvalidators.NotNullSet(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PredefinedLoadMetricSpecification
 							"predefined_load_metric_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1018,24 +854,15 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ResourceLabel
 									"resource_label": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PredefinedMetricPairSpecification
 							"predefined_metric_pair_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1047,24 +874,15 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ResourceLabel
 									"resource_label": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PredefinedScalingMetricSpecification
 							"predefined_scaling_metric_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1076,24 +894,15 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ResourceLabel
 									"resource_label": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TargetValue
 							"target_value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1102,9 +911,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									fwvalidators.NotNullFloat64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -1113,33 +919,21 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Set{ /*START VALIDATORS*/
 						fwvalidators.NotNullSet(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Mode
 				"mode": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SchedulingBufferTime
 				"scheduling_buffer_time": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A predictive scaling policy. Includes support for predefined metrics only.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ScalingAdjustment
 		// CloudFormation resource type schema:
@@ -1152,9 +946,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The amount by which to scale, based on the specified adjustment type. A positive value adds to the current capacity while a negative number removes from the current capacity. For exact capacity, you must specify a positive value. Required if the policy type is SimpleScaling. (Not used with any other policy type.)",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: StepAdjustments
 		// CloudFormation resource type schema:
@@ -1191,17 +982,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 					"metric_interval_lower_bound": schema.Float64Attribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-							float64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricIntervalUpperBound
 					"metric_interval_upper_bound": schema.Float64Attribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-							float64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ScalingAdjustment
 					"scaling_adjustment": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1210,18 +995,12 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							fwvalidators.NotNullInt64(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "A set of adjustments that enable you to scale based on the size of the alarm breach. Required if the policy type is StepScaling. (Not used with any other policy type.)",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetTrackingConfiguration
 		// CloudFormation resource type schema:
@@ -1400,9 +1179,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Value
 									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1411,25 +1187,16 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MetricName
 						"metric_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Metrics
 						"metrics": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -1439,9 +1206,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 									"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Id
 									"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1450,17 +1214,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Label
 									"label": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MetricStat
 									"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1479,9 +1237,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Value
 																"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1490,17 +1245,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-															setplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MetricName
 													"metric_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1509,9 +1258,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Namespace
 													"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1520,9 +1266,6 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
@@ -1530,17 +1273,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Period
 											"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Stat
 											"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1549,95 +1286,59 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Unit
 											"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Period
 									"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ReturnData
 									"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Namespace
 						"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Period
 						"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistic
 						"statistic": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Unit
 						"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DisableScaleIn
 				"disable_scale_in": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PredefinedMetricSpecification
 				"predefined_metric_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1649,24 +1350,15 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ResourceLabel
 						"resource_label": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TargetValue
 				"target_value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1675,17 +1367,11 @@ func scalingPolicyResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						fwvalidators.NotNullFloat64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A target tracking scaling policy. Includes support for predefined or customized metrics.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

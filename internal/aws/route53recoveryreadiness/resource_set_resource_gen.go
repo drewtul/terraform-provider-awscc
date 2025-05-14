@@ -11,8 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -58,7 +56,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -186,9 +183,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The component identifier of the resource, generated when DNS target resource is used.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DnsTargetResource
 					"dns_target_resource": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -198,36 +192,24 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 								Description: "The domain name that acts as an ingress point to a portion of the customer application.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: HostedZoneArn
 							"hosted_zone_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The hosted zone Amazon Resource Name (ARN) that contains the DNS record with the provided name of the target resource.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RecordSetId
 							"record_set_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The Route 53 record set ID that will uniquely identify a DNS record, given a name and a type.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RecordType
 							"record_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The type of DNS record of the target resource.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TargetResource
 							"target_resource": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -240,17 +222,11 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 												Description: "A Network Load Balancer resource Amazon Resource Name (ARN).",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The Network Load Balancer resource that a DNS target resource points to.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: R53Resource
 									"r53_resource": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -260,42 +236,27 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 												Description: "The DNS target domain name.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RecordSetId
 											"record_set_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The Resource Record set id.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The Route 53 resource that a DNS target resource record points to.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The target resource that the Route 53 record points to.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "A component for DNS/routing control readiness checks.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReadinessScopes
 					"readiness_scopes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -305,7 +266,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceArn
@@ -313,9 +273,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The Amazon Resource Name (ARN) of the AWS resource.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -362,9 +319,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -373,9 +327,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -384,7 +335,6 @@ func resourceSetResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

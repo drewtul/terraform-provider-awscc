@@ -13,9 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -76,18 +73,12 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 					Description: "The number of seconds for a proxy to wait for a connection to become available in the connection pool.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: InitQuery
 				"init_query": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "One or more SQL statements for the proxy to run when opening each new database connection.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxConnectionsPercent
 				"max_connections_percent": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -97,9 +88,6 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(0, 100),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxIdleConnectionsPercent
 				"max_idle_connections_percent": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -109,9 +97,6 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(0, 100),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SessionPinningFilters
 				"session_pinning_filters": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -121,15 +106,11 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 					Computed:    true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBClusterIdentifiers
 		// CloudFormation resource type schema:
@@ -147,7 +128,6 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBInstanceIdentifiers
@@ -166,7 +146,6 @@ func dBProxyTargetGroupResource(ctx context.Context) (resource.Resource, error) 
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBProxyName

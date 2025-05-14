@@ -14,10 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -93,9 +89,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Type
 						"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -105,17 +98,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Represents information about the key used to encrypt data in the artifact store, such as an AWS Key Management Service (AWS KMS) key",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Location
 				"location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -125,9 +112,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Type
 				"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -140,17 +124,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The S3 bucket where artifacts for the pipeline are stored.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ArtifactStores
 		// CloudFormation resource type schema:
@@ -233,9 +211,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Type
 									"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -245,17 +220,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Represents information about the key used to encrypt data in the artifact store, such as an AWS Key Management Service (AWS KMS) key",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Location
 							"location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -265,9 +234,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Type
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -280,9 +246,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The S3 bucket where artifacts for the pipeline are stored.",
@@ -291,9 +254,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Object{ /*START VALIDATORS*/
 							fwvalidators.NotNullObject(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Region
 					"region": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -303,9 +263,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -315,9 +272,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisableInboundStageTransitions
 		// CloudFormation resource type schema:
@@ -357,9 +311,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StageName
 					"stage_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -369,9 +320,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -381,9 +329,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ExecutionMode
 		// CloudFormation resource type schema:
@@ -410,9 +355,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 					"PARALLEL",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -426,7 +368,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -451,9 +392,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 					"V2",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RestartExecutionOnUpdate
 		// CloudFormation resource type schema:
@@ -466,9 +404,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether to rerun the CodePipeline pipeline after you update it.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RestartExecutionOnUpdate is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
@@ -1072,9 +1007,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The shell commands to run with your compute action in CodePipeline.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Configuration
 								"configuration": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1082,9 +1014,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The action's configuration. These are key-value pairs that specify input values for an action.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EnvironmentVariables
 								"environment_variables": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1098,9 +1027,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Value
 											"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1110,9 +1036,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1122,9 +1045,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.UniqueValues(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InputArtifacts
 								"input_artifacts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1138,9 +1058,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1149,9 +1066,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.UniqueValues(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Name
 								"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1163,9 +1077,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The variable namespace associated with the action. All variables produced as output by this action fall under this namespace.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OutputArtifacts
 								"output_artifacts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1180,9 +1091,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.List{ /*START VALIDATORS*/
 													listvalidator.UniqueValues(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1192,9 +1100,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1203,9 +1108,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.UniqueValues(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OutputVariables
 								"output_variables": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1216,18 +1118,12 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.UniqueValues(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Region
 								"region": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The action declaration's AWS Region, such as us-east-1.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1237,27 +1133,18 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RunOrder
 								"run_order": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "The order in which actions are run.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TimeoutInMinutes
 								"timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "A timeout duration in minutes that can be applied against the ActionType?s default timeout value specified in Quotas for AWS CodePipeline. This attribute is available only to the manual approval ActionType.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1278,9 +1165,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The specified result for when the failure conditions are met, such as rolling back the stage",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Rules
 										"rules": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1292,9 +1176,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The shell commands to run with your compute action in CodePipeline.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Configuration
 													"configuration": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1302,9 +1183,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The rule's configuration. These are key-value pairs that specify input values for a rule.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: InputArtifacts
 													"input_artifacts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1318,9 +1196,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -1329,27 +1204,18 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.List{ /*START VALIDATORS*/
 															listvalidator.UniqueValues(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Name
 													"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's name.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Region
 													"region": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's AWS Region, such as us-east-1.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RoleArn
 													"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1359,9 +1225,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.RegexMatches(regexp.MustCompile("arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RuleTypeId
 													"rule_type_id": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1371,44 +1234,29 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																Description: "A category for the provider type for the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Owner
 															"owner": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The creator of the rule being called. Only AWS is supported.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Provider
 															"provider": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The provider of the service being called by the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Version
 															"version": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "A string that describes the rule version.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Represents information about a rule type.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1417,9 +1265,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.List{ /*START VALIDATORS*/
 												listvalidator.UniqueValues(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1428,17 +1273,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.UniqueValues(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The method to use before stage runs.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Blockers
 					"blockers": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1452,9 +1291,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Type
 								"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1467,9 +1303,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1478,9 +1311,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.UniqueValues(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1499,9 +1329,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The specified result for when the failure conditions are met, such as rolling back the stage",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Rules
 										"rules": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1513,9 +1340,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The shell commands to run with your compute action in CodePipeline.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Configuration
 													"configuration": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1523,9 +1347,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The rule's configuration. These are key-value pairs that specify input values for a rule.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: InputArtifacts
 													"input_artifacts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1539,9 +1360,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -1550,27 +1368,18 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.List{ /*START VALIDATORS*/
 															listvalidator.UniqueValues(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Name
 													"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's name.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Region
 													"region": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's AWS Region, such as us-east-1.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RoleArn
 													"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1580,9 +1389,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.RegexMatches(regexp.MustCompile("arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RuleTypeId
 													"rule_type_id": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1592,44 +1398,29 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																Description: "A category for the provider type for the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Owner
 															"owner": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The creator of the rule being called. Only AWS is supported.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Provider
 															"provider": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The provider of the service being called by the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Version
 															"version": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "A string that describes the rule version.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Represents information about a rule type.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1638,9 +1429,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.List{ /*START VALIDATORS*/
 												listvalidator.UniqueValues(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1649,9 +1437,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.UniqueValues(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Result
 							"result": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1664,9 +1449,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 										"RETRY",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RetryConfiguration
 							"retry_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1682,25 +1464,16 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 												"FAILED_ACTIONS",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The configuration that specifies the retry configuration for a stage",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The method to use when a stage has not completed successfully",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OnSuccess
 					"on_success": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1714,9 +1487,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The specified result for when the failure conditions are met, such as rolling back the stage",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Rules
 										"rules": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1728,9 +1498,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The shell commands to run with your compute action in CodePipeline.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Configuration
 													"configuration": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1738,9 +1505,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The rule's configuration. These are key-value pairs that specify input values for a rule.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: InputArtifacts
 													"input_artifacts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1754,9 +1518,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -1765,27 +1526,18 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.List{ /*START VALIDATORS*/
 															listvalidator.UniqueValues(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Name
 													"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's name.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Region
 													"region": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The rule declaration's AWS Region, such as us-east-1.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RoleArn
 													"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1795,9 +1547,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.RegexMatches(regexp.MustCompile("arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RuleTypeId
 													"rule_type_id": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1807,44 +1556,29 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 																Description: "A category for the provider type for the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Owner
 															"owner": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The creator of the rule being called. Only AWS is supported.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Provider
 															"provider": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The provider of the service being called by the rule.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Version
 															"version": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "A string that describes the rule version.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Represents information about a rule type.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1853,9 +1587,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.List{ /*START VALIDATORS*/
 												listvalidator.UniqueValues(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1864,17 +1595,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.UniqueValues(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The method to use when a stage has completed successfully",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1922,9 +1647,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1934,18 +1656,12 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Specifies the tags applied to the pipeline.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Triggers
 		// CloudFormation resource type schema:
@@ -2155,9 +1871,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Includes
 												"includes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2168,17 +1881,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The Git repository branches specified as filter criteria to start the pipeline.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Events
 										"events": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2189,9 +1896,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.List{ /*START VALIDATORS*/
 												listvalidator.UniqueValues(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FilePaths
 										"file_paths": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2205,9 +1909,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Includes
 												"includes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2218,17 +1919,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The Git repository file paths specified as filter criteria to start the pipeline.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2238,9 +1933,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.UniqueValues(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Push
 							"push": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2258,9 +1950,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Includes
 												"includes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2271,17 +1960,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The Git repository branches specified as filter criteria to start the pipeline.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FilePaths
 										"file_paths": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2295,9 +1978,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Includes
 												"includes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2308,17 +1988,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The Git repository file paths specified as filter criteria to start the pipeline.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Tags
 										"tags": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2332,9 +2006,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Includes
 												"includes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2345,17 +2016,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														listvalidator.UniqueValues(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The Git tags specified as filter criteria for whether a Git tag repository event will start the pipeline.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2365,9 +2030,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.UniqueValues(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceActionName
 							"source_action_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2377,17 +2039,11 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "A type of trigger configuration for Git-based source actions.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ProviderType
 					"provider_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2400,9 +2056,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2412,9 +2065,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Variables
 		// CloudFormation resource type schema:
@@ -2454,18 +2104,12 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The value of a pipeline-level variable.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The description of a pipeline-level variable. It's used to add additional context about the variable, and not being used at time when pipeline executes.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2475,9 +2119,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2487,9 +2128,6 @@ func pipelineResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Version
 		// CloudFormation resource type schema:

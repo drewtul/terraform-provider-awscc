@@ -14,11 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -169,17 +165,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Agentless Dialer config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PredictiveDialerConfig
 				"predictive_dialer_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -193,9 +183,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 								float64validator.Between(0.000000, 1.000000),
 								fwvalidators.NotNullFloat64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DialingCapacity
 						"dialing_capacity": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -205,17 +192,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Predictive Dialer config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ProgressiveDialerConfig
 				"progressive_dialer_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -229,9 +210,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 								float64validator.Between(0.000000, 1.000000),
 								fwvalidators.NotNullFloat64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DialingCapacity
 						"dialing_capacity": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -241,17 +219,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Progressive Dialer config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The possible types of dialer config parameters",
@@ -331,9 +303,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Enables detection of prompts (e.g., beep after after a voicemail greeting)",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EnableAnswerMachineDetection
 						"enable_answer_machine_detection": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -343,17 +312,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Bool{ /*START VALIDATORS*/
 								fwvalidators.NotNullBool(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration used for answering machine detection during outbound calls",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConnectContactFlowArn
 				"connect_contact_flow_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -373,9 +336,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(500),
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/queue/[-a-zA-Z0-9]*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConnectSourcePhoneNumber
 				"connect_source_phone_number": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -385,9 +345,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(100),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The configuration used for outbound calls.",
@@ -439,9 +396,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -452,9 +406,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -464,9 +415,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

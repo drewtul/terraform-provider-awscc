@@ -15,10 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -57,7 +55,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
 				mapplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -111,7 +108,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:[\\w+=\\/,.@-]+:kms:[a-zA-Z0-9\\-]*:[a-zA-Z0-9]{1,12}:key\\/[a-zA-Z0-9-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -146,9 +142,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 				stringvalidator.LengthBetween(1, 256),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[ _\\-\\d\\w]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisplayName
 		// CloudFormation resource type schema:
@@ -166,9 +159,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 				stringvalidator.LengthBetween(1, 64),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[ _\\-\\d\\w]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InlineRedactionConfiguration
 		// CloudFormation resource type schema:
@@ -312,9 +302,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						float64validator.Between(1.000000, 3.000000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: GlobalEnforcedUrls
 				"global_enforced_urls": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -327,9 +314,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^((([a-zA-Z][a-zA-Z0-9+.-]*):\\/\\/(\\*|[\\w%._\\-\\+~#=@]+)?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?)|(\\*|[\\w%._\\-\\+~#=@]+\\.[\\w%._\\-\\+~#=@]+)(?::(\\d{1,5}))?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?|(([a-zA-Z][a-zA-Z0-9+.-]*):(\\/\\/)?\\*))$"), ""),
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: GlobalExemptUrls
 				"global_exempt_urls": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -342,9 +326,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^((([a-zA-Z][a-zA-Z0-9+.-]*):\\/\\/(\\*|[\\w%._\\-\\+~#=@]+)?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?)|(\\*|[\\w%._\\-\\+~#=@]+\\.[\\w%._\\-\\+~#=@]+)(?::(\\d{1,5}))?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?|(([a-zA-Z][a-zA-Z0-9+.-]*):(\\/\\/)?\\*))$"), ""),
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: InlineRedactionPatterns
 				"inline_redaction_patterns": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -358,9 +339,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 									stringvalidator.LengthBetween(1, 50),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[_\\-\\d\\w]+$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ConfidenceLevel
 							"confidence_level": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -369,9 +347,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 3.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: CustomPattern
 							"custom_pattern": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -384,9 +359,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											stringvalidator.LengthBetween(0, 300),
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/((?:[^\\n])+)\\/([gimsuyvd]{0,8})$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PatternDescription
 									"pattern_description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -396,9 +368,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^[ _\\-\\d\\w]+$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PatternName
 									"pattern_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -409,9 +378,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											stringvalidator.RegexMatches(regexp.MustCompile("^[_\\-\\d\\w]+$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PatternRegex
 									"pattern_regex": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -422,16 +388,10 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/((?:[^\\n])+)\\/([gimsuyvd]{0,8})$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: EnforcedUrls
 							"enforced_urls": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -444,9 +404,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 										stringvalidator.RegexMatches(regexp.MustCompile("^((([a-zA-Z][a-zA-Z0-9+.-]*):\\/\\/(\\*|[\\w%._\\-\\+~#=@]+)?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?)|(\\*|[\\w%._\\-\\+~#=@]+\\.[\\w%._\\-\\+~#=@]+)(?::(\\d{1,5}))?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?|(([a-zA-Z][a-zA-Z0-9+.-]*):(\\/\\/)?\\*))$"), ""),
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ExemptUrls
 							"exempt_urls": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -459,9 +416,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 										stringvalidator.RegexMatches(regexp.MustCompile("^((([a-zA-Z][a-zA-Z0-9+.-]*):\\/\\/(\\*|[\\w%._\\-\\+~#=@]+)?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?)|(\\*|[\\w%._\\-\\+~#=@]+\\.[\\w%._\\-\\+~#=@]+)(?::(\\d{1,5}))?(\\/[^@\\s]*)?(?:\\?([^*\\s]+(?:\\*?)))?|(([a-zA-Z][a-zA-Z0-9+.-]*):(\\/\\/)?\\*))$"), ""),
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RedactionPlaceHolder
 							"redaction_place_holder": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -474,9 +428,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											stringvalidator.LengthBetween(1, 20),
 											stringvalidator.RegexMatches(regexp.MustCompile("^[*_\\-\\d\\w]+$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RedactionPlaceHolderType
 									"redaction_place_holder_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -488,9 +439,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
@@ -498,9 +446,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -510,16 +455,10 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 						listvalidator.SizeBetween(0, 150),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -563,9 +502,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -576,9 +512,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -587,9 +520,6 @@ func dataProtectionSettingsResource(ctx context.Context) (resource.Resource, err
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(0, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

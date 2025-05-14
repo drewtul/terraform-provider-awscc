@@ -13,13 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -48,7 +42,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -83,17 +76,11 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 							"balanced-only",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The instance capacity distribution across Availability Zones.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AvailabilityZoneImpairmentPolicy
 		// CloudFormation resource type schema:
@@ -135,9 +122,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ZonalShiftEnabled
 				"zonal_shift_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -147,17 +131,11 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Bool{ /*START VALIDATORS*/
 						fwvalidators.NotNullBool(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The Availability Zone impairment policy.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AvailabilityZones
 		// CloudFormation resource type schema:
@@ -178,7 +156,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CapacityRebalance
@@ -192,9 +169,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether Capacity Rebalancing is enabled. Otherwise, Capacity Rebalancing is disabled. When you turn on Capacity Rebalancing, Amazon EC2 Auto Scaling attempts to launch a Spot Instance whenever Amazon EC2 notifies that a Spot Instance is at an elevated risk of interruption. After launching a new instance, it then terminates an old instance. For more information, see [Use Capacity Rebalancing to handle Amazon EC2 Spot Interruptions](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-capacity-rebalancing.html) in the in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CapacityReservationSpecification
 		// CloudFormation resource type schema:
@@ -244,9 +218,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CapacityReservationTarget
 				"capacity_reservation_target": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -259,9 +230,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.UniqueValues(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CapacityReservationResourceGroupArns
 						"capacity_reservation_resource_group_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -271,25 +239,16 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.UniqueValues(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Context
 		// CloudFormation resource type schema:
@@ -302,9 +261,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Reserved.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Cooldown
 		// CloudFormation resource type schema:
@@ -317,9 +273,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "*Only needed if you use simple scaling policies.* \n The amount of time, in seconds, between one scaling activity ending and another one starting due to simple scaling policies. For more information, see [Scaling cooldowns for Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scaling-cooldowns.html) in the *Amazon EC2 Auto Scaling User Guide*.\n Default: ``300`` seconds",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DefaultInstanceWarmup
 		// CloudFormation resource type schema:
@@ -332,9 +285,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The amount of time, in seconds, until a new instance is considered to have finished initializing and resource consumption to become stable after it enters the ``InService`` state. \n During an instance refresh, Amazon EC2 Auto Scaling waits for the warm-up period after it replaces an instance before it moves on to replacing the next instance. Amazon EC2 Auto Scaling also waits for the warm-up period before aggregating the metrics for new instances with existing instances in the Amazon CloudWatch metrics that are used for scaling, resulting in more reliable usage data. For more information, see [Set the default instance warmup for an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-default-instance-warmup.html) in the *Amazon EC2 Auto Scaling User Guide*.\n  To manage various warm-up settings at the group level, we recommend that you set the default instance warmup, *even if it is set to 0 seconds*. To remove a value that you previously set, include the property but specify ``-1`` for the value. However, we strongly recommend keeping the default instance warmup enabled by specifying a value of ``0`` or other nominal value.\n  Default: None",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DesiredCapacity
 		// CloudFormation resource type schema:
@@ -351,9 +301,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^[0-9]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DesiredCapacityType
 		// CloudFormation resource type schema:
@@ -366,9 +313,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The unit of measurement for the value specified for desired capacity. Amazon EC2 Auto Scaling supports ``DesiredCapacityType`` for attribute-based instance type selection only. For more information, see [Create a mixed instances group using attribute-based instance type selection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-mixed-instances-group-attribute-based-instance-type-selection.html) in the *Amazon EC2 Auto Scaling User Guide*.\n By default, Amazon EC2 Auto Scaling specifies ``units``, which translates into number of instances.\n Valid values: ``units`` | ``vcpu`` | ``memory-mib``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HealthCheckGracePeriod
 		// CloudFormation resource type schema:
@@ -381,9 +325,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2 instance that has come into service and marking it unhealthy due to a failed health check. This is useful if your instances do not immediately pass their health checks after they enter the ``InService`` state. For more information, see [Set the health check grace period for an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html) in the *Amazon EC2 Auto Scaling User Guide*.\n Default: ``0`` seconds",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HealthCheckType
 		// CloudFormation resource type schema:
@@ -396,9 +337,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A comma-separated value string of one or more health check types.\n The valid values are ``EC2``, ``EBS``, ``ELB``, and ``VPC_LATTICE``. ``EC2`` is the default health check and cannot be disabled. For more information, see [Health checks for instances in an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html) in the *Amazon EC2 Auto Scaling User Guide*.\n Only specify ``EC2`` if you must clear a value that was previously set.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InstanceId
 		// CloudFormation resource type schema:
@@ -412,7 +350,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// InstanceId is a write-only property.
@@ -442,26 +379,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Specifies the upper threshold as a percentage of the desired capacity of the Auto Scaling group. It represents the maximum percentage of the group that can be in service and healthy, or pending, to support your workload when replacing instances. Value range is 100 to 200. To clear a previously set value, specify a value of ``-1``.\n Both ``MinHealthyPercentage`` and ``MaxHealthyPercentage`` must be specified, and the difference between them cannot be greater than 100. A large range increases the number of instances that can be replaced at the same time.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MinHealthyPercentage
 				"min_healthy_percentage": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "Specifies the lower threshold as a percentage of the desired capacity of the Auto Scaling group. It represents the minimum percentage of the group to keep in service, healthy, and ready to use to support your workload when replacing instances. Value range is 0 to 100. To clear a previously set value, specify a value of ``-1``.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An instance maintenance policy. For more information, see [Set instance maintenance policy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-instance-maintenance-policy.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LaunchConfigurationName
 		// CloudFormation resource type schema:
@@ -474,9 +402,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the launch configuration to use to launch instances.\n Required only if you don't specify ``LaunchTemplate``, ``MixedInstancesPolicy``, or ``InstanceId``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LaunchTemplate
 		// CloudFormation resource type schema:
@@ -510,18 +435,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ID of the launch template.\n You must specify the ``LaunchTemplateID`` or the ``LaunchTemplateName``, but not both.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LaunchTemplateName
 				"launch_template_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The name of the launch template.\n You must specify the ``LaunchTemplateName`` or the ``LaunchTemplateID``, but not both.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Version
 				"version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -531,17 +450,11 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Information used to specify the launch template and version to use to launch instances. You can alternatively associate a launch template to the Auto Scaling group by specifying a ``MixedInstancesPolicy``. For more information about creating launch templates, see [Create a launch template for an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-template.html) in the *Amazon EC2 Auto Scaling User Guide*.\n If you omit this property, you must specify ``MixedInstancesPolicy``, ``LaunchConfigurationName``, or ``InstanceId``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LifecycleHookSpecificationList
 		// CloudFormation resource type schema:
@@ -599,18 +512,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The action the Auto Scaling group takes when the lifecycle hook timeout elapses or if an unexpected failure occurs. The default value is ``ABANDON``.\n Valid values: ``CONTINUE`` | ``ABANDON``",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: HeartbeatTimeout
 					"heartbeat_timeout": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from ``30`` to ``7200`` seconds. The default value is ``3600`` seconds (1 hour).",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LifecycleHookName
 					"lifecycle_hook_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -620,9 +527,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LifecycleTransition
 					"lifecycle_transition": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -632,45 +536,30 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: NotificationMetadata
 					"notification_metadata": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "Additional information that you want to include any time Amazon EC2 Auto Scaling sends a message to the notification target.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: NotificationTargetARN
 					"notification_target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The Amazon Resource Name (ARN) of the notification target that Amazon EC2 Auto Scaling sends notifications to when an instance is in a wait state for the lifecycle hook. You can specify an Amazon SNS topic or an Amazon SQS queue.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RoleARN
 					"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target. For information about creating this role, see [Prepare to add a lifecycle hook to your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/prepare-for-lifecycle-notifications.html) in the *Amazon EC2 Auto Scaling User Guide*.\n Valid only if the notification target is an Amazon SNS topic or an Amazon SQS queue.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "One or more lifecycle hooks to add to the Auto Scaling group before instances are launched.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LoadBalancerNames
 		// CloudFormation resource type schema:
@@ -689,9 +578,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A list of Classic Load Balancers associated with this Auto Scaling group. For Application Load Balancers, Network Load Balancers, and Gateway Load Balancers, specify the ``TargetGroupARNs`` property instead.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxInstanceLifetime
 		// CloudFormation resource type schema:
@@ -704,9 +590,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The maximum amount of time, in seconds, that an instance can be in service. The default is null. If specified, the value must be either 0 or a number equal to or greater than 86,400 seconds (1 day). For more information, see [Replace Auto Scaling instances based on maximum instance lifetime](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-max-instance-lifetime.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxSize
 		// CloudFormation resource type schema:
@@ -766,9 +649,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Metrics
 					"metrics": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -778,7 +658,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
@@ -786,9 +665,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Enables the monitoring of group metrics of an Auto Scaling group. By default, these metrics are disabled.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MinSize
 		// CloudFormation resource type schema:
@@ -1210,62 +1086,41 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 							Description: "The allocation strategy to apply to your On-Demand Instances when they are launched. Possible instance types are determined by the launch template overrides that you specify.\n The following lists the valid values:\n  + lowest-price Uses price to determine which instance types are the highest priority, launching the lowest priced instance types within an Availability Zone first. This is the default value for Auto Scaling groups that specify InstanceRequirements. + prioritized You set the order of instance types for the launch template overrides from highest to lowest priority (from first to last in the list). Amazon EC2 Auto Scaling launches your highest priority instance types first. If all your On-Demand capacity cannot be fulfilled using your highest priority instance type, then Amazon EC2 Auto Scaling launches the remaining capacity using the second priority instance type, and so on. This is the default value for Auto Scaling groups that don't specify InstanceRequirements and cannot be used for groups that do.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OnDemandBaseCapacity
 						"on_demand_base_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Description: "The minimum amount of the Auto Scaling group's capacity that must be fulfilled by On-Demand Instances. This base portion is launched first as your group scales.\n This number has the same unit of measurement as the group's desired capacity. If you change the default unit of measurement (number of instances) by specifying weighted capacity values in your launch template overrides list, or by changing the default desired capacity type setting of the group, you must specify this number using the same unit of measurement.\n Default: 0\n  An update to this setting means a gradual replacement of instances to adjust the current On-Demand Instance levels. When replacing instances, Amazon EC2 Auto Scaling launches new instances before terminating the previous ones.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OnDemandPercentageAboveBaseCapacity
 						"on_demand_percentage_above_base_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Description: "Controls the percentages of On-Demand Instances and Spot Instances for your additional capacity beyond ``OnDemandBaseCapacity``. Expressed as a number (for example, 20 specifies 20% On-Demand Instances, 80% Spot Instances). If set to 100, only On-Demand Instances are used.\n Default: 100\n  An update to this setting means a gradual replacement of instances to adjust the current On-Demand and Spot Instance levels for your additional capacity higher than the base capacity. When replacing instances, Amazon EC2 Auto Scaling launches new instances before terminating the previous ones.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SpotAllocationStrategy
 						"spot_allocation_strategy": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "The allocation strategy to apply to your Spot Instances when they are launched. Possible instance types are determined by the launch template overrides that you specify.\n The following lists the valid values:\n  + capacity-optimized Requests Spot Instances using pools that are optimally chosen based on the available Spot capacity. This strategy has the lowest risk of interruption. To give certain instance types a higher chance of launching first, use capacity-optimized-prioritized. + capacity-optimized-prioritized You set the order of instance types for the launch template overrides from highest to lowest priority (from first to last in the list). Amazon EC2 Auto Scaling honors the instance type priorities on a best effort basis but optimizes for capacity first. Note that if the On-Demand allocation strategy is set to prioritized, the same priority is applied when fulfilling On-Demand capacity. This is not a valid value for Auto Scaling groups that specify InstanceRequirements. + lowest-price Requests Spot Instances using the lowest priced pools within an Availability Zone, across the number of Spot pools that you specify for the SpotInstancePools property. To ensure that your desired capacity is met, you might receive Spot Instances from several pools. This is the default value, but it might lead to high interruption rates because this strategy only considers instance price and not available capacity. + price-capacity-optimized (recommended) The price and capacity optimized allocation strategy looks at both price and capacity to select the Spot Instance pools that are the least likely to be interrupted and have the lowest possible price.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SpotInstancePools
 						"spot_instance_pools": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Description: "The number of Spot Instance pools across which to allocate your Spot Instances. The Spot pools are determined from the different instance types in the overrides. Valid only when the ``SpotAllocationStrategy`` is ``lowest-price``. Value must be in the range of 1–20.\n Default: 2",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SpotMaxPrice
 						"spot_max_price": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "The maximum price per unit hour that you are willing to pay for a Spot Instance. If your maximum price is lower than the Spot price for the instance types that you selected, your Spot Instances are not launched. We do not recommend specifying a maximum price because it can lead to increased interruptions. When Spot Instances launch, you pay the current Spot price. To remove a maximum price that you previously set, include the property but specify an empty string (\"\") for the value.\n  If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify one.\n  Valid Range: Minimum value of 0.001",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The instances distribution.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LaunchTemplate
 				"launch_template": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1278,18 +1133,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 									Description: "The ID of the launch template.\n You must specify the ``LaunchTemplateID`` or the ``LaunchTemplateName``, but not both.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LaunchTemplateName
 								"launch_template_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of the launch template.\n You must specify the ``LaunchTemplateName`` or the ``LaunchTemplateID``, but not both.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Version
 								"version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1299,9 +1148,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The launch template.",
@@ -1310,9 +1156,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Overrides
 						"overrides": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1329,26 +1172,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The maximum value.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The minimum value.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum number of accelerators (GPUs, FPGAs, or AWS Inferentia chips) for an instance type.\n To exclude accelerator-enabled instance types, set ``Max`` to ``0``.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AcceleratorManufacturers
 											"accelerator_manufacturers": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1356,9 +1190,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Indicates whether instance types must have accelerators by specific manufacturers.\n  +  For instance types with NVIDIA devices, specify ``nvidia``.\n  +  For instance types with AMD devices, specify ``amd``.\n  +  For instance types with AWS devices, specify ``amazon-web-services``.\n  +  For instance types with Xilinx devices, specify ``xilinx``.\n  \n Default: Any manufacturer",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AcceleratorNames
 											"accelerator_names": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1366,9 +1197,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Lists the accelerators that must be on an instance type.\n  +  For instance types with NVIDIA A100 GPUs, specify ``a100``.\n  +  For instance types with NVIDIA V100 GPUs, specify ``v100``.\n  +  For instance types with NVIDIA K80 GPUs, specify ``k80``.\n  +  For instance types with NVIDIA T4 GPUs, specify ``t4``.\n  +  For instance types with NVIDIA M60 GPUs, specify ``m60``.\n  +  For instance types with AMD Radeon Pro V520 GPUs, specify ``radeon-pro-v520``.\n  +  For instance types with Xilinx VU9P FPGAs, specify ``vu9p``.\n  \n Default: Any accelerator",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AcceleratorTotalMemoryMiB
 											"accelerator_total_memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1378,26 +1206,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The memory maximum in MiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The memory minimum in MiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum total memory size for the accelerators on an instance type, in MiB.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AcceleratorTypes
 											"accelerator_types": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1405,9 +1224,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Lists the accelerator types that must be on an instance type.\n  +  For instance types with GPU accelerators, specify ``gpu``.\n  +  For instance types with FPGA accelerators, specify ``fpga``.\n  +  For instance types with inference accelerators, specify ``inference``.\n  \n Default: Any accelerator type",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AllowedInstanceTypes
 											"allowed_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1418,18 +1234,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.List{ /*START VALIDATORS*/
 													listvalidator.UniqueValues(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: BareMetal
 											"bare_metal": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Indicates whether bare metal instance types are included, excluded, or required.\n Default: ``excluded``",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: BaselineEbsBandwidthMbps
 											"baseline_ebs_bandwidth_mbps": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1439,26 +1249,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The maximum value in Mbps.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The minimum value in Mbps.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum baseline bandwidth performance for an instance type, in Mbps. For more information, see [Amazon EBS–optimized instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) in the *Amazon EC2 User Guide for Linux Instances*.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: BaselinePerformanceFactors
 											"baseline_performance_factors": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1475,9 +1276,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 																			Description: "",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -1486,34 +1284,22 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.List{ /*START VALIDATORS*/
 																	listvalidator.UniqueValues(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: BurstablePerformance
 											"burstable_performance": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Indicates whether burstable performance instance types are included, excluded, or required. For more information, see [Burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html) in the *Amazon EC2 User Guide for Linux Instances*.\n Default: ``excluded``",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: CpuManufacturers
 											"cpu_manufacturers": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1521,9 +1307,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Lists which specific CPU manufacturers to include.\n  +  For instance types with Intel CPUs, specify ``intel``.\n  +  For instance types with AMD CPUs, specify ``amd``.\n  +  For instance types with AWS CPUs, specify ``amazon-web-services``.\n  \n  Don't confuse the CPU hardware manufacturer with the CPU hardware architecture. Instances will be launched with a compatible CPU architecture based on the Amazon Machine Image (AMI) that you specify in your launch template. \n  Default: Any manufacturer",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ExcludedInstanceTypes
 											"excluded_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1534,9 +1317,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.List{ /*START VALIDATORS*/
 													listvalidator.UniqueValues(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: InstanceGenerations
 											"instance_generations": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1544,18 +1324,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Indicates whether current or previous generation instance types are included.\n  +  For current generation instance types, specify ``current``. The current generation includes EC2 instance types currently recommended for use. This typically includes the latest two to three generations in each instance family. For more information, see [Instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html) in the *Amazon EC2 User Guide for Linux Instances*.\n  +  For previous generation instance types, specify ``previous``.\n  \n Default: Any current or previous generation",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LocalStorage
 											"local_storage": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Indicates whether instance types with instance store volumes are included, excluded, or required. For more information, see [Amazon EC2 instance store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) in the *Amazon EC2 User Guide for Linux Instances*.\n Default: ``included``",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LocalStorageTypes
 											"local_storage_types": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -1563,18 +1337,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Indicates the type of local storage that is required.\n  +  For instance types with hard disk drive (HDD) storage, specify ``hdd``.\n  +  For instance types with solid state drive (SSD) storage, specify ``ssd``.\n  \n Default: Any local storage type",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-													setplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MaxSpotPriceAsPercentageOfOptimalOnDemandPrice
 											"max_spot_price_as_percentage_of_optimal_on_demand_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Description: "[Price protection] The price protection threshold for Spot Instances, as a percentage of an identified On-Demand price. The identified On-Demand price is the price of the lowest priced current generation C, M, or R instance type with your specified attributes. If no current generation C, M, or R instance type matches your attributes, then the identified price is from either the lowest priced current generation instance types or, failing that, the lowest priced previous generation instance types that match your attributes. When Amazon EC2 Auto Scaling selects instance types with your attributes, we will exclude instance types whose price exceeds your specified threshold.\n The parameter accepts an integer, which Amazon EC2 Auto Scaling interprets as a percentage.\n If you set ``DesiredCapacityType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is based on the per-vCPU or per-memory price instead of the per instance price. \n  Only one of ``SpotMaxPricePercentageOverLowestPrice`` or ``MaxSpotPriceAsPercentageOfOptimalOnDemandPrice`` can be specified. If you don't specify either, Amazon EC2 Auto Scaling will automatically apply optimal price protection to consistently select from a wide range of instance types. To indicate no price protection threshold for Spot Instances, meaning you want to consider all instance types that match your attributes, include one of these parameters and specify a high value, such as ``999999``.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MemoryGiBPerVCpu
 											"memory_gi_b_per_v_cpu": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1584,26 +1352,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The memory maximum in GiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 														Description: "The memory minimum in GiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum amount of memory per vCPU for an instance type, in GiB.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MemoryMiB
 											"memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1613,18 +1372,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The memory maximum in MiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The memory minimum in MiB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum instance memory size for an instance type, in MiB.",
@@ -1633,9 +1386,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: NetworkBandwidthGbps
 											"network_bandwidth_gbps": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1645,26 +1395,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The maximum amount of network bandwidth, in gigabits per second (Gbps).",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 														Description: "The minimum amount of network bandwidth, in gigabits per second (Gbps).",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum amount of network bandwidth, in gigabits per second (Gbps).\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: NetworkInterfaceCount
 											"network_interface_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1674,53 +1415,35 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The maximum number of network interfaces.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The minimum number of network interfaces.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum number of network interfaces for an instance type.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: OnDemandMaxPricePercentageOverLowestPrice
 											"on_demand_max_price_percentage_over_lowest_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Description: "[Price protection] The price protection threshold for On-Demand Instances, as a percentage higher than an identified On-Demand price. The identified On-Demand price is the price of the lowest priced current generation C, M, or R instance type with your specified attributes. If no current generation C, M, or R instance type matches your attributes, then the identified price is from either the lowest priced current generation instance types or, failing that, the lowest priced previous generation instance types that match your attributes. When Amazon EC2 Auto Scaling selects instance types with your attributes, we will exclude instance types whose price exceeds your specified threshold. \n The parameter accepts an integer, which Amazon EC2 Auto Scaling interprets as a percentage.\n To turn off price protection, specify a high value, such as ``999999``. \n If you set ``DesiredCapacityType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is applied based on the per-vCPU or per-memory price instead of the per instance price. \n Default: ``20``",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RequireHibernateSupport
 											"require_hibernate_support": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Description: "Indicates whether instance types must provide On-Demand Instance hibernation support.\n Default: ``false``",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SpotMaxPricePercentageOverLowestPrice
 											"spot_max_price_percentage_over_lowest_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Description: "[Price protection] The price protection threshold for Spot Instances, as a percentage higher than an identified Spot price. The identified Spot price is the price of the lowest priced current generation C, M, or R instance type with your specified attributes. If no current generation C, M, or R instance type matches your attributes, then the identified price is from either the lowest priced current generation instance types or, failing that, the lowest priced previous generation instance types that match your attributes. When Amazon EC2 Auto Scaling selects instance types with your attributes, we will exclude instance types whose price exceeds your specified threshold.\n The parameter accepts an integer, which Amazon EC2 Auto Scaling interprets as a percentage. \n If you set ``DesiredCapacityType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is based on the per-vCPU or per-memory price instead of the per instance price. \n  Only one of ``SpotMaxPricePercentageOverLowestPrice`` or ``MaxSpotPriceAsPercentageOfOptimalOnDemandPrice`` can be specified. If you don't specify either, Amazon EC2 Auto Scaling will automatically apply optimal price protection to consistently select from a wide range of instance types. To indicate no price protection threshold for Spot Instances, meaning you want to consider all instance types that match your attributes, include one of these parameters and specify a high value, such as ``999999``.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: TotalLocalStorageGB
 											"total_local_storage_gb": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1730,26 +1453,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The storage maximum in GB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 														Description: "The storage minimum in GB.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum total local storage size for an instance type, in GB.\n Default: No minimum or maximum limits",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: VCpuCount
 											"v_cpu_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1759,18 +1473,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 														Description: "The maximum number of vCPUs.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Min
 													"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 														Description: "The minimum number of vCPUs.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The minimum and maximum number of vCPUs for an instance type.",
@@ -1779,26 +1487,17 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The instance requirements. Amazon EC2 Auto Scaling uses your specified requirements to identify instance types. Then, it uses your On-Demand and Spot allocation strategies to launch instances from these instance types.\n You can specify up to four separate sets of instance requirements per Auto Scaling group. This is useful for provisioning instances from different Amazon Machine Images (AMIs) in the same Auto Scaling group. To do this, create the AMIs and create a new launch template for each AMI. Then, create a compatible set of instance requirements for each launch template. \n  If you specify ``InstanceRequirements``, you can't specify ``InstanceType``.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: InstanceType
 									"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "The instance type, such as ``m3.xlarge``. You must specify an instance type that is supported in your requested Region and Availability Zones. For more information, see [Instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html) in the *Amazon EC2 User Guide for Linux Instances*.\n You can specify up to 40 instance types per Auto Scaling group.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: LaunchTemplateSpecification
 									"launch_template_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1808,18 +1507,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Description: "The ID of the launch template.\n You must specify the ``LaunchTemplateID`` or the ``LaunchTemplateName``, but not both.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LaunchTemplateName
 											"launch_template_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The name of the launch template.\n You must specify the ``LaunchTemplateName`` or the ``LaunchTemplateID``, but not both.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Version
 											"version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1829,35 +1522,23 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Provides a launch template for the specified instance type or set of instance requirements. For example, some instance types might require a launch template with a different AMI. If not provided, Amazon EC2 Auto Scaling uses the launch template that's specified in the ``LaunchTemplate`` definition. For more information, see [Specifying a different launch template for an instance type](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-mixed-instances-groups-launch-template-overrides.html) in the *Amazon EC2 Auto Scaling User Guide*. \n You can specify up to 20 launch templates per Auto Scaling group. The launch templates specified in the overrides and in the ``LaunchTemplate`` definition count towards this limit.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: WeightedCapacity
 									"weighted_capacity": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "If you provide a list of instance types to use, you can specify the number of capacity units provided by each instance type in terms of virtual CPUs, memory, storage, throughput, or other relative performance characteristic. When a Spot or On-Demand Instance is launched, the capacity units count toward the desired capacity. Amazon EC2 Auto Scaling launches instances until the desired capacity is totally fulfilled, even if this results in an overage. For example, if there are two units remaining to fulfill capacity, and Amazon EC2 Auto Scaling can only launch an instance with a ``WeightedCapacity`` of five units, the instance is launched, and the desired capacity is exceeded by three units. For more information, see [Configure instance weighting for Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-mixed-instances-groups-instance-weighting.html) in the *Amazon EC2 Auto Scaling User Guide*. Value must be in the range of 1-999. \n If you specify a value for ``WeightedCapacity`` for one instance type, you must specify a value for ``WeightedCapacity`` for all of them.\n  Every Auto Scaling group has three size parameters (``DesiredCapacity``, ``MaxSize``, and ``MinSize``). Usually, you set these sizes based on a specific number of instances. However, if you configure a mixed instances policy that defines weights for the instance types, you must specify these sizes with the same units that you use for weighting instances.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "Any properties that you specify override the same properties in the launch template.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "One or more launch templates and the instance types (overrides) that are used to launch EC2 instances to fulfill On-Demand and Spot capacities.",
@@ -1866,17 +1547,11 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An embedded object that specifies a mixed instances policy.\n The policy includes properties that not only define the distribution of On-Demand Instances and Spot Instances, the maximum price to pay for Spot Instances (optional), and how the Auto Scaling group allocates instance types to fulfill On-Demand and Spot capacities, but also the properties that specify the instance configuration information—the launch template and instance types. The policy can also include a weight for each instance type and different launch templates for individual instance types.\n For more information, see [Auto Scaling groups with multiple instance types and purchase options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-mixed-instances-groups.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NewInstancesProtectedFromScaleIn
 		// CloudFormation resource type schema:
@@ -1889,9 +1564,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether newly launched instances are protected from termination by Amazon EC2 Auto Scaling when scaling in. For more information about preventing instances from terminating on scale in, see [Use instance scale-in protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-instance-protection.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NotificationConfiguration
 		// CloudFormation resource type schema:
@@ -1932,7 +1604,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Computed:    true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TopicARN
@@ -1943,17 +1614,11 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A structure that specifies an Amazon SNS notification configuration for the ``NotificationConfigurations`` property of the [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html) resource.\n For an example template snippet, see [Configure Amazon EC2 Auto Scaling resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ec2-auto-scaling.html).\n For more information, see [Get Amazon SNS notifications when your Auto Scaling group scales](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NotificationConfigurations
 		// CloudFormation resource type schema:
@@ -2001,7 +1666,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Computed:    true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TopicARN
@@ -2012,18 +1676,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Configures an Auto Scaling group to send notifications when specified events take place.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PlacementGroup
 		// CloudFormation resource type schema:
@@ -2036,9 +1694,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the placement group into which to launch your instances. For more information, see [Placement groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html) in the *Amazon EC2 User Guide for Linux Instances*.\n  A *cluster* placement group is a logical grouping of instances within a single Availability Zone. You cannot specify multiple Availability Zones and a cluster placement group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ServiceLinkedRoleARN
 		// CloudFormation resource type schema:
@@ -2051,9 +1706,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS service on your behalf. By default, Amazon EC2 Auto Scaling uses a service-linked role named ``AWSServiceRoleForAutoScaling``, which it creates if it does not exist. For more information, see [Service-linked roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html) in the *Amazon EC2 Auto Scaling User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SkipZonalShiftValidation
 		// CloudFormation resource type schema:
@@ -2066,9 +1718,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// SkipZonalShiftValidation is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
@@ -2114,9 +1763,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PropagateAtLaunch
 					"propagate_at_launch": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -2126,9 +1772,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Bool{ /*START VALIDATORS*/
 							fwvalidators.NotNullBool(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2138,9 +1781,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2149,7 +1789,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetGroupARNs
@@ -2171,7 +1810,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TerminationPolicies
@@ -2191,9 +1829,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A policy or a list of policies that are used to select the instance to terminate. These policies are executed in the order that you list them. For more information, see [Configure termination policies for Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-termination-policies.html) in the *Amazon EC2 Auto Scaling User Guide*.\n Valid values: ``Default`` | ``AllocationStrategy`` | ``ClosestToNextInstanceHour`` | ``NewestInstance`` | ``OldestInstance`` | ``OldestLaunchConfiguration`` | ``OldestLaunchTemplate`` | ``arn:aws:lambda:region:account-id:function:my-function:my-alias``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TrafficSources
 		// CloudFormation resource type schema:
@@ -2234,9 +1869,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Type
 					"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2246,18 +1878,12 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The traffic sources associated with this Auto Scaling group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VPCZoneIdentifier
 		// CloudFormation resource type schema:
@@ -2278,7 +1904,6 @@ func autoScalingGroupResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

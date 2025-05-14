@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -58,7 +55,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -164,9 +160,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 							"PIPELINE_1",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ProgramNumber
 				"program_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -177,9 +170,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 						int64validator.Between(0, 65535),
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceDescriptor
 				"service_descriptor": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -193,9 +183,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceName
 						"service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -206,17 +193,11 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Transport stream service descriptor configuration for the Multiplex program.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: VideoSettings
 				"video_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -229,9 +210,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(100000, 100000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StatmuxSettings
 						"statmux_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -244,9 +222,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(100000, 100000000),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MinimumBitrate
 								"minimum_bitrate": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -256,9 +231,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(100000, 100000000),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Priority
 								"priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -268,33 +240,21 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(-5, 5),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Statmux rate control settings.\nWhen this field is defined, ConstantBitrate must be undefined.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Program video settings configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The settings for this multiplex program.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PacketIdentifiersMap
 		// CloudFormation resource type schema:
@@ -368,116 +328,74 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 					ElementType: types.Int64Type,
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DvbSubPids
 				"dvb_sub_pids": schema.ListAttribute{ /*START ATTRIBUTE*/
 					ElementType: types.Int64Type,
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DvbTeletextPid
 				"dvb_teletext_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EtvPlatformPid
 				"etv_platform_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EtvSignalPid
 				"etv_signal_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: KlvDataPids
 				"klv_data_pids": schema.ListAttribute{ /*START ATTRIBUTE*/
 					ElementType: types.Int64Type,
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PcrPid
 				"pcr_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PmtPid
 				"pmt_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PrivateMetadataPid
 				"private_metadata_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Scte27Pids
 				"scte_27_pids": schema.ListAttribute{ /*START ATTRIBUTE*/
 					ElementType: types.Int64Type,
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Scte35Pid
 				"scte_35_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TimedMetadataPid
 				"timed_metadata_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: VideoPid
 				"video_pid": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The packet identifier map for this multiplex program.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PipelineDetails
 		// CloudFormation resource type schema:
@@ -510,27 +428,18 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Identifies the channel pipeline that is currently active for the pipeline (identified by PipelineId) in the multiplex.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PipelineId
 					"pipeline_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "Identifies a specific pipeline in the multiplex.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Contains information about the current sources for the specified program in the specified multiplex. Keep in mind that each multiplex pipeline connects to both pipelines in a given source channel (the channel identified by the program). But only one of those channel pipelines is ever active at one time.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PreferredChannelPipeline
 		// CloudFormation resource type schema:
@@ -555,9 +464,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 					"PIPELINE_1",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// PreferredChannelPipeline is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ProgramName
@@ -572,7 +478,6 @@ func multiplexprogramResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

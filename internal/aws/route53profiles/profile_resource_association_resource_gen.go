@@ -91,9 +91,6 @@ func profileResourceAssociationResource(ctx context.Context) (resource.Resource,
 			Description: "A JSON-formatted string with key-value pairs specifying the properties of the associated resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ResourceType
 		// CloudFormation resource type schema:

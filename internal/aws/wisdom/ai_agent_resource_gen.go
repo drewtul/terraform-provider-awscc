@@ -14,9 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -594,9 +592,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: AnswerGenerationAIPromptId
 						"answer_generation_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -605,9 +600,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: AssociationConfigurations
 						"association_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -634,9 +626,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.LengthBetween(1, 128),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -645,17 +634,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				stringvalidator.LengthBetween(1, 256),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: OrConditions
 															"or_conditions": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -673,9 +656,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 128),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Value
 																					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -684,17 +664,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 256),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																			}, /*END NESTED OBJECT*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																				listplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: TagCondition
 																		"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -707,9 +681,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 128),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Value
 																				"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -718,24 +689,15 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 256),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: TagCondition
 															"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -748,9 +710,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Value
 																	"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -759,23 +718,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 256),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MaxResults
 													"max_results": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -784,9 +734,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Float64{ /*START VALIDATORS*/
 															float64validator.Between(1.000000, 100.000000),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: OverrideKnowledgeBaseSearchType
 													"override_knowledge_base_search_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -798,23 +745,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																"SEMANTIC",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationId
 									"association_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -823,9 +761,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationType
 									"association_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -836,17 +771,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 												"KNOWLEDGE_BASE",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: IntentLabelingGenerationAIPromptId
 						"intent_labeling_generation_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -855,9 +784,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Locale
 						"locale": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -866,9 +792,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtLeast(1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: QueryReformulationAIPromptId
 						"query_reformulation_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -877,16 +800,10 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ManualSearchAIAgentConfiguration
 				"manual_search_ai_agent_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -898,9 +815,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: AnswerGenerationAIPromptId
 						"answer_generation_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -909,9 +823,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: AssociationConfigurations
 						"association_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -938,9 +849,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.LengthBetween(1, 128),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -949,17 +857,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				stringvalidator.LengthBetween(1, 256),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: OrConditions
 															"or_conditions": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -977,9 +879,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 128),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Value
 																					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -988,17 +887,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 256),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																			}, /*END NESTED OBJECT*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																				listplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: TagCondition
 																		"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1011,9 +904,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 128),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Value
 																				"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1022,24 +912,15 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 256),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: TagCondition
 															"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1052,9 +933,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Value
 																	"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1063,23 +941,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 256),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MaxResults
 													"max_results": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1088,9 +957,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Float64{ /*START VALIDATORS*/
 															float64validator.Between(1.000000, 100.000000),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: OverrideKnowledgeBaseSearchType
 													"override_knowledge_base_search_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1102,23 +968,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																"SEMANTIC",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationId
 									"association_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1127,9 +984,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationType
 									"association_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1140,17 +994,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 												"KNOWLEDGE_BASE",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Locale
 						"locale": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1159,16 +1007,10 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtLeast(1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SelfServiceAIAgentConfiguration
 				"self_service_ai_agent_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1198,9 +1040,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.LengthBetween(1, 128),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1209,17 +1048,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				stringvalidator.LengthBetween(1, 256),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: OrConditions
 															"or_conditions": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1237,9 +1070,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 128),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Value
 																					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1248,17 +1078,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 256),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																			}, /*END NESTED OBJECT*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																				listplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: TagCondition
 																		"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1271,9 +1095,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 128),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Value
 																				"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1282,24 +1103,15 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 256),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: TagCondition
 															"tag_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1312,9 +1124,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Value
 																	"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1323,23 +1132,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 256),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MaxResults
 													"max_results": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1348,9 +1148,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Float64{ /*START VALIDATORS*/
 															float64validator.Between(1.000000, 100.000000),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-															float64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: OverrideKnowledgeBaseSearchType
 													"override_knowledge_base_search_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1362,23 +1159,14 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 																"SEMANTIC",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationId
 									"association_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1387,9 +1175,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AssociationType
 									"association_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1400,17 +1185,11 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 												"KNOWLEDGE_BASE",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SelfServiceAIGuardrailId
 						"self_service_ai_guardrail_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1419,9 +1198,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SelfServiceAnswerGenerationAIPromptId
 						"self_service_answer_generation_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1430,9 +1206,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SelfServicePreProcessingAIPromptId
 						"self_service_pre_processing_ai_prompt_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1441,16 +1214,10 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(:[A-Z0-9_$]+){0,1}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Required: true,
@@ -1471,9 +1238,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 255),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9\\s_.,-]+"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModifiedTimeSeconds
 		// CloudFormation resource type schema:
@@ -1504,7 +1268,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9\\s_.,-]+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1528,7 +1291,6 @@ func aIAgentResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
 				mapplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

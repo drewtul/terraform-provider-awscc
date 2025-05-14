@@ -13,9 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
@@ -44,7 +41,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -70,7 +66,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -92,7 +87,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -141,41 +135,26 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 					"availability_zone": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: AvailabilityZoneId
 					"availability_zone_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EbsOptimized
 					"ebs_optimized": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: InstancePlatform
 					"instance_platform": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: InstanceType
 					"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Priority
 					"priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -184,17 +163,11 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							int64validator.Between(0, 999),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Weight
 					"weight": schema.Float64Attribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-							float64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -204,7 +177,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -217,9 +189,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 		"no_remove_end_date": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RemoveEndDate
 		// CloudFormation resource type schema:
@@ -230,9 +199,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 		"remove_end_date": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TagSpecifications
 		// CloudFormation resource type schema:
@@ -279,9 +245,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 					"resource_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Tags
 					"tags": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -294,9 +257,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -305,9 +265,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -315,7 +272,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 						Computed: true,
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
@@ -324,7 +280,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -346,7 +301,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -364,9 +318,6 @@ func capacityReservationFleetResource(ctx context.Context) (resource.Resource, e
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(1, 25000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

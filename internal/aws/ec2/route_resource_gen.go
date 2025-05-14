@@ -35,9 +35,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of the carrier gateway.\n You can only use this option when the VPC contains a subnet which is associated with a Wavelength Zone.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CidrBlock
 		// CloudFormation resource type schema:
@@ -64,9 +61,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Amazon Resource Name (ARN) of the core network.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DestinationCidrBlock
 		// CloudFormation resource type schema:
@@ -80,7 +74,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -96,7 +89,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -112,7 +104,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -127,9 +118,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "[IPv6 traffic only] The ID of an egress-only internet gateway.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: GatewayId
 		// CloudFormation resource type schema:
@@ -142,9 +130,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of an internet gateway or virtual private gateway attached to your VPC.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InstanceId
 		// CloudFormation resource type schema:
@@ -157,9 +142,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of a NAT instance in your VPC. The operation fails if you specify an instance ID unless exactly one network interface is attached.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LocalGatewayId
 		// CloudFormation resource type schema:
@@ -172,9 +154,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of the local gateway.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NatGatewayId
 		// CloudFormation resource type schema:
@@ -187,9 +166,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "[IPv4 traffic only] The ID of a NAT gateway.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NetworkInterfaceId
 		// CloudFormation resource type schema:
@@ -202,9 +178,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of a network interface.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RouteTableId
 		// CloudFormation resource type schema:
@@ -231,9 +204,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of a transit gateway.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcEndpointId
 		// CloudFormation resource type schema:
@@ -246,9 +216,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcPeeringConnectionId
 		// CloudFormation resource type schema:
@@ -261,9 +228,6 @@ func routeResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ID of a VPC peering connection.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

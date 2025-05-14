@@ -15,11 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -292,9 +288,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								"REFERENCED",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FilterConfiguration
 					"filter_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -305,9 +298,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the clip start time for all of your manifest egress requests. When you include clip start time, note that you cannot use clip start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: End
 							"end": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -315,9 +305,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the end time for all of your manifest egress requests. When you include end time, note that you cannot use end time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestFilter
 							"manifest_filter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -327,9 +314,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 1024),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Start
 							"start": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -337,9 +321,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the start time for all of your manifest egress requests. When you include start time, note that you cannot use start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeDelaySeconds
 							"time_delay_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -349,17 +330,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(0, 1209600),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Filter configuration includes settings for manifest filtering, start and end times, and time delay that apply to all of your egress requests for this manifest. </p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestName
 					"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -371,36 +346,24 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestWindowSeconds
 					"manifest_window_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>The total duration (in seconds) of the manifest's content.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MinBufferTimeSeconds
 					"min_buffer_time_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>Minimum amount of content (in seconds) that a player must keep available in the buffer.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MinUpdatePeriodSeconds
 					"min_update_period_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>Minimum amount of time (in seconds) that the player should wait before requesting updates to the manifest.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PeriodTriggers
 					"period_triggers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -420,9 +383,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ScteDash
 					"scte_dash": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -437,17 +397,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										"XML",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The SCTE configuration.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SegmentTemplateFormat
 					"segment_template_format": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -458,18 +412,12 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								"NUMBER_WITH_TIMELINE",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SuggestedPresentationDelaySeconds
 					"suggested_presentation_delay_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>The amount of time (in seconds) that the player should be from the end of the manifest.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: UtcTiming
 					"utc_timing": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -486,9 +434,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										"UTC_DIRECT",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimingSource
 							"timing_source": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -498,26 +443,17 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 1024),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Determines the type of UTC timing included in the DASH Media Presentation Description (MPD).</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "<p>A DASH manifest configuration.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -535,9 +471,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ForceEndpointErrorConfiguration
 		// CloudFormation resource type schema:
@@ -580,17 +513,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							),
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>The failover settings for the endpoint.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HlsManifestUrls
 		// CloudFormation resource type schema:
@@ -732,9 +659,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FilterConfiguration
 					"filter_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -745,9 +669,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the clip start time for all of your manifest egress requests. When you include clip start time, note that you cannot use clip start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: End
 							"end": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -755,9 +676,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the end time for all of your manifest egress requests. When you include end time, note that you cannot use end time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestFilter
 							"manifest_filter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -767,9 +685,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 1024),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Start
 							"start": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -777,9 +692,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the start time for all of your manifest egress requests. When you include start time, note that you cannot use start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeDelaySeconds
 							"time_delay_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -789,17 +701,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(0, 1209600),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Filter configuration includes settings for manifest filtering, start and end times, and time delay that apply to all of your egress requests for this manifest. </p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestName
 					"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -811,27 +717,18 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestWindowSeconds
 					"manifest_window_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>The total duration (in seconds) of the manifest's content.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ProgramDateTimeIntervalSeconds
 					"program_date_time_interval_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>Inserts EXT-X-PROGRAM-DATE-TIME tags in the output manifest at the interval that you specify. If you don't enter an interval,\n         EXT-X-PROGRAM-DATE-TIME tags aren't included in the manifest.\n         The tags sync the stream to the wall clock so that viewers can seek to a specific time in the playback timeline on the player.</p>\n         <p>Irrespective of this parameter, if any ID3Timed metadata is in the HLS input, it is passed through to the HLS output.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ScteHls
 					"scte_hls": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -845,17 +742,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										"DATERANGE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The SCTE configuration.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StartTag
 					"start_tag": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -865,9 +756,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Specify the value for PRECISE within your EXT-X-START tag. Leave blank, or choose false, to use the default value NO. Choose yes to use the value YES.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeOffset
 							"time_offset": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -877,44 +765,29 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									fwvalidators.NotNullFloat64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>To insert an EXT-X-START tag in your HLS playlist, specify a StartTag configuration object with a valid TimeOffset. When you do, you can also optionally specify whether to include a PRECISE value in the EXT-X-START tag.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Url
 					"url": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "<p>The egress domain URL for stream delivery from MediaPackage.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: UrlEncodeChildManifest
 					"url_encode_child_manifest": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "<p>When enabled, MediaPackage URL-encodes the query string for API requests for HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol.\n         For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "<p>An HTTP live streaming (HLS) manifest configuration.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LowLatencyHlsManifestUrls
 		// CloudFormation resource type schema:
@@ -1056,9 +929,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FilterConfiguration
 					"filter_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1069,9 +939,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the clip start time for all of your manifest egress requests. When you include clip start time, note that you cannot use clip start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: End
 							"end": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1079,9 +946,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the end time for all of your manifest egress requests. When you include end time, note that you cannot use end time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestFilter
 							"manifest_filter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1091,9 +955,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 1024),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Start
 							"start": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1101,9 +962,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Optionally specify the start time for all of your manifest egress requests. When you include start time, note that you cannot use start time query parameters for this manifest's endpoint URL.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeDelaySeconds
 							"time_delay_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1113,17 +971,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(0, 1209600),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Filter configuration includes settings for manifest filtering, start and end times, and time delay that apply to all of your egress requests for this manifest. </p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestName
 					"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1135,27 +987,18 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ManifestWindowSeconds
 					"manifest_window_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>The total duration (in seconds) of the manifest's content.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ProgramDateTimeIntervalSeconds
 					"program_date_time_interval_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 						Description: "<p>Inserts EXT-X-PROGRAM-DATE-TIME tags in the output manifest at the interval that you specify. If you don't enter an interval,\n         EXT-X-PROGRAM-DATE-TIME tags aren't included in the manifest.\n         The tags sync the stream to the wall clock so that viewers can seek to a specific time in the playback timeline on the player.</p>\n         <p>Irrespective of this parameter, if any ID3Timed metadata is in the HLS input, it is passed through to the HLS output.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ScteHls
 					"scte_hls": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1169,17 +1012,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										"DATERANGE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The SCTE configuration.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StartTag
 					"start_tag": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1189,9 +1026,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Description: "<p>Specify the value for PRECISE within your EXT-X-START tag. Leave blank, or choose false, to use the default value NO. Choose yes to use the value YES.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeOffset
 							"time_offset": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1201,44 +1035,29 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									fwvalidators.NotNullFloat64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>To insert an EXT-X-START tag in your HLS playlist, specify a StartTag configuration object with a valid TimeOffset. When you do, you can also optionally specify whether to include a PRECISE value in the EXT-X-START tag.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Url
 					"url": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "<p>The egress domain URL for stream delivery from MediaPackage.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: UrlEncodeChildManifest
 					"url_encode_child_manifest": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "<p>When enabled, MediaPackage URL-encodes the query string for API requests for LL-HLS child manifests to comply with Amazon Web Services Signature Version 4 (SigV4) signature signing protocol.\n         For more information, see <a href=\"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html\">Amazon Web Services Signature Version 4 for API requests</a> in <i>Identity and Access Management User Guide</i>.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "<p>A low-latency HLS manifest configuration.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModifiedAt
 		// CloudFormation resource type schema:
@@ -1481,9 +1300,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(32, 32),
 								stringvalidator.RegexMatches(regexp.MustCompile("^[0-9a-fA-F]+$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EncryptionMethod
 						"encryption_method": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1498,9 +1314,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 											"CBCS",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TsEncryptionMethod
 								"ts_encryption_method": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1512,9 +1325,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 											"SAMPLE_AES",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "<p>The encryption type.</p>",
@@ -1523,9 +1333,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KeyRotationIntervalSeconds
 						"key_rotation_interval_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1535,9 +1342,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(300, 31536000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SpekeKeyProvider
 						"speke_key_provider": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1561,9 +1365,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EncryptionContractConfiguration
 								"encryption_contract_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1582,9 +1383,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PresetSpeke20Video
 										"preset_speke_20_video": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1605,9 +1403,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "<p>Configure one or more content encryption keys for your endpoints that use SPEKE Version 2.0. The encryption contract defines which content keys are used to encrypt the audio and video tracks in your stream. To configure the encryption contract, specify which audio and video encryption presets to use.</p>",
@@ -1616,9 +1411,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ResourceId
 								"resource_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1630,9 +1422,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^[0-9a-zA-Z_-]+$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1643,9 +1432,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 2048),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Url
 								"url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1656,9 +1442,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 1024),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "<p>The parameters for the SPEKE key provider.</p>",
@@ -1667,26 +1450,17 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for encrypting content.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IncludeIframeOnlyStreams
 				"include_iframe_only_streams": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "<p>When selected, the stream set includes an additional I-frame only stream, along with the other tracks. If false, this extra stream is not included. MediaPackage generates an I-frame only stream from the first rendition in the manifest. The service inserts EXT-I-FRAMES-ONLY tags in the output manifest, and then generates and includes an I-frames only playlist in the stream. This playlist permits player functionality like fast forward and rewind.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Scte
 				"scte": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1713,17 +1487,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 									),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The SCTE configuration.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentDurationSeconds
 				"segment_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1733,9 +1501,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 30),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentName
 				"segment_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1746,35 +1511,23 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 256),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TsIncludeDvbSubtitles
 				"ts_include_dvb_subtitles": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "<p>By default, MediaPackage excludes all digital video broadcasting (DVB) subtitles from the output. When selected, MediaPackage passes through DVB subtitles into the output.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TsUseAudioRenditionGroup
 				"ts_use_audio_rendition_group": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "<p>When selected, MediaPackage bundles all audio tracks in a rendition group. All other tracks in the stream can be used with any audio rendition from the group.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>The segment configuration, including the segment name, duration, and other configuration values.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: StartoverWindowSeconds
 		// CloudFormation resource type schema:
@@ -1792,9 +1545,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(60, 1209600),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -1822,17 +1572,11 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 					"key": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1840,7 +1584,6 @@ func originEndpointResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

@@ -16,10 +16,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -73,7 +69,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(256),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -110,7 +105,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -126,7 +120,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -148,7 +141,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):personalize:.*:.*:.+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -375,9 +367,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Lists the hyperparameter names and ranges.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AutoMLConfig
 				"auto_ml_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -390,9 +379,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RecipeList
 						"recipe_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -407,17 +393,11 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):personalize:.*:.*:.+"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The AutoMLConfig object containing a list of recipes to search when AutoML is performed.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EventValueThreshold
 				"event_value_threshold": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -427,9 +407,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(256),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FeatureTransformationParameters
 				"feature_transformation_parameters": // Pattern: ""
@@ -438,9 +415,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Lists the feature transformation parameters.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: HpoConfig
 				"hpo_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -460,9 +434,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(256),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Values
 											"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -476,9 +447,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthAtMost(1000),
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -488,9 +456,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeAtMost(100),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContinuousHyperParameterRanges
 								"continuous_hyper_parameter_ranges": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -504,9 +469,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.AtLeast(-1000000.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MinValue
 											"min_value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -516,9 +478,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.AtLeast(-1000000.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -528,9 +487,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(256),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -540,9 +496,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeAtMost(100),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IntegerHyperParameterRanges
 								"integer_hyper_parameter_ranges": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -556,9 +509,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													int64validator.AtMost(1000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MinValue
 											"min_value": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -568,9 +518,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													int64validator.AtLeast(-1000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -580,9 +527,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(256),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -592,17 +536,11 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeAtMost(100),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The hyperparameters and their allowable ranges",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HpoObjective
 						"hpo_objective": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -615,9 +553,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(256),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MetricRegex
 								"metric_regex": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -627,9 +562,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(256),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Type
 								"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -642,17 +574,11 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 											"Minimize",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The metric to optimize during HPO.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HpoResourceConfig
 						"hpo_resource_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -665,9 +591,6 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(256),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxParallelTrainingJobs
 								"max_parallel_training_jobs": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -677,32 +600,22 @@ func solutionResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(256),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Describes the resource configuration for hyperparameter optimization (HPO).",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes the properties for hyperparameter optimization (HPO)",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The configuration to use with the solution. When performAutoML is set to true, Amazon Personalize only evaluates the autoMLConfig section of the solution configuration.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

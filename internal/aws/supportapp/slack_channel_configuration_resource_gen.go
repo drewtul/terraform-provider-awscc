@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -67,9 +66,6 @@ func slackChannelConfigurationResource(ctx context.Context) (resource.Resource, 
 				stringvalidator.LengthBetween(1, 256),
 				stringvalidator.RegexMatches(regexp.MustCompile("^.+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ChannelRoleArn
 		// CloudFormation resource type schema:
@@ -100,9 +96,6 @@ func slackChannelConfigurationResource(ctx context.Context) (resource.Resource, 
 			Description: "Whether to notify when a correspondence is added to a case.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NotifyOnCaseSeverity
 		// CloudFormation resource type schema:
@@ -138,9 +131,6 @@ func slackChannelConfigurationResource(ctx context.Context) (resource.Resource, 
 			Description: "Whether to notify when a case is created or reopened.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NotifyOnResolveCase
 		// CloudFormation resource type schema:
@@ -153,9 +143,6 @@ func slackChannelConfigurationResource(ctx context.Context) (resource.Resource, 
 			Description: "Whether to notify when a case is resolved.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TeamId
 		// CloudFormation resource type schema:

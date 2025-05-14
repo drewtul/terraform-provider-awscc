@@ -95,9 +95,6 @@ func publicKeyResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A comment to describe the public key. The comment cannot be longer than 128 characters.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EncodedKey
 				"encoded_key": schema.StringAttribute{ /*START ATTRIBUTE*/

@@ -16,11 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64default"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -801,17 +797,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for OpenSearch.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: AmazonOpenSearchParameters
 					"amazon_open_search_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -825,17 +815,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for OpenSearch.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: AthenaParameters
 					"athena_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -848,9 +832,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(20, 2048),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: WorkGroup
 							"work_group": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -860,17 +841,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 128),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Parameters for Amazon Athena.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: AuroraParameters
 					"aurora_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -884,9 +859,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -897,9 +869,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -910,17 +879,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Parameters for Amazon Aurora.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: AuroraPostgreSqlParameters
 					"aurora_postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -934,9 +897,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -947,9 +907,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -960,17 +917,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>Parameters for Amazon Aurora PostgreSQL-Compatible Edition.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DatabricksParameters
 					"databricks_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -984,9 +935,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -997,9 +945,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SqlEndpointPath
 							"sql_endpoint_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1010,17 +955,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 4096),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters that are required to connect to a Databricks data source.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MariaDbParameters
 					"maria_db_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1034,9 +973,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1047,9 +983,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1060,17 +993,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for MariaDB.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MySqlParameters
 					"my_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1084,9 +1011,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1097,9 +1021,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1110,17 +1031,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for MySQL.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OracleParameters
 					"oracle_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1134,9 +1049,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1147,9 +1059,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1160,17 +1069,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Oracle.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PostgreSqlParameters
 					"postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1184,9 +1087,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1197,9 +1097,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1210,17 +1107,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for PostgreSQL.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PrestoParameters
 					"presto_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1234,9 +1125,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1247,9 +1135,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1260,17 +1145,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Presto.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RdsParameters
 					"rds_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1284,9 +1163,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: InstanceId
 							"instance_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1297,17 +1173,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 64),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Amazon RDS.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RedshiftParameters
 					"redshift_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1320,9 +1190,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 64),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Database
 							"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1333,9 +1200,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1345,9 +1209,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(1, 256),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IAMParameters
 							"iam_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1358,9 +1219,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Optional:    true,
 										Computed:    true,
 										Default:     booldefault.StaticBool(false),
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseGroups
 									"database_groups": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1374,9 +1232,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 64),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseUser
 									"database_user": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1386,9 +1241,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 64),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RoleArn
 									"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1399,17 +1251,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(20, 2048),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API_GetClusterCredentials.html\">\n               <code>GetClusterCredentials</code>\n            </a>.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IdentityCenterConfiguration
 							"identity_center_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1419,17 +1265,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Description: "<p>A Boolean option that controls whether Trusted Identity Propagation should be used.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "<p>The parameters for an IAM Identity Center configuration.</p>",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1440,17 +1280,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(0.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if\n            <code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: S3Parameters
 					"s3_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1467,9 +1301,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 1024),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Key
 									"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1480,9 +1311,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 1024),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "<p>Amazon S3 manifest file location.</p>",
@@ -1491,9 +1319,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RoleArn
 							"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1503,17 +1328,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(20, 2048),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for S3.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SnowflakeParameters
 					"snowflake_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1529,9 +1348,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										"X509",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Database
 							"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1542,9 +1358,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: DatabaseAccessControlRole
 							"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1553,9 +1366,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(0, 128),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1566,9 +1376,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OAuthParameters
 							"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1580,9 +1387,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 2048),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: IdentityProviderVpcConnectionProperties
 									"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1595,17 +1399,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>VPC connection properties.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OAuthScope
 									"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1614,9 +1412,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 128),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TokenProviderUrl
 									"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1626,16 +1421,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 2048),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Warehouse
 							"warehouse": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1646,17 +1435,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Snowflake.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SparkParameters
 					"spark_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1670,9 +1453,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1683,17 +1463,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Spark.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SqlServerParameters
 					"sql_server_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1707,9 +1481,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1720,9 +1491,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1733,17 +1501,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for SQL Server.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StarburstParameters
 					"starburst_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1759,9 +1521,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										"X509",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Catalog
 							"catalog": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1772,9 +1531,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: DatabaseAccessControlRole
 							"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1783,9 +1539,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									stringvalidator.LengthBetween(0, 128),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1796,9 +1549,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OAuthParameters
 							"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1810,9 +1560,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 2048),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: IdentityProviderVpcConnectionProperties
 									"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1825,17 +1572,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>VPC connection properties.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OAuthScope
 									"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1844,9 +1585,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 128),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TokenProviderUrl
 									"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1856,16 +1594,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 2048),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1876,9 +1608,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ProductType
 							"product_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1890,17 +1619,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										"ENTERPRISE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters that are required to connect to a Starburst data source.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TeradataParameters
 					"teradata_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1914,9 +1637,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1927,9 +1647,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1940,17 +1657,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters for Teradata.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TrinoParameters
 					"trino_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1964,9 +1675,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1977,9 +1685,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 256),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Port
 							"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1990,17 +1695,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Float64{ /*START VALIDATORS*/
 									float64validator.Between(1.000000, 65535.000000),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-									float64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "<p>The parameters that are required to connect to a Trino data source.</p>",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2010,9 +1709,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -2045,7 +1741,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[0-9]{12}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2865,9 +2560,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:[-a-z0-9]*:quicksight:[-a-z0-9]*:[0-9]{12}:datasource/.+$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CredentialPair
 				"credential_pair": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2888,17 +2580,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 64),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for OpenSearch.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AmazonOpenSearchParameters
 									"amazon_open_search_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2912,17 +2598,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 64),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for OpenSearch.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AthenaParameters
 									"athena_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2935,9 +2615,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(20, 2048),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: WorkGroup
 											"work_group": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2947,17 +2624,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(1, 128),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>Parameters for Amazon Athena.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AuroraParameters
 									"aurora_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2971,9 +2642,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2984,9 +2652,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -2997,17 +2662,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>Parameters for Amazon Aurora.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: AuroraPostgreSqlParameters
 									"aurora_postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3021,9 +2680,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3034,9 +2690,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3047,17 +2700,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>Parameters for Amazon Aurora PostgreSQL-Compatible Edition.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabricksParameters
 									"databricks_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3071,9 +2718,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3084,9 +2728,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SqlEndpointPath
 											"sql_endpoint_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3097,17 +2738,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 4096),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters that are required to connect to a Databricks data source.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MariaDbParameters
 									"maria_db_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3121,9 +2756,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3134,9 +2766,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3147,17 +2776,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for MariaDB.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MySqlParameters
 									"my_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3171,9 +2794,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3184,9 +2804,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3197,17 +2814,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for MySQL.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OracleParameters
 									"oracle_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3221,9 +2832,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3234,9 +2842,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3247,17 +2852,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Oracle.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PostgreSqlParameters
 									"postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3271,9 +2870,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3284,9 +2880,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3297,17 +2890,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for PostgreSQL.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PrestoParameters
 									"presto_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3321,9 +2908,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3334,9 +2918,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3347,17 +2928,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Presto.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RdsParameters
 									"rds_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3371,9 +2946,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: InstanceId
 											"instance_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3384,17 +2956,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 64),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Amazon RDS.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RedshiftParameters
 									"redshift_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3407,9 +2973,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(1, 64),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Database
 											"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3420,9 +2983,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3432,9 +2992,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(1, 256),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: IAMParameters
 											"iam_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3445,9 +3002,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Optional:    true,
 														Computed:    true,
 														Default:     booldefault.StaticBool(false),
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: DatabaseGroups
 													"database_groups": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3461,9 +3015,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.LengthBetween(1, 64),
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: DatabaseUser
 													"database_user": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3473,9 +3024,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 64),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RoleArn
 													"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3486,17 +3034,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(20, 2048),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API_GetClusterCredentials.html\">\n               <code>GetClusterCredentials</code>\n            </a>.</p>",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: IdentityCenterConfiguration
 											"identity_center_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3506,17 +3048,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Description: "<p>A Boolean option that controls whether Trusted Identity Propagation should be used.</p>",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "<p>The parameters for an IAM Identity Center configuration.</p>",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3527,17 +3063,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(0.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if\n            <code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: S3Parameters
 									"s3_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3554,9 +3084,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 1024),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Key
 													"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3567,9 +3094,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 1024),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "<p>Amazon S3 manifest file location.</p>",
@@ -3578,9 +3102,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RoleArn
 											"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3590,17 +3111,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(20, 2048),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for S3.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SnowflakeParameters
 									"snowflake_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3616,9 +3131,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														"X509",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Database
 											"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3629,9 +3141,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DatabaseAccessControlRole
 											"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3640,9 +3149,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(0, 128),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3653,9 +3159,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: OAuthParameters
 											"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3667,9 +3170,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 2048),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: IdentityProviderVpcConnectionProperties
 													"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3682,17 +3182,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "<p>VPC connection properties.</p>",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: OAuthScope
 													"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3701,9 +3195,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 128),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: TokenProviderUrl
 													"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3713,16 +3204,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 2048),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Warehouse
 											"warehouse": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3733,17 +3218,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Snowflake.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SparkParameters
 									"spark_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3757,9 +3236,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3770,17 +3246,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Spark.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SqlServerParameters
 									"sql_server_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3794,9 +3264,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3807,9 +3274,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3820,17 +3284,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for SQL Server.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: StarburstParameters
 									"starburst_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3846,9 +3304,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														"X509",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Catalog
 											"catalog": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3859,9 +3314,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DatabaseAccessControlRole
 											"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3870,9 +3322,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(0, 128),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3883,9 +3332,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: OAuthParameters
 											"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3897,9 +3343,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 2048),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: IdentityProviderVpcConnectionProperties
 													"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3912,17 +3355,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "<p>VPC connection properties.</p>",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: OAuthScope
 													"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3931,9 +3368,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 128),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: TokenProviderUrl
 													"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3943,16 +3377,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 2048),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -3963,9 +3391,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ProductType
 											"product_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3977,17 +3402,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 														"ENTERPRISE",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters that are required to connect to a Starburst data source.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TeradataParameters
 									"teradata_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4001,9 +3420,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4014,9 +3430,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -4027,17 +3440,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters for Teradata.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TrinoParameters
 									"trino_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4051,9 +3458,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Host
 											"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4064,9 +3468,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 256),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Port
 											"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -4077,17 +3478,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													float64validator.Between(1.000000, 65535.000000),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "<p>The parameters that are required to connect to a Trino data source.</p>",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -4097,9 +3492,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(1, 50),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Password
 						"password": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4110,9 +3502,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 1024),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Username
 						"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4123,17 +3512,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The combination of user name and password that are used as credentials.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SecretArn
 				"secret_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4144,17 +3527,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 2048),
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:[-a-z0-9]*:secretsmanager:[-a-z0-9]*:[0-9]{12}:secret:.+$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>Data source credentials. This is a variant type structure. For this structure to be\n            valid, only one of the attributes can be non-null.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Credentials is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: DataSourceId
@@ -4167,7 +3544,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -4927,17 +4303,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for OpenSearch.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AmazonOpenSearchParameters
 				"amazon_open_search_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4951,17 +4321,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for OpenSearch.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AthenaParameters
 				"athena_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4974,9 +4338,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(20, 2048),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: WorkGroup
 						"work_group": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4986,17 +4347,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 128),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>Parameters for Amazon Athena.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AuroraParameters
 				"aurora_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5010,9 +4365,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5023,9 +4375,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5036,17 +4385,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>Parameters for Amazon Aurora.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AuroraPostgreSqlParameters
 				"aurora_postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5060,9 +4403,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5073,9 +4413,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5086,17 +4423,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>Parameters for Amazon Aurora PostgreSQL-Compatible Edition.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DatabricksParameters
 				"databricks_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5110,9 +4441,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5123,9 +4451,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SqlEndpointPath
 						"sql_endpoint_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5136,17 +4461,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 4096),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters that are required to connect to a Databricks data source.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MariaDbParameters
 				"maria_db_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5160,9 +4479,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5173,9 +4489,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5186,17 +4499,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for MariaDB.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MySqlParameters
 				"my_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5210,9 +4517,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5223,9 +4527,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5236,17 +4537,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for MySQL.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: OracleParameters
 				"oracle_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5260,9 +4555,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5273,9 +4565,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5286,17 +4575,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Oracle.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PostgreSqlParameters
 				"postgre_sql_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5310,9 +4593,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5323,9 +4603,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5336,17 +4613,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for PostgreSQL.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PrestoParameters
 				"presto_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5360,9 +4631,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(0, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5373,9 +4641,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5386,17 +4651,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Presto.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RdsParameters
 				"rds_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5410,9 +4669,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InstanceId
 						"instance_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5423,17 +4679,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Amazon RDS.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RedshiftParameters
 				"redshift_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5446,9 +4696,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 64),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Database
 						"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5459,9 +4706,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5471,9 +4715,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: IAMParameters
 						"iam_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5484,9 +4725,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DatabaseGroups
 								"database_groups": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -5500,9 +4738,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 64),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DatabaseUser
 								"database_user": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5512,9 +4747,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 64),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5525,17 +4757,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(20, 2048),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "<p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href=\"https://docs.aws.amazon.com/redshift/latest/APIReference/API_GetClusterCredentials.html\">\n               <code>GetClusterCredentials</code>\n            </a>.</p>",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: IdentityCenterConfiguration
 						"identity_center_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5545,17 +4771,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Description: "<p>A Boolean option that controls whether Trusted Identity Propagation should be used.</p>",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "<p>The parameters for an IAM Identity Center configuration.</p>",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5566,17 +4786,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if\n            <code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3Parameters
 				"s3_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5593,9 +4807,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 1024),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Key
 								"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5606,9 +4817,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 1024),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "<p>Amazon S3 manifest file location.</p>",
@@ -5617,9 +4825,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RoleArn
 						"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5629,17 +4834,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(20, 2048),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for S3.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SnowflakeParameters
 				"snowflake_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5655,9 +4854,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									"X509",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Database
 						"database": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5668,9 +4864,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatabaseAccessControlRole
 						"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5679,9 +4872,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(0, 128),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5692,9 +4882,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OAuthParameters
 						"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5706,9 +4893,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 2048),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IdentityProviderVpcConnectionProperties
 								"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5721,17 +4905,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "<p>VPC connection properties.</p>",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OAuthScope
 								"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5740,9 +4918,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 128),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TokenProviderUrl
 								"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5752,16 +4927,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 2048),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Warehouse
 						"warehouse": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5772,17 +4941,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(0, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Snowflake.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SparkParameters
 				"spark_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5796,9 +4959,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5809,17 +4969,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Spark.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SqlServerParameters
 				"sql_server_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5833,9 +4987,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5846,9 +4997,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -5859,17 +5007,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for SQL Server.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StarburstParameters
 				"starburst_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5885,9 +5027,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									"X509",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Catalog
 						"catalog": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5898,9 +5037,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(0, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatabaseAccessControlRole
 						"database_access_control_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5909,9 +5045,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(0, 128),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5922,9 +5055,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OAuthParameters
 						"o_auth_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5936,9 +5066,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 2048),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IdentityProviderVpcConnectionProperties
 								"identity_provider_vpc_connection_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5951,17 +5078,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "<p>VPC connection properties.</p>",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OAuthScope
 								"o_auth_scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5970,9 +5091,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 128),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TokenProviderUrl
 								"token_provider_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5982,16 +5100,10 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 2048),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -6002,9 +5114,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ProductType
 						"product_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6016,17 +5125,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 									"ENTERPRISE",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters that are required to connect to a Starburst data source.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TeradataParameters
 				"teradata_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6040,9 +5143,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6053,9 +5153,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -6066,17 +5163,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters for Teradata.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TrinoParameters
 				"trino_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6090,9 +5181,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(0, 128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6103,9 +5191,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Port
 						"port": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -6116,25 +5201,16 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(1.000000, 65535.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "<p>The parameters that are required to connect to a Trino data source.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>The parameters that Amazon QuickSight uses to connect to your underlying data source.\n            This is a variant type structure. For this structure to be valid, only one of the\n            attributes can be non-null.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ErrorInfo
 		// CloudFormation resource type schema:
@@ -6170,9 +5246,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 					Description: "<p>Error message.</p>",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Type
 				"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6190,17 +5263,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							"UNKNOWN",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>Error information for the data source creation or update.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FolderArns
 		// CloudFormation resource type schema:
@@ -6220,9 +5287,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(0, 10),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// FolderArns is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: LastUpdatedTime
@@ -6305,9 +5369,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.SizeBetween(1, 20),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Principal
 					"principal": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6318,17 +5379,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Resource
 					"resource": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -6337,9 +5392,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 64),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SslProperties
 		// CloudFormation resource type schema:
@@ -6364,17 +5416,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 					Optional:    true,
 					Computed:    true,
 					Default:     booldefault.StaticBool(false),
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>Secure Socket Layer (SSL) properties that apply when Amazon QuickSight connects to your\n            underlying data source.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Status
 		// CloudFormation resource type schema:
@@ -6440,9 +5486,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6453,9 +5496,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -6464,9 +5504,6 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Type
 		// CloudFormation resource type schema:
@@ -6599,17 +5636,11 @@ func dataSourceResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "<p>VPC connection properties.</p>",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

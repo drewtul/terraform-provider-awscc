@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64default"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -104,9 +103,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Validators: []validator.Float64{ /*START VALIDATORS*/
 				float64validator.AtLeast(1.000000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -124,9 +120,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EvaluationPeriods
 		// CloudFormation resource type schema:
@@ -145,9 +138,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Validators: []validator.Float64{ /*START VALIDATORS*/
 				float64validator.AtLeast(1.000000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: GroupId
 		// CloudFormation resource type schema:
@@ -181,9 +171,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^[^\\s]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// GroupIdentifier is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Id
@@ -281,9 +268,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Validators: []validator.Float64{ /*START VALIDATORS*/
 				float64validator.Between(10.000000, 86400.000000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Statistic
 		// CloudFormation resource type schema:
@@ -332,7 +316,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
 				mapplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -384,9 +367,6 @@ func cloudWatchAlarmTemplateResource(ctx context.Context) (resource.Resource, er
 			Optional:    true,
 			Computed:    true,
 			Default:     float64default.StaticFloat64(0.000000),
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TreatMissingData
 		// CloudFormation resource type schema:

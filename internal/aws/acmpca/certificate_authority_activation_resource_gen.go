@@ -61,9 +61,6 @@ func certificateAuthorityActivationResource(ctx context.Context) (resource.Resou
 			Description: "Certificate chain for the Certificate Authority certificate.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CertificateChain is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CompleteCertificateChain
@@ -91,9 +88,6 @@ func certificateAuthorityActivationResource(ctx context.Context) (resource.Resou
 			Description: "The status of the Certificate Authority.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

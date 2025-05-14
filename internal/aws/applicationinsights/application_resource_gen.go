@@ -13,10 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -59,9 +55,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Description: "If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AttachMissingPermission is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: AutoConfigurationEnabled
@@ -75,9 +68,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Description: "If set to true, application will be configured with recommended monitoring configuration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CWEMonitorEnabled
 		// CloudFormation resource type schema:
@@ -90,9 +80,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether Application Insights can listen to CloudWatch events for the application resources.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ComponentMonitoringSettings
 		// CloudFormation resource type schema:
@@ -1204,9 +1191,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(20, 300),
 							stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:[\\w\\d-]+:([\\w\\d-]*)?:[\\w\\d_-]*([:/].+)*$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ComponentConfigurationMode
 					"component_configuration_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1221,9 +1205,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ComponentName
 					"component_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1234,9 +1215,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[\\d\\w\\-_.+]*$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: CustomComponentConfiguration
 					"custom_component_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1256,18 +1234,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of metrics to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Alarms
 									"alarms": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1282,9 +1254,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 255),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Severity
 												"severity": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1298,18 +1267,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															"LOW",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of alarms to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HAClusterPrometheusExporter
 									"ha_cluster_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1319,17 +1282,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The HA cluster Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HANAPrometheusExporter
 									"hana_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1342,9 +1299,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Bool{ /*START VALIDATORS*/
 													fwvalidators.NotNullBool(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANAPort
 											"hana_port": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1354,9 +1308,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANASID
 											"hanasid": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1366,9 +1317,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANASecretName
 											"hana_secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1378,26 +1326,17 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The HANA DB Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: JMXPrometheusExporter
 									"jmx_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1407,35 +1346,23 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Java agent host port",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: JMXURL
 											"jmxurl": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "JMX service URL.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The JMX Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Logs
 									"logs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1453,9 +1380,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															"ascii",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogGroupName
 												"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1466,9 +1390,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 512),
 														stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogPath
 												"log_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1479,9 +1400,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 260),
 														stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z]:\\\\[\\\\\\S|*\\S]?.*|/[^\"']*)$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogType
 												"log_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1492,9 +1410,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[A-Z][[A-Z]_]*$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PatternSet
 												"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1505,18 +1420,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 30),
 														stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of logs to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: NetWeaverPrometheusExporter
 									"net_weaver_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1534,18 +1443,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SAPSID
 											"sapsid": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1555,17 +1458,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The NetWeaver Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Processes
 									"processes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1583,9 +1480,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -1595,9 +1489,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														fwvalidators.NotNullList(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ProcessName
 												"process_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1609,18 +1500,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_,-]+$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of processes to monitor for the component. Only Windows EC2 instances can have a processes section.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SQLServerPrometheusExporter
 									"sql_server_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1633,9 +1518,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SQLSecretName
 											"sql_secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1645,17 +1527,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The SQL Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: WindowsEvents
 									"windows_events": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1680,9 +1556,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullList(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1694,9 +1567,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_ \\\\/-]+$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogGroupName
 												"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1708,9 +1578,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PatternSet
 												"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1721,26 +1588,17 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 30),
 														stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of Windows Events to log.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The configuration settings",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SubComponentTypeConfigurations
 							"sub_component_type_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1761,18 +1619,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of metrics to monitor for the component.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Logs
 												"logs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1790,9 +1642,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																		"ascii",
 																	),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogGroupName
 															"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1803,9 +1652,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 512),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogPath
 															"log_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1816,9 +1662,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 260),
 																	stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z]:\\\\[\\\\\\S|*\\S]?.*|/[^\"']*)$"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogType
 															"log_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1829,9 +1672,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[A-Z][[A-Z]_]*$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: PatternSet
 															"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1842,18 +1682,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 30),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of logs to monitor for the component.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Processes
 												"processes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1871,9 +1705,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -1883,9 +1714,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.List{ /*START VALIDATORS*/
 																	fwvalidators.NotNullList(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ProcessName
 															"process_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1897,18 +1725,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_,-]+$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of processes to monitor for the component. Only Windows EC2 instances can have a processes section.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: WindowsEvents
 												"windows_events": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1933,9 +1755,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	),
 																	fwvalidators.NotNullList(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: EventName
 															"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1947,9 +1766,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_ \\\\/-]+$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogGroupName
 															"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1961,9 +1777,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: PatternSet
 															"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1974,18 +1787,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 30),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of Windows Events to log.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The configuration settings of sub components.",
@@ -1994,9 +1801,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: SubComponentType
 										"sub_component_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2010,9 +1814,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2022,17 +1823,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.SizeAtLeast(1),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The monitoring configuration of the component.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DefaultOverwriteComponentConfiguration
 					"default_overwrite_component_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2052,18 +1847,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of metrics to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Alarms
 									"alarms": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2078,9 +1867,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 255),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Severity
 												"severity": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2094,18 +1880,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															"LOW",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of alarms to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HAClusterPrometheusExporter
 									"ha_cluster_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2115,17 +1895,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The HA cluster Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HANAPrometheusExporter
 									"hana_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2138,9 +1912,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Bool{ /*START VALIDATORS*/
 													fwvalidators.NotNullBool(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANAPort
 											"hana_port": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2150,9 +1921,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANASID
 											"hanasid": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2162,9 +1930,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HANASecretName
 											"hana_secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2174,26 +1939,17 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The HANA DB Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: JMXPrometheusExporter
 									"jmx_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2203,35 +1959,23 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Description: "Java agent host port",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: JMXURL
 											"jmxurl": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "JMX service URL.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The JMX Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Logs
 									"logs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2249,9 +1993,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															"ascii",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogGroupName
 												"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2262,9 +2003,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 512),
 														stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogPath
 												"log_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2275,9 +2013,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 260),
 														stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z]:\\\\[\\\\\\S|*\\S]?.*|/[^\"']*)$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogType
 												"log_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2288,9 +2023,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[A-Z][[A-Z]_]*$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PatternSet
 												"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2301,18 +2033,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 30),
 														stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of logs to monitor for the component.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: NetWeaverPrometheusExporter
 									"net_weaver_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2330,18 +2056,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PrometheusPort
 											"prometheus_port": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Prometheus exporter port.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SAPSID
 											"sapsid": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2351,17 +2071,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The NetWeaver Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Processes
 									"processes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2379,9 +2093,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -2391,9 +2102,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.List{ /*START VALIDATORS*/
 														fwvalidators.NotNullList(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ProcessName
 												"process_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2405,18 +2113,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_,-]+$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of processes to monitor for the component. Only Windows EC2 instances can have a processes section.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SQLServerPrometheusExporter
 									"sql_server_prometheus_exporter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2429,9 +2131,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SQLSecretName
 											"sql_secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2441,17 +2140,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The SQL Prometheus Exporter settings.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: WindowsEvents
 									"windows_events": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2476,9 +2169,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullList(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2490,9 +2180,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_ \\\\/-]+$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LogGroupName
 												"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2504,9 +2191,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PatternSet
 												"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2517,26 +2201,17 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 30),
 														stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "A list of Windows Events to log.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The configuration settings",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SubComponentTypeConfigurations
 							"sub_component_type_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2557,18 +2232,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of metrics to monitor for the component.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Logs
 												"logs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2586,9 +2255,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																		"ascii",
 																	),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogGroupName
 															"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2599,9 +2265,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 512),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogPath
 															"log_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2612,9 +2275,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 260),
 																	stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z]:\\\\[\\\\\\S|*\\S]?.*|/[^\"']*)$"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogType
 															"log_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2625,9 +2285,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[A-Z][[A-Z]_]*$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: PatternSet
 															"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2638,18 +2295,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 30),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of logs to monitor for the component.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Processes
 												"processes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2667,9 +2318,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -2679,9 +2327,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.List{ /*START VALIDATORS*/
 																	fwvalidators.NotNullList(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ProcessName
 															"process_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2693,18 +2338,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_,-]+$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of processes to monitor for the component. Only Windows EC2 instances can have a processes section.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: WindowsEvents
 												"windows_events": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2729,9 +2368,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	),
 																	fwvalidators.NotNullList(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: EventName
 															"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2743,9 +2379,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_ \\\\/-]+$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogGroupName
 															"log_group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2757,9 +2390,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-_/#A-Za-z0-9]+"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: PatternSet
 															"pattern_set": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2770,18 +2400,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.LengthBetween(1, 30),
 																	stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "A list of Windows Events to log.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-														listplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "The configuration settings of sub components.",
@@ -2790,9 +2414,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: SubComponentType
 										"sub_component_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2806,9 +2427,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2818,17 +2436,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.List{ /*START VALIDATORS*/
 									listvalidator.SizeAtLeast(1),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The overwritten settings on default component monitoring configuration.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Tier
 					"tier": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2839,9 +2451,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[A-Z][[A-Z]_]*$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2851,9 +2460,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ComponentMonitoringSettings is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CustomComponents
@@ -2908,9 +2514,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[\\d\\w\\-_.+]*$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceList
 					"resource_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2926,9 +2529,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2938,9 +2538,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CustomComponents is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: GroupingType
@@ -2963,7 +2560,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// GroupingType is a write-only property.
@@ -3046,9 +2642,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 50),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PatternName
 								"pattern_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3060,9 +2653,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Rank
 								"rank": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3072,9 +2662,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -3085,9 +2672,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.SizeAtLeast(1),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: PatternSetName
 					"pattern_set_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3099,9 +2683,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9.-_]*"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -3111,9 +2692,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// LogPatternSets is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: OpsCenterEnabled
@@ -3127,9 +2705,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Description: "When set to true, creates opsItems for any problems detected on an application.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: OpsItemSNSTopicArn
 		// CloudFormation resource type schema:
@@ -3149,9 +2724,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(20, 300),
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:[\\w\\d-]+:([\\w\\d-]*)?:[\\w\\d_-]*([:/].+)*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// OpsItemSNSTopicArn is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ResourceGroupName
@@ -3193,9 +2765,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(20, 300),
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:[\\w\\d-]+:([\\w\\d-]*)?:[\\w\\d_-]*([:/].+)*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// SNSNotificationArn is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
@@ -3242,9 +2811,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3255,9 +2821,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -3267,9 +2830,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

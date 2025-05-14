@@ -14,13 +14,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -65,16 +61,12 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthBetween(1, 200),
 						stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9-\\/*:_+=.@-]*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specific configuration settings for an Amazon Managed Streaming for Apache Kafka (Amazon MSK) event source.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -94,9 +86,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(1, 10000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: BisectBatchOnFunctionError
 		// CloudFormation resource type schema:
@@ -109,9 +98,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Description: "(Kinesis and DynamoDB Streams only) If the function returns an error, split the batch in two and retry. The default value is false.\n  When using ``BisectBatchOnFunctionError``, check the ``BatchSize`` parameter in the ``OnFailure`` destination message's metadata. The ``BatchSize`` could be greater than 1 since LAM consolidates failed messages metadata when writing to the ``OnFailure`` destination.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DestinationConfig
 		// CloudFormation resource type schema:
@@ -151,25 +137,16 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(12, 1024),
 								stringvalidator.RegexMatches(regexp.MustCompile("arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\\d{1})?:(\\d{12})?:(.*)"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The destination configuration for failed invocations.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka event sources only) A configuration object that specifies the destination of an event after Lambda processes it.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DocumentDBEventSourceConfig
 		// CloudFormation resource type schema:
@@ -211,9 +188,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 57),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DatabaseName
 				"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -223,9 +197,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 63),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FullDocument
 				"full_document": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -238,17 +209,11 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 							"Default",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specific configuration settings for a DocumentDB event source.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Enabled
 		// CloudFormation resource type schema:
@@ -261,9 +226,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Description: "When true, the event source mapping is active. When false, Lambda pauses polling and invocation.\n Default: True",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EventSourceArn
 		// CloudFormation resource type schema:
@@ -284,7 +246,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\\d{1})?:(\\d{12})?:(.*)"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -351,9 +312,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 									stringvalidator.LengthBetween(0, 4096),
 									stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -364,17 +322,11 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 						listvalidator.SizeBetween(1, 20),
 						listvalidator.UniqueValues(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see [Lambda event filtering](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FunctionName
 		// CloudFormation resource type schema:
@@ -423,9 +375,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:
@@ -462,9 +411,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(12, 2048),
 				stringvalidator.RegexMatches(regexp.MustCompile("(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaximumBatchingWindowInSeconds
 		// CloudFormation resource type schema:
@@ -482,9 +428,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(0, 300),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaximumRecordAgeInSeconds
 		// CloudFormation resource type schema:
@@ -502,9 +445,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(-1, 604800),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaximumRetryAttempts
 		// CloudFormation resource type schema:
@@ -522,9 +462,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(-1, 10000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MetricsConfig
 		// CloudFormation resource type schema:
@@ -566,17 +503,11 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 							),
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The metrics configuration for your event source. For more information, see [Event source mapping metrics](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ParallelizationFactor
 		// CloudFormation resource type schema:
@@ -594,9 +525,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(1, 10),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ProvisionedPollerConfig
 		// CloudFormation resource type schema:
@@ -630,9 +558,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 2000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MinimumPollers
 				"minimum_pollers": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -642,17 +567,11 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 200),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "(Amazon MSK and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see [provisioned mode](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Queues
 		// CloudFormation resource type schema:
@@ -683,9 +602,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					stringvalidator.RegexMatches(regexp.MustCompile("[\\s\\S]*"), ""),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ScalingConfig
 		// CloudFormation resource type schema:
@@ -713,17 +629,11 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(2, 1000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "(Amazon SQS only) The scaling configuration for the event source. For more information, see [Configuring maximum concurrency for Amazon SQS event sources](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SelfManagedEventSource
 		// CloudFormation resource type schema:
@@ -775,24 +685,17 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 									stringvalidator.RegexMatches(regexp.MustCompile("^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9]):[0-9]{1,5}"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The list of bootstrap servers for your Kafka brokers in the following format: ``\"KafkaBootstrapServers\": [\"abc.xyz.com:xxxx\",\"abc2.xyz.com:xxxx\"]``.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The self-managed Apache Kafka cluster for your event source.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -824,16 +727,12 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthBetween(1, 200),
 						stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9-\\/*:_+=.@-]*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specific configuration settings for a self-managed Apache Kafka event source.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -895,9 +794,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 								"SERVER_ROOT_CA_CERTIFICATE",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: URI
 					"uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -908,9 +804,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 200),
 							stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9-\\/*:_+=.@-]*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -921,9 +814,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 				listvalidator.SizeBetween(1, 22),
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: StartingPosition
 		// CloudFormation resource type schema:
@@ -944,7 +834,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("(LATEST|TRIM_HORIZON|AT_TIMESTAMP)+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -960,7 +849,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
 				float64planmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1007,9 +895,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1019,18 +904,12 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(0, 256),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "A list of tags to add to the event source mapping.\n  You must have the ``lambda:TagResource``, ``lambda:UntagResource``, and ``lambda:ListTags`` permissions for your [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html) to manage the CFN stack. If you don't have these permissions, there might be unexpected behavior with stack-level tags propagating to the resource during resource creation and update.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Topics
 		// CloudFormation resource type schema:
@@ -1061,9 +940,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 					stringvalidator.RegexMatches(regexp.MustCompile("^[^.]([a-zA-Z0-9\\-_.]+)"), ""),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TumblingWindowInSeconds
 		// CloudFormation resource type schema:
@@ -1081,9 +957,6 @@ func eventSourceMappingResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(0, 900),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

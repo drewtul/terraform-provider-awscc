@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -236,9 +235,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 									),
 									fwvalidators.NotNullSet(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-									setplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: S3Uri
 							"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -249,9 +245,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 									stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Split
 							"split": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -263,17 +256,11 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 										"TEST",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DataFormat
 				"data_format": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -285,9 +272,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 							"AUGMENTED_MANIFEST",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DocumentReaderConfig
 				"document_reader_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -303,9 +287,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DocumentReadMode
 						"document_read_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -317,9 +298,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 									"FORCE_DOCUMENT_READ_ACTION",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: FeatureTypes
 						"feature_types": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -335,16 +313,10 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 									),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DocumentType
 				"document_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -356,9 +328,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 							"SEMI_STRUCTURED_DOCUMENT",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Documents
 				"documents": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -372,9 +341,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TestS3Uri
 						"test_s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -384,16 +350,10 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthAtMost(1024),
 								stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LabelDelimiter
 				"label_delimiter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -403,9 +363,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthBetween(1, 1),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[ ~!@#$%^*\\-_+=|\\\\:;\\t>?/]$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3Uri
 				"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -415,9 +372,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TestS3Uri
 				"test_s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -427,9 +381,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Required: true,
@@ -487,7 +438,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -506,7 +456,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(1, 2048),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -525,9 +474,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 20000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: OutputDataConfig
 		// CloudFormation resource type schema:
@@ -557,9 +503,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3Uri
 				"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -569,15 +512,11 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile("s3://[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9](/.*)?"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -620,9 +559,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -632,17 +568,11 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VersionName
 		// CloudFormation resource type schema:
@@ -661,7 +591,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -680,7 +609,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(1, 2048),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -738,9 +666,6 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						),
 						fwvalidators.NotNullSet(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Subnets
 				"subnets": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -755,15 +680,11 @@ func documentClassifierResource(ctx context.Context) (resource.Resource, error) 
 						),
 						fwvalidators.NotNullSet(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

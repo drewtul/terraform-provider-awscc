@@ -14,12 +14,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64default"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -82,9 +78,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Attachment ARN that provides access control to the cross account endpoint. Not required for resources hosted in the same account as the endpoint group.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ClientIPPreservationEnabled
 					"client_ip_preservation_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -92,9 +85,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 						Optional:    true,
 						Computed:    true,
 						Default:     booldefault.StaticBool(true),
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EndpointId
 					"endpoint_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -104,9 +94,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Weight
 					"weight": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -117,18 +104,12 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							int64validator.Between(0, 255),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The list of endpoint objects.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EndpointGroupArn
 		// CloudFormation resource type schema:
@@ -171,9 +152,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			Default:     int64default.StaticInt64(30),
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HealthCheckPath
 		// CloudFormation resource type schema:
@@ -188,9 +166,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			Default:     stringdefault.StaticString("/"),
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HealthCheckPort
 		// CloudFormation resource type schema:
@@ -210,9 +185,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(-1, 65535),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HealthCheckProtocol
 		// CloudFormation resource type schema:
@@ -239,9 +211,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 					"HTTPS",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ListenerArn
 		// CloudFormation resource type schema:
@@ -298,9 +267,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 							int64validator.Between(0, 65535),
 							fwvalidators.NotNullInt64(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ListenerPort
 					"listener_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -311,17 +277,11 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 							int64validator.Between(0, 65535),
 							fwvalidators.NotNullInt64(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ThresholdCount
 		// CloudFormation resource type schema:
@@ -336,9 +296,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			Default:     int64default.StaticInt64(3),
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TrafficDialPercentage
 		// CloudFormation resource type schema:
@@ -358,9 +315,6 @@ func endpointGroupResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Float64{ /*START VALIDATORS*/
 				float64validator.Between(0.000000, 100.000000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

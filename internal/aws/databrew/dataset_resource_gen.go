@@ -13,10 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -61,9 +57,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 					"ORC",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FormatOptions
 		// CloudFormation resource type schema:
@@ -151,25 +144,16 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HeaderRow
 						"header_row": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Csv options",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Excel
 				"excel": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -178,9 +162,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						"header_row": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SheetIndexes
 						"sheet_indexes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -190,9 +171,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(1, 1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SheetNames
 						"sheet_names": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -202,16 +180,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(1, 1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Json
 				"json": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -220,25 +192,16 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						"multi_line": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Json options",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Format options for dataset",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Input
 		// CloudFormation resource type schema:
@@ -375,27 +338,18 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Catalog id",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatabaseName
 						"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Database name",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TableName
 						"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Table name",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TempDirectory
 						"temp_directory": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -407,9 +361,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BucketOwner
 								"bucket_owner": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -419,32 +370,20 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(12, 12),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Key
 								"key": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Input location",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DatabaseInputDefinition
 				"database_input_definition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -454,9 +393,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Database table name",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GlueConnectionName
 						"glue_connection_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -466,18 +402,12 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: QueryString
 						"query_string": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Custom SQL to run against the provided AWS Glue connection. This SQL will be used as the input for DataBrew projects and jobs.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TempDirectory
 						"temp_directory": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -489,9 +419,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BucketOwner
 								"bucket_owner": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -501,32 +428,20 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(12, 12),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Key
 								"key": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Input location",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Metadata
 				"metadata": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -536,16 +451,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Arn of the source of the dataset. For e.g.: AppFlow Flow ARN.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3InputDefinition
 				"s3_input_definition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -557,9 +466,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: BucketOwner
 						"bucket_owner": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -569,25 +475,16 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(12, 12),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Key
 						"key": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Input location",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Input",
@@ -830,9 +727,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Order
 						"order": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -845,9 +739,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									"DESCENDING",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OrderedBy
 						"ordered_by": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -859,16 +750,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									"LAST_MODIFIED_DATE",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LastModifiedDateCondition
 				"last_modified_date_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -883,9 +768,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^[><0-9A-Za-z_.,:)(!= ]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ValuesMap
 						"values_map": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -899,9 +781,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(0, 1024),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ValueReference
 									"value_reference": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -913,9 +792,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^:[A-Za-z0-9_]+$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -924,16 +800,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Parameters
 				"parameters": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -947,9 +817,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Add the value of this parameter as a column in a dataset.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatetimeOptions
 									"datetime_options": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -963,9 +830,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(2, 100),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LocaleCode
 											"locale_code": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -976,9 +840,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(2, 100),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[A-Za-z0-9_\\.#@\\-]+$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: TimezoneOffset
 											"timezone_offset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -989,16 +850,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 6),
 													stringvalidator.RegexMatches(regexp.MustCompile("^(Z|[-+](\\d|\\d{2}|\\d{2}:?\\d{2}))$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Filter
 									"filter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1013,9 +868,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^[><0-9A-Za-z_.,:)(!= ]+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ValuesMap
 											"values_map": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1029,9 +881,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.LengthBetween(0, 1024),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ValueReference
 														"value_reference": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1043,9 +892,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^:[A-Za-z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -1054,16 +900,10 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.List{ /*START VALIDATORS*/
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Name
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1074,9 +914,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 255),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Type
 									"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1091,9 +928,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
@@ -1101,9 +935,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PathParameterName
 							"path_parameter_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1114,25 +945,16 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 255),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "PathOptions",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Source
 		// CloudFormation resource type schema:
@@ -1157,9 +979,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 					"DATABASE",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -1201,9 +1020,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1213,9 +1029,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1223,7 +1036,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

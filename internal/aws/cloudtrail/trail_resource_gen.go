@@ -13,10 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -180,9 +177,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Equals
 								"equals": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -197,9 +191,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Field
 								"field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -211,9 +202,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("([\\w|\\d|\\.|_]+)"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotEndsWith
 								"not_ends_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -228,9 +216,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotEquals
 								"not_equals": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -245,9 +230,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NotStartsWith
 								"not_starts_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -262,9 +244,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StartsWith
 								"starts_with": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -279,9 +258,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("(.+)"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -292,9 +268,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 							setvalidator.SizeAtLeast(1),
 							fwvalidators.NotNullSet(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -304,18 +277,12 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 1000),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The advanced event selectors that were used to select events for the data store.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Arn
 		// CloudFormation resource type schema:
@@ -340,9 +307,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CloudWatchLogsRoleArn
 		// CloudFormation resource type schema:
@@ -355,9 +319,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnableLogFileValidation
 		// CloudFormation resource type schema:
@@ -370,9 +331,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether log file validation is enabled. The default is false.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EventSelectors
 		// CloudFormation resource type schema:
@@ -456,9 +414,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Values
 								"values": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -466,17 +421,11 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 									Description: "An array of Amazon Resource Name (ARN) strings or partial ARN strings for the specified objects.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ExcludeManagementEventSources
 					"exclude_management_event_sources": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -484,18 +433,12 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 						Description: "An optional list of service event sources from which you do not want management events to be logged on your trail. In this release, the list can be empty (disables the filter), or it can filter out AWS Key Management Service events by containing \"kms.amazonaws.com\". By default, ExcludeManagementEventSources is empty, and AWS KMS events are included in events that are logged to your trail.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: IncludeManagementEvents
 					"include_management_events": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "Specify if you want your event selector to include management events for your trail.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ReadWriteType
 					"read_write_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -509,9 +452,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 								"WriteOnly",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -521,9 +461,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(5),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IncludeGlobalServiceEvents
 		// CloudFormation resource type schema:
@@ -536,9 +473,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the trail is publishing events from global services such as IAM to the log files.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InsightSelectors
 		// CloudFormation resource type schema:
@@ -568,18 +502,12 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 						Description: "The type of insight to log on a trail.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Lets you enable Insights event logging by specifying the Insights selectors that you want to enable on an existing trail.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IsLogging
 		// CloudFormation resource type schema:
@@ -603,9 +531,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the trail applies only to the current region or to all regions. The default is false. If the trail exists only in the current region and this value is set to true, shadow trails (replications of the trail) will be created in the other regions. If the trail exists in all regions and this value is set to false, the trail will remain in the region where it was created, and its shadow trails in other regions will be deleted. As a best practice, consider using trails that log events in all regions.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IsOrganizationTrail
 		// CloudFormation resource type schema:
@@ -618,9 +543,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account. The default is false, and cannot be true unless the call is made on behalf of an AWS account that is the master account for an organization in AWS Organizations.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: KMSKeyId
 		// CloudFormation resource type schema:
@@ -633,9 +555,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: S3BucketName
 		// CloudFormation resource type schema:
@@ -663,9 +582,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SnsTopicArn
 		// CloudFormation resource type schema:
@@ -694,9 +610,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(256),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -736,9 +649,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -748,9 +658,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -758,7 +665,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TrailName
@@ -778,7 +684,6 @@ func trailResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("(^[a-zA-Z0-9]$)|(^[a-zA-Z0-9]([a-zA-Z0-9\\._-])*[a-zA-Z0-9]$)"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

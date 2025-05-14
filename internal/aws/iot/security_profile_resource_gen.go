@@ -14,13 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -100,9 +94,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 						Description: "Flag to enable/disable metrics export for metric to be retained.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Metric
 					"metric": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -114,9 +105,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricDimension
 					"metric_dimension": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -131,9 +119,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Operator
 							"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -146,26 +131,17 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										"NOT_IN",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The dimension of a metric.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AlertTargets
 		// CloudFormation resource type schema:
@@ -211,9 +187,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(2048),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RoleArn
 					"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -223,18 +196,12 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(20, 2048),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Specifies the destinations to which alerts are sent.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Behaviors
 		// CloudFormation resource type schema:
@@ -462,9 +429,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										"not-in-set",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ConsecutiveDatapointsToAlarm
 							"consecutive_datapoints_to_alarm": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -474,9 +438,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 10),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ConsecutiveDatapointsToClear
 							"consecutive_datapoints_to_clear": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -486,18 +447,12 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 10),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: DurationSeconds
 							"duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "Use this to specify the time duration over which the behavior is evaluated.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: MlDetectionConfig
 							"ml_detection_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -514,17 +469,11 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 												"HIGH",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The configuration of an ML Detect Security Profile.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StatisticalThreshold
 							"statistical_threshold": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -550,17 +499,11 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 												"p100",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "A statistical ranking (percentile) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Value
 							"value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -571,27 +514,18 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										Description: "If the ComparisonOperator calls for a set of CIDRs, use this to specify that set to be compared with the metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Count
 									"count": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "If the ComparisonOperator calls for a numeric value, use this to specify that (integer) numeric value to be compared with the metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Number
 									"number": schema.Float64Attribute{ /*START ATTRIBUTE*/
 										Description: "The numeral value of a metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-											float64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Numbers
 									"numbers": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -599,9 +533,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										Description: "The numeral values of a metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Ports
 									"ports": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -614,9 +545,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 65535),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Strings
 									"strings": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -624,34 +552,22 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										Description: "The string values of a metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-											setplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The value to be compared with the metric.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The criteria by which the behavior is determined to be normal.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ExportMetric
 					"export_metric": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "Flag to enable/disable metrics export for metric to be retained.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Metric
 					"metric": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -662,9 +578,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricDimension
 					"metric_dimension": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -679,9 +592,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Operator
 							"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -694,17 +604,11 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 										"NOT_IN",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The dimension of a metric.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -716,27 +620,18 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SuppressAlerts
 					"suppress_alerts": schema.BoolAttribute{ /*START ATTRIBUTE*/
 						Description: "Manage Detect alarm SNS notifications by setting behavior notification to on or suppressed. Detect will continue to performing device behavior evaluations. However, suppressed alarms wouldn't be forwarded for SNS notification.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-							boolplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "Specifies the behaviors that, when violated by a device (thing), cause an alert.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MetricsExportConfig
 		// CloudFormation resource type schema:
@@ -775,9 +670,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 512),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RoleArn
 				"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -788,17 +680,11 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(20, 2048),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A structure containing the mqtt topic for metrics export.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SecurityProfileArn
 		// CloudFormation resource type schema:
@@ -829,9 +715,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(1000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SecurityProfileName
 		// CloudFormation resource type schema:
@@ -852,7 +735,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9:_-]+"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -901,9 +783,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -914,9 +793,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -926,9 +802,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetArns
 		// CloudFormation resource type schema:
@@ -954,9 +827,6 @@ func securityProfileResource(ctx context.Context) (resource.Resource, error) {
 					stringvalidator.LengthAtMost(2048),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

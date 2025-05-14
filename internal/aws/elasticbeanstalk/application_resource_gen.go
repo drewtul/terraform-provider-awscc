@@ -10,9 +10,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -39,7 +36,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -54,9 +50,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Your description of the application.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ResourceLifecycleConfig
 		// CloudFormation resource type schema:
@@ -124,9 +117,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of an IAM service role that Elastic Beanstalk has permission to assume. The ServiceRole property is required the first time that you provide a ResourceLifecycleConfig for the application. After you provide it once, Elastic Beanstalk persists the Service Role with the application, and you don't need to specify it again. You can, however, specify it in subsequent updates to change the Service Role to another value.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: VersionLifecycleConfig
 				"version_lifecycle_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -139,35 +129,23 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Set to true to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Enabled
 								"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Specify true to apply the rule, or false to disable it.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxAgeInDays
 								"max_age_in_days": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "Specify the number of days to retain an application versions.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Specify a max age rule to restrict the length of time that application versions are retained for an application.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MaxCountRule
 						"max_count_rule": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -177,51 +155,33 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Set to true to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Enabled
 								"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Specify true to apply the rule, or false to disable it.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxCount
 								"max_count": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "Specify the maximum number of application versions to retain.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Specify a max count rule to restrict the number of application versions that are retained for an application.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Defines lifecycle settings for application versions.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

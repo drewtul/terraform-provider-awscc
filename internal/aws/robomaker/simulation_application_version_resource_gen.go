@@ -87,7 +87,6 @@ func simulationApplicationVersionResource(ctx context.Context) (resource.Resourc
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_.\\-]*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

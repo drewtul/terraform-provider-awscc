@@ -14,11 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -745,9 +740,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FileKey
 										"file_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -758,9 +750,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 1024),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ObjectVersion
 										"object_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -770,17 +759,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												stringvalidator.LengthBetween(1, 1024),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Information about the Amazon S3 bucket that contains the application code.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TextContent
 								"text_content": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -790,18 +773,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 102400),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ZipFileContent
 								"zip_file_content": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The zip-format code for a Flink-based Kinesis Data Analytics application.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 									// ZipFileContent is a write-only property.
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
@@ -811,9 +788,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CodeContentType
 						"code_content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -827,17 +801,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The code location and type parameters for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ApplicationSnapshotConfiguration
 				"application_snapshot_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -850,17 +818,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Bool{ /*START VALIDATORS*/
 								fwvalidators.NotNullBool(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes whether snapshots are enabled for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ApplicationSystemRollbackConfiguration
 				"application_system_rollback_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -873,17 +835,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Bool{ /*START VALIDATORS*/
 								fwvalidators.NotNullBool(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes whether system initiated rollbacks are enabled for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EnvironmentProperties
 				"environment_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -901,9 +857,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 50),
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PropertyMap
 									"property_map":      // Pattern: ""
@@ -912,9 +865,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Describes the value of an application execution property key-value pair.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-											mapplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -926,16 +876,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes execution properties for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// EnvironmentProperties is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: FlinkApplicationConfiguration
@@ -952,18 +898,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(1, 9223372036854775807),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CheckpointingEnabled
 								"checkpointing_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Describes whether checkpointing is enabled for a Flink-based Kinesis Data Analytics application.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConfigurationType
 								"configuration_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -977,9 +917,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MinPauseBetweenCheckpoints
 								"min_pause_between_checkpoints": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -989,17 +926,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(0, 9223372036854775807),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state for fault tolerance. For more information, see Checkpoints for Fault Tolerance in the Apache Flink Documentation.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringConfiguration
 						"monitoring_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1016,9 +947,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LogLevel
 								"log_level": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1033,9 +961,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											"ERROR",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MetricsLevel
 								"metrics_level": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1050,17 +975,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											"TASK",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Describes configuration parameters for Amazon CloudWatch logging for an application.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ParallelismConfiguration
 						"parallelism_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1070,9 +989,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Describes whether the Kinesis Data Analytics service can increase the parallelism of the application in response to increased throughput.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConfigurationType
 								"configuration_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1086,9 +1002,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Parallelism
 								"parallelism": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1098,9 +1011,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.AtLeast(1),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ParallelismPerKPU
 								"parallelism_per_kpu": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1110,25 +1020,16 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.AtLeast(1),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Describes parameters for how an application executes multiple tasks simultaneously.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The creation and update parameters for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SqlApplicationConfiguration
 				"sql_application_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1148,17 +1049,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													int64validator.Between(1, 64),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Describes the number of in-application streams to create.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: InputProcessingConfiguration
 									"input_processing_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1176,25 +1071,16 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The InputLambdaProcessor that is used to preprocess the records in the stream before being processed by your application code.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The InputProcessingConfiguration for the input. An input processor transforms records as they are received from the stream, before the application's SQL code executes. Currently, the only input processing configuration available is InputLambdaProcessor.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: InputSchema
 									"input_schema": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1211,9 +1097,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																stringvalidator.LengthBetween(1, 65535),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Name
 														"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1225,9 +1108,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^[^-\\s<>&]*$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: SqlType
 														"sql_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1238,9 +1118,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.LengthBetween(1, 100),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -1253,7 +1130,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												}, /*END VALIDATORS*/
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RecordEncoding
@@ -1266,9 +1142,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 														"UTF-8",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RecordFormat
 											"record_format": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1288,9 +1161,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RecordRowDelimiter
 																	"record_row_delimiter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1301,17 +1171,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Provides additional mapping information when the record format uses delimiters (for example, CSV).",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: JSONMappingParameters
 															"json_mapping_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1325,25 +1189,16 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 65535),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Provides additional mapping information when JSON is the record format on the streaming source.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "When you configure application input at the time of creating or updating an application, provides additional mapping information specific to the record format (such as JSON, CSV, or record fields delimited by some delimiter) on the streaming source.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: RecordFormatType
 													"record_format_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1357,9 +1212,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 															),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Specifies the format of the records on the streaming source.",
@@ -1368,9 +1220,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.",
@@ -1379,9 +1228,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: KinesisFirehoseInput
 									"kinesis_firehose_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1396,17 +1242,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "If the streaming source is an Amazon Kinesis Data Firehose delivery stream, identifies the delivery stream's ARN.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: KinesisStreamsInput
 									"kinesis_streams_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1421,17 +1261,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "If the streaming source is an Amazon Kinesis data stream, identifies the stream's Amazon Resource Name (ARN).",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: NamePrefix
 									"name_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1443,9 +1277,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[^-\\s<>&]*$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -1457,16 +1288,12 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The creation and update parameters for a SQL-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: VpcConfigurations
 				"vpc_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1484,7 +1311,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								}, /*END VALIDATORS*/
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SubnetIds
@@ -1499,7 +1325,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								}, /*END VALIDATORS*/
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
@@ -1512,7 +1337,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ZeppelinApplicationConfiguration
@@ -1533,25 +1357,16 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 2048),
 												stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration parameters for the default Amazon Glue database. You use this database for Apache Flink SQL queries and table API transforms that you write in a Kinesis Data Analytics Studio notebook.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The Amazon Glue Data Catalog that you use in queries in a Kinesis Data Analytics Studio notebook.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomArtifactsConfiguration
 						"custom_artifacts_configuration": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1569,9 +1384,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MavenReference
 									"maven_reference": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1586,9 +1398,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: GroupId
 											"group_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1600,9 +1409,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Version
 											"version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1614,17 +1420,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The parameters required to fully specify a Maven reference.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: S3ContentLocation
 									"s3_content_location": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1639,9 +1439,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: FileKey
 											"file_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1652,9 +1449,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 1024),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ObjectVersion
 											"object_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1664,17 +1458,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthBetween(1, 1024),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The location of the custom artifacts.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -1686,7 +1474,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DeployAsApplicationConfiguration
@@ -1704,9 +1491,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 1024),
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9/!-_.*'()]+$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: BucketARN
 										"bucket_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1718,9 +1502,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The description of an Amazon S3 object that contains the Amazon Data Analytics application, including the Amazon Resource Name (ARN) of the S3 bucket, the name of the Amazon S3 object that contains the data, and the version number of the Amazon S3 object that contains the data.",
@@ -1729,17 +1510,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The information required to deploy a Kinesis Data Analytics Studio notebook as an application with durable state.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringConfiguration
 						"monitoring_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1757,33 +1532,21 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 											"ERROR",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The monitoring configuration of a Kinesis Data Analytics Studio notebook.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration parameters for a Kinesis Data Analytics Studio notebook.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Use this parameter to configure the application.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ApplicationDescription
 		// CloudFormation resource type schema:
@@ -1803,9 +1566,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ApplicationMaintenanceConfiguration
 		// CloudFormation resource type schema:
@@ -1836,17 +1596,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("^([01][0-9]|2[0-3]):[0-5][0-9]$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Used to configure start of maintenance window.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ApplicationMode
 		// CloudFormation resource type schema:
@@ -1870,7 +1624,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1893,7 +1646,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1962,9 +1714,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SnapshotName
 						"snapshot_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1975,17 +1724,11 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(1, 256),
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes the restore behavior of a restarting application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FlinkRunConfiguration
 				"flink_run_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1995,25 +1738,16 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							Description: "When restoring from a snapshot, specifies whether the runtime is allowed to skip a state that cannot be mapped to the new program. Defaults to false. If you update your application without specifying this parameter, AllowNonRestoredState will be set to false, even if it was previously set to true.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Describes the starting parameters for a Flink-based Kinesis Data Analytics application.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies run configuration (start parameters) of a Kinesis Data Analytics application. Evaluated on update for RUNNING applications an only.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RunConfiguration is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: RuntimeEnvironment
@@ -2091,9 +1825,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2104,9 +1835,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2118,7 +1846,6 @@ func applicationResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

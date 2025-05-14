@@ -65,9 +65,6 @@ func organizationResource(ctx context.Context) (resource.Resource, error) {
 					"CONSOLIDATED_BILLING",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:

@@ -14,8 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
@@ -50,7 +48,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 255),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -146,16 +143,10 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 4096),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ServerSideEncryptionConfiguration
 		// CloudFormation resource type schema:
@@ -180,15 +171,11 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 4096),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -313,9 +300,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:[a-z-]+?:[a-z-]+?:[a-z0-9-]*?:([0-9]{12})?:[a-zA-Z0-9-:/]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ObjectFields
 						"object_fields": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -330,15 +314,11 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ManagedSourceConfiguration
 				"managed_source_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -356,16 +336,10 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Float64{ /*START VALIDATORS*/
 												float64validator.Between(1.000000, 3000.000000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExclusionFilters
 								"exclusion_filters": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -378,9 +352,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 1000),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InclusionFilters
 								"inclusion_filters": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -393,9 +364,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 1000),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Scope
 								"scope": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -407,9 +375,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 											"SUBDOMAINS",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UrlConfiguration
 								"url_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -425,9 +390,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.RegexMatches(regexp.MustCompile("^https?://[A-Za-z0-9][^\\s]*$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -436,9 +398,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.List{ /*START VALIDATORS*/
 												listvalidator.SizeBetween(1, 100),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -446,29 +405,19 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -512,9 +461,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -524,16 +470,12 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -703,9 +645,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: FixedSizeChunkingConfiguration
 						"fixed_size_chunking_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -718,9 +657,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OverlapPercentage
 								"overlap_percentage": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -730,16 +666,10 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.Between(1.000000, 99.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HierarchicalChunkingConfiguration
 						"hierarchical_chunking_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -756,9 +686,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 													float64validator.Between(1.000000, 8192.000000),
 													fwvalidators.NotNullFloat64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -768,9 +695,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										listvalidator.SizeBetween(2, 2),
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OverlapTokens
 								"overlap_tokens": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -780,16 +704,10 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SemanticChunkingConfiguration
 						"semantic_chunking_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -802,9 +720,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.Between(50.000000, 99.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BufferSize
 								"buffer_size": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -814,9 +729,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.Between(0.000000, 1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxTokens
 								"max_tokens": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -826,23 +738,14 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										float64validator.AtLeast(1.000000),
 										fwvalidators.NotNullFloat64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ParsingConfiguration
 				"parsing_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -859,9 +762,6 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}::foundation-model\\/anthropic.claude-3-haiku-20240307-v1:0$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ParsingPrompt
 								"parsing_prompt": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -874,23 +774,14 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 10000),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ParsingStrategy
 						"parsing_strategy": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -902,23 +793,14 @@ func knowledgeBaseResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

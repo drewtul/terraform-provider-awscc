@@ -15,11 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -128,9 +123,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.000000, 100.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MinTrafficImpact
 						"min_traffic_impact": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -139,9 +131,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.000000, 100.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Status
 						"status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -153,16 +142,10 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 									"DISABLED",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AvailabilityScoreThreshold
 				"availability_score_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -171,9 +154,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						float64validator.Between(0.000000, 100.000000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PerformanceLocalHealthEventsConfig
 				"performance_local_health_events_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -185,9 +165,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.000000, 100.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MinTrafficImpact
 						"min_traffic_impact": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -196,9 +173,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.000000, 100.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Status
 						"status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -210,16 +184,10 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 									"DISABLED",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PerformanceScoreThreshold
 				"performance_score_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -228,16 +196,10 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						float64validator.Between(0.000000, 100.000000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: IncludeLinkedAccounts
 		// CloudFormation resource type schema:
@@ -248,9 +210,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 		"include_linked_accounts": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// IncludeLinkedAccounts is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: InternetMeasurementsLogDelivery
@@ -294,17 +253,11 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtLeast(3),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: BucketPrefix
 						"bucket_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LogDeliveryStatus
 						"log_delivery_status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -316,23 +269,14 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 									"DISABLED",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LinkedAccountId
 		// CloudFormation resource type schema:
@@ -350,9 +294,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(12, 12),
 				stringvalidator.RegexMatches(regexp.MustCompile("^(\\d{12})$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// LinkedAccountId is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: MaxCityNetworksToMonitor
@@ -369,9 +310,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(1, 500000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModifiedAt
 		// CloudFormation resource type schema:
@@ -479,7 +417,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ResourcesToAdd
@@ -505,7 +442,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 			// ResourcesToAdd is a write-only property.
 		}, /*END ATTRIBUTE*/
@@ -532,7 +468,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 			// ResourcesToRemove is a write-only property.
 		}, /*END ATTRIBUTE*/
@@ -559,9 +494,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 					"ERROR",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -590,17 +522,11 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 					"key": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -608,7 +534,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TrafficPercentageToMonitor
@@ -625,9 +550,6 @@ func monitorResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(1, 100),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

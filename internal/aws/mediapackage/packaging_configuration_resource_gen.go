@@ -12,10 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -229,9 +225,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PresetSpeke20Video
 										"preset_speke_20_video": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -253,17 +246,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -273,9 +260,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SystemIds
 								"system_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -286,9 +270,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Url
 								"url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -298,9 +279,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
@@ -309,17 +287,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A CMAF encryption configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: HlsManifests
 				"hls_manifests": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -337,45 +309,30 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										"PASSTHROUGH",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IncludeIframeOnlyStream
 							"include_iframe_only_stream": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Description: "When enabled, an I-Frame only stream will be included in the output.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestName
 							"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "An optional string to include in the name of the manifest.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ProgramDateTimeIntervalSeconds
 							"program_date_time_interval_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP Live Streaming (HLS) input, it will be passed through to HLS output.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RepeatExtXKey
 							"repeat_ext_x_key": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Description: "When enabled, the EXT-X-KEY tag will be repeated in output manifests.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StreamSelection
 							"stream_selection": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -385,18 +342,12 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										Description: "The maximum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MinVideoBitsPerSecond
 									"min_video_bits_per_second": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "The minimum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: StreamOrder
 									"stream_order": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -410,17 +361,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												"VIDEO_BITRATE_DESCENDING",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "A StreamSelection configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -430,35 +375,23 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.List{ /*START VALIDATORS*/
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IncludeEncoderConfigurationInSegments
 				"include_encoder_configuration_in_segments": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentDurationSeconds
 				"segment_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A CMAF packaging configuration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DashPackage
 		// CloudFormation resource type schema:
@@ -663,27 +596,18 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										"COMPACT",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestName
 							"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "An optional string to include in the name of the manifest.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: MinBufferTimeSeconds
 							"min_buffer_time_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "Minimum duration (in seconds) that a player will buffer media before starting the presentation.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Profile
 							"profile": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -696,9 +620,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										"HBBTV_1_5",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ScteMarkersSource
 							"scte_markers_source": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -711,9 +632,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										"MANIFEST",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StreamSelection
 							"stream_selection": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -723,18 +641,12 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										Description: "The maximum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MinVideoBitsPerSecond
 									"min_video_bits_per_second": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "The minimum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: StreamOrder
 									"stream_order": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -748,17 +660,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												"VIDEO_BITRATE_DESCENDING",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "A StreamSelection configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -768,9 +674,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.List{ /*START VALIDATORS*/
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Encryption
 				"encryption": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -796,9 +699,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PresetSpeke20Video
 										"preset_speke_20_video": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -820,17 +720,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -840,9 +734,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SystemIds
 								"system_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -853,9 +744,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Url
 								"url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -865,9 +753,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
@@ -876,35 +761,23 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IncludeEncoderConfigurationInSegments
 				"include_encoder_configuration_in_segments": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IncludeIframeOnlyStream
 				"include_iframe_only_stream": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "When enabled, an I-Frame only stream will be included in the output.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PeriodTriggers
 				"period_triggers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -919,18 +792,12 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							),
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentDurationSeconds
 				"segment_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentTemplateFormat
 				"segment_template_format": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -944,17 +811,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							"NUMBER_WITH_DURATION",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HlsPackage
 		// CloudFormation resource type schema:
@@ -1138,9 +999,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							Description: "An HTTP Live Streaming (HLS) encryption configuration.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EncryptionMethod
 						"encryption_method": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1153,9 +1011,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									"SAMPLE_AES",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SpekeKeyProvider
 						"speke_key_provider": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1178,9 +1033,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PresetSpeke20Video
 										"preset_speke_20_video": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1202,17 +1054,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1222,9 +1068,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SystemIds
 								"system_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1235,9 +1078,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Url
 								"url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1247,9 +1087,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
@@ -1258,17 +1095,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An HTTP Live Streaming (HLS) encryption configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: HlsManifests
 				"hls_manifests": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1286,45 +1117,30 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										"PASSTHROUGH",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IncludeIframeOnlyStream
 							"include_iframe_only_stream": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Description: "When enabled, an I-Frame only stream will be included in the output.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ManifestName
 							"manifest_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "An optional string to include in the name of the manifest.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ProgramDateTimeIntervalSeconds
 							"program_date_time_interval_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 								Description: "The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP Live Streaming (HLS) input, it will be passed through to HLS output.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RepeatExtXKey
 							"repeat_ext_x_key": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Description: "When enabled, the EXT-X-KEY tag will be repeated in output manifests.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StreamSelection
 							"stream_selection": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1334,18 +1150,12 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										Description: "The maximum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MinVideoBitsPerSecond
 									"min_video_bits_per_second": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "The minimum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: StreamOrder
 									"stream_order": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1359,17 +1169,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												"VIDEO_BITRATE_DESCENDING",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "A StreamSelection configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -1379,44 +1183,29 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.List{ /*START VALIDATORS*/
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IncludeDvbSubtitles
 				"include_dvb_subtitles": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentDurationSeconds
 				"segment_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: UseAudioRenditionGroup
 				"use_audio_rendition_group": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "When enabled, audio streams will be placed in rendition groups in the output.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An HTTP Live Streaming (HLS) packaging configuration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:
@@ -1589,9 +1378,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PresetSpeke20Video
 										"preset_speke_20_video": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1613,17 +1399,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1633,9 +1413,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SystemIds
 								"system_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1646,9 +1423,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Url
 								"url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1658,9 +1432,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.",
@@ -1669,17 +1440,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A CMAF encryption configuration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MssManifests
 				"mss_manifests": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1690,9 +1455,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 								Description: "An optional string to include in the name of the manifest.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StreamSelection
 							"stream_selection": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1702,18 +1464,12 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 										Description: "The maximum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MinVideoBitsPerSecond
 									"min_video_bits_per_second": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Description: "The minimum video bitrate (bps) to include in output.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: StreamOrder
 									"stream_order": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1727,17 +1483,11 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 												"VIDEO_BITRATE_DESCENDING",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "A StreamSelection configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -1747,26 +1497,17 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.List{ /*START VALIDATORS*/
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SegmentDurationSeconds
 				"segment_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A Microsoft Smooth Streaming (MSS) PackagingConfiguration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PackagingGroupId
 		// CloudFormation resource type schema:
@@ -1813,9 +1554,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1824,9 +1562,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1836,9 +1571,6 @@ func packagingConfigurationResource(ctx context.Context) (resource.Resource, err
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

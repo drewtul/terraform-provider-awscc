@@ -13,10 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -106,9 +103,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(64),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -118,9 +112,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(512),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Parameters
 					"parameters":        // Pattern: ""
@@ -129,9 +120,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Description: "The parameters for the action, if applicable.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StartAfter
 					"start_after": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -144,9 +132,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthAtMost(64),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Targets
 					"targets":           // Pattern: ""
@@ -155,18 +140,12 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Description: "One or more targets for the action.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The actions for the experiment.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -222,7 +201,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						),
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -237,16 +215,10 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 							"skip",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ExperimentReportConfiguration
 		// CloudFormation resource type schema:
@@ -334,24 +306,15 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 											stringvalidator.LengthBetween(1, 512),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Outputs
 				"outputs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -367,9 +330,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.LengthBetween(3, 63),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Prefix
 								"prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -378,9 +338,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 256),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -388,9 +345,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
@@ -398,32 +352,20 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PostExperimentDuration
 				"post_experiment_duration": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PreExperimentDuration
 				"pre_experiment_duration": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:
@@ -499,16 +441,10 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(20, 2048),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LogSchemaVersion
 				"log_schema_version": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -518,9 +454,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						int64validator.AtLeast(1),
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3Configuration
 				"s3_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -533,9 +466,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(3, 63),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Prefix
 						"prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -544,23 +474,14 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 700),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
 		// CloudFormation resource type schema:
@@ -619,9 +540,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(20, 2048),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -753,9 +671,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.LengthAtMost(256),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Values
 								"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -769,17 +684,11 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 										),
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Parameters
 					"parameters":        // Pattern: ""
@@ -787,9 +696,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						ElementType: types.StringType,
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceArns
 					"resource_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -802,9 +708,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(20, 2048),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceTags
 					"resource_tags":     // Pattern: ""
@@ -812,9 +715,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						ElementType: types.StringType,
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-							mapplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceType
 					"resource_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -824,9 +724,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(64),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SelectionMode
 					"selection_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -836,9 +733,6 @@ func experimentTemplateResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(64),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/

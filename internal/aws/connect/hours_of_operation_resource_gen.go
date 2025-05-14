@@ -15,11 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -205,9 +201,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 250),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HoursOfOperationArn
 		// CloudFormation resource type schema:
@@ -363,9 +356,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EffectiveTill
 					"effective_till": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -376,9 +366,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: HoursOfOperationOverrideId
 					"hours_of_operation_override_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -388,9 +375,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.RegexMatches(regexp.MustCompile("^[-a-zA-Z0-9]*$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OverrideConfig
 					"override_config": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -413,9 +397,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EndTime
 								"end_time": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -429,9 +410,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 23),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Minutes
 										"minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -442,9 +420,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 59),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The new end time that your contact center closes for the overriden days.",
@@ -453,9 +428,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StartTime
 								"start_time": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -469,9 +441,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 23),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Minutes
 										"minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -482,9 +451,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 59),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The new start time that your contact center opens for the overriden days.",
@@ -493,9 +459,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -506,9 +469,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							setvalidator.SizeAtMost(100),
 							fwvalidators.NotNullSet(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OverrideDescription
 					"override_description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -518,9 +478,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 250),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: OverrideName
 					"override_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -531,9 +488,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 127),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -545,7 +499,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InstanceArn
@@ -624,9 +577,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -637,9 +587,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -649,9 +596,6 @@ func hoursOfOperationResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TimeZone
 		// CloudFormation resource type schema:

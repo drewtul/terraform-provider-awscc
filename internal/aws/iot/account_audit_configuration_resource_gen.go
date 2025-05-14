@@ -11,8 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -280,17 +278,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CaCertificateExpiringCheck
 				"ca_certificate_expiring_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -300,17 +292,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CaCertificateKeyQualityCheck
 				"ca_certificate_key_quality_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -320,17 +306,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConflictingClientIdsCheck
 				"conflicting_client_ids_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -340,17 +320,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DeviceCertificateAgeCheck
 				"device_certificate_age_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -366,34 +340,22 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 64),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A structure containing the configName and corresponding configValue for configuring audit checks.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Enabled
 						"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A structure containing the configName and corresponding configValue for configuring DeviceCertAgeCheck.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DeviceCertificateExpiringCheck
 				"device_certificate_expiring_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -409,34 +371,22 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 64),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A structure containing the configName and corresponding configValue for configuring audit checks.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Enabled
 						"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A structure containing the configName and corresponding configValue for configuring DeviceCertExpirationCheck.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DeviceCertificateKeyQualityCheck
 				"device_certificate_key_quality_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -446,17 +396,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DeviceCertificateSharedCheck
 				"device_certificate_shared_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -466,17 +410,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IntermediateCaRevokedForActiveDeviceCertificatesCheck
 				"intermediate_ca_revoked_for_active_device_certificates_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -486,17 +424,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IoTPolicyPotentialMisConfigurationCheck
 				"io_t_policy_potential_mis_configuration_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -506,17 +438,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IotPolicyOverlyPermissiveCheck
 				"iot_policy_overly_permissive_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -526,17 +452,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IotRoleAliasAllowsAccessToUnusedServicesCheck
 				"iot_role_alias_allows_access_to_unused_services_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -546,17 +466,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: IotRoleAliasOverlyPermissiveCheck
 				"iot_role_alias_overly_permissive_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -566,17 +480,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LoggingDisabledCheck
 				"logging_disabled_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -586,17 +494,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RevokedCaCertificateStillActiveCheck
 				"revoked_ca_certificate_still_active_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -606,17 +508,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RevokedDeviceCertificateStillActiveCheck
 				"revoked_device_certificate_still_active_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -626,17 +522,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: UnauthenticatedCognitoRoleOverlyPermissiveCheck
 				"unauthenticated_cognito_role_overly_permissive_check": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -646,17 +536,11 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if the check is enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for a specific audit check.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies which audit checks are enabled and disabled for this account.",
@@ -703,9 +587,6 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Description: "True if notifications to the target are enabled.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RoleArn
 						"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -715,9 +596,6 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(20, 2048),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TargetArn
 						"target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -727,24 +605,15 @@ func accountAuditConfigurationResource(ctx context.Context) (resource.Resource, 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(2048),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Information about the targets to which audit notifications are sent.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
 		// CloudFormation resource type schema:

@@ -76,9 +76,6 @@ func keyGroupResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A comment to describe the key group. The comment cannot be longer than 128 characters.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Items
 				"items": schema.ListAttribute{ /*START ATTRIBUTE*/

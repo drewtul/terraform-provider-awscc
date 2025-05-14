@@ -14,10 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -94,9 +90,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(256),
 				stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AnomalyDetectorName
 		// CloudFormation resource type schema:
@@ -117,7 +110,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -153,9 +145,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(20, 2048),
 				stringvalidator.RegexMatches(regexp.MustCompile("arn:aws.*:kms:.*:[0-9]{12}:key/.*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MetricSetList
 		// CloudFormation resource type schema:
@@ -602,7 +591,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 						}, /*END VALIDATORS*/
 						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 							generic.Multiset(),
-							listplanmodifier.UseStateForUnknown(),
 						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricList
@@ -637,9 +625,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(1, 255),
 										stringvalidator.RegexMatches(regexp.MustCompile("[^:].*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -661,9 +646,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(256),
 							stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricSetFrequency
 					"metric_set_frequency": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -678,9 +660,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 								"P1D",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: MetricSetName
 					"metric_set_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -706,9 +685,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9][\\w!@#.-]+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RoleArn
 									"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -719,16 +695,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:.*:.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: CloudwatchConfig
 							"cloudwatch_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -742,16 +712,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:.*:.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RDSSourceConfig
 							"rds_source_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -764,9 +728,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 63),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseHost
 									"database_host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -777,9 +738,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseName
 									"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -790,9 +748,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_]+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabasePort
 									"database_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -802,9 +757,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											int64validator.Between(1, 65535),
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RoleArn
 									"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -815,9 +767,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:.*:.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SecretManagerArn
 									"secret_manager_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -828,9 +777,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:secret:AmazonLookoutMetrics-.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TableName
 									"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -841,9 +787,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VpcConfiguration
 									"vpc_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -860,9 +803,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SubnetIdList
 											"subnet_id_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -876,9 +816,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
@@ -886,16 +823,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RedshiftSourceConfig
 							"redshift_source_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -908,9 +839,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 63),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseHost
 									"database_host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -921,9 +849,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabaseName
 									"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -934,9 +859,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("[a-z0-9]+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DatabasePort
 									"database_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -946,9 +868,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											int64validator.Between(1, 65535),
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RoleArn
 									"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -959,9 +878,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:.*:.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SecretManagerArn
 									"secret_manager_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -972,9 +888,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:secret:AmazonLookoutMetrics-.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TableName
 									"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -985,9 +898,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VpcConfiguration
 									"vpc_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1004,9 +914,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SubnetIdList
 											"subnet_id_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1020,9 +927,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
@@ -1030,16 +934,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: S3SourceConfig
 							"s3_source_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1058,17 +956,11 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthAtMost(63),
 															stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: ContainsHeader
 													"contains_header": schema.BoolAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Delimiter
 													"delimiter": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1078,9 +970,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthAtMost(1),
 															stringvalidator.RegexMatches(regexp.MustCompile("[^\\r\\n]"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: FileCompression
 													"file_compression": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1092,9 +981,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 																"GZIP",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: HeaderList
 													"header_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1107,9 +993,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-															listplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: QuoteSymbol
 													"quote_symbol": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1119,16 +1002,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthAtMost(1),
 															stringvalidator.RegexMatches(regexp.MustCompile("[^\\r\\n]|^$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: JsonFormatDescriptor
 											"json_format_descriptor": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1141,9 +1018,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthAtMost(63),
 															stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: FileCompression
 													"file_compression": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1155,16 +1029,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 																"GZIP",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
@@ -1172,9 +1040,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HistoricalDataPathList
 									"historical_data_path_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1188,9 +1053,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^s3://[a-z0-9].+$"), ""),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RoleArn
 									"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1201,9 +1063,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):.*:.*:.*:.+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TemplatedPathList
 									"templated_path_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1217,16 +1076,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^s3://[a-zA-Z0-9_\\-\\/ {}=]+$"), ""),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Required: true,
@@ -1239,9 +1092,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Int64{ /*START VALIDATORS*/
 							int64validator.Between(0, 432000),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TimestampColumn
 					"timestamp_column": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1255,9 +1105,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthAtMost(63),
 									stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ColumnName
 							"column_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1268,16 +1115,10 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 63),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Timezone
 					"timezone": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1287,9 +1128,6 @@ func anomalyDetectorResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(60),
 							stringvalidator.RegexMatches(regexp.MustCompile(".*\\S.*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/

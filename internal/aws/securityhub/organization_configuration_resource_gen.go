@@ -59,9 +59,6 @@ func organizationConfigurationResource(ctx context.Context) (resource.Resource, 
 					"NONE",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ConfigurationType
 		// CloudFormation resource type schema:
@@ -84,9 +81,6 @@ func organizationConfigurationResource(ctx context.Context) (resource.Resource, 
 					"LOCAL",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MemberAccountLimitReached
 		// CloudFormation resource type schema:

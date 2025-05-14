@@ -62,9 +62,6 @@ func messageTemplateVersionResource(ctx context.Context) (resource.Resource, err
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 64),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MessageTemplateVersionArn
 		// CloudFormation resource type schema:

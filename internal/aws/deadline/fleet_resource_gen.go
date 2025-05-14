@@ -15,13 +15,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -625,9 +622,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StorageProfileId
 						"storage_profile_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -636,9 +630,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^sp-[0-9a-f]{32}$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: WorkerCapabilities
 						"worker_capabilities": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -653,9 +644,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(0, 2147483647),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -665,16 +653,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 2147483647),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: AcceleratorTotalMemoryMiB
 								"accelerator_total_memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -686,9 +668,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(0, 2147483647),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -698,16 +677,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(0, 2147483647),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: AcceleratorTypes
 								"accelerator_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -721,9 +694,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CpuArchitectureType
 								"cpu_architecture_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -736,9 +706,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CustomAmounts
 								"custom_amounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -748,9 +715,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											"max": schema.Float64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Min
 											"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -759,9 +723,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													fwvalidators.NotNullFloat64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -772,9 +733,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z][a-zA-Z0-9]{0,63}:)?amount(\\.[a-zA-Z][a-zA-Z0-9]{0,63})+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -783,9 +741,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeBetween(1, 15),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CustomAttributes
 								"custom_attributes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -800,9 +755,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z][a-zA-Z0-9]{0,63}:)?attr(\\.[a-zA-Z][a-zA-Z0-9]{0,63})+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Values
 											"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -817,9 +769,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -828,9 +777,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeBetween(1, 15),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MemoryMiB
 								"memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -842,9 +788,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(512, 2147483647),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -854,9 +797,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(512, 2147483647),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -864,9 +804,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OsFamily
 								"os_family": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -880,9 +817,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: VCpuCount
 								"v_cpu_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -894,9 +828,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(1, 10000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -906,9 +837,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(1, 10000),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -916,9 +844,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -926,16 +851,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceManagedEc2
 				"service_managed_ec_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -956,9 +875,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Int64{ /*START VALIDATORS*/
 														int64validator.Between(0, 2147483647),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -968,16 +884,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 														int64validator.Between(0, 2147483647),
 														fwvalidators.NotNullInt64(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Selections
 										"selections": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -996,9 +906,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 															),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Runtime
 													"runtime": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1007,9 +914,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															stringvalidator.LengthBetween(1, 100),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1019,16 +923,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												listvalidator.SizeAtLeast(1),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: AllowedInstanceTypes
 								"allowed_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1041,9 +939,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CpuArchitectureType
 								"cpu_architecture_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1056,9 +951,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CustomAmounts
 								"custom_amounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1068,9 +960,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											"max": schema.Float64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Min
 											"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1079,9 +968,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Float64{ /*START VALIDATORS*/
 													fwvalidators.NotNullFloat64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-													float64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1092,9 +978,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z][a-zA-Z0-9]{0,63}:)?amount(\\.[a-zA-Z][a-zA-Z0-9]{0,63})+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1103,9 +986,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeBetween(1, 15),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: CustomAttributes
 								"custom_attributes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1120,9 +1000,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([a-zA-Z][a-zA-Z0-9]{0,63}:)?attr(\\.[a-zA-Z][a-zA-Z0-9]{0,63})+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Values
 											"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1137,9 +1014,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullList(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1148,9 +1022,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.List{ /*START VALIDATORS*/
 										listvalidator.SizeBetween(1, 15),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExcludedInstanceTypes
 								"excluded_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1163,9 +1034,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$"), ""),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MemoryMiB
 								"memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1177,9 +1045,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(512, 2147483647),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1189,9 +1054,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(512, 2147483647),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1199,9 +1061,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OsFamily
 								"os_family": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1214,9 +1073,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RootEbsVolume
 								"root_ebs_volume": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1229,18 +1085,12 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(3000, 16000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: SizeGiB
 										"size_gi_b": schema.Int64Attribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
 											Default:  int64default.StaticInt64(250),
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ThroughputMiB
 										"throughput_mi_b": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1250,16 +1100,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(125, 1000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: VCpuCount
 								"v_cpu_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1271,9 +1115,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(1, 10000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Min
 										"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1283,9 +1124,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 												int64validator.Between(1, 10000),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
@@ -1293,9 +1131,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1303,9 +1138,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InstanceMarketOptions
 						"instance_market_options": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1321,9 +1153,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
@@ -1331,16 +1160,10 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Required: true,
@@ -1361,9 +1184,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 100),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisplayName
 		// CloudFormation resource type schema:
@@ -1438,9 +1258,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(0, 2147483647),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RoleArn
 		// CloudFormation resource type schema:
@@ -1519,9 +1336,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 127),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1532,9 +1346,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 255),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1544,9 +1355,6 @@ func fleetResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: WorkerCount
 		// CloudFormation resource type schema:

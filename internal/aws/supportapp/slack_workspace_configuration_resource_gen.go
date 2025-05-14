@@ -66,9 +66,6 @@ func slackWorkspaceConfigurationResource(ctx context.Context) (resource.Resource
 				stringvalidator.LengthBetween(1, 256),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[0-9]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// VersionId is a write-only property.
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

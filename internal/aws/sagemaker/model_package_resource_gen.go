@@ -14,10 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -270,9 +266,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(63),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Environment
 								"environment":       // Pattern: ""
@@ -282,18 +275,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Sets the environment variables in the Docker container",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Framework
 								"framework": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The machine learning framework of the model package container image.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: FrameworkVersion
 								"framework_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -304,9 +291,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(3, 10),
 										stringvalidator.RegexMatches(regexp.MustCompile("[0-9]\\.[A-Za-z0-9.]+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Image
 								"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -318,9 +302,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("[\\S]{1,255}"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ImageDigest
 								"image_digest": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -331,9 +312,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelDataSource
 								"model_data_source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -353,9 +331,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ModelAccessConfig
 												"model_access_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -368,17 +343,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Bool{ /*START VALIDATORS*/
 																fwvalidators.NotNullBool(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies the access configuration file for the ML model.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: S3DataType
 												"s3_data_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -392,9 +361,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: S3Uri
 												"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -406,25 +372,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Specifies the S3 location of ML model data to deploy.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Specifies the location of ML model data to deploy during endpoint creation.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelDataUrl
 								"model_data_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -435,9 +392,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(1024),
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelInput
 								"model_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -452,25 +406,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("[\\S\\s]+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NearestModelName
 								"nearest_model_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that matches your model.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -481,9 +426,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.SizeBetween(1, 15),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -494,9 +436,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(1024),
 							stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -508,9 +447,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedContentTypes
 					"supported_content_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -524,9 +460,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedRealtimeInferenceInstanceTypes
 					"supported_realtime_inference_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -534,9 +467,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						Description: "A list of the instance types that are used to generate inferences in real-time",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedResponseMIMETypes
 					"supported_response_mime_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -550,9 +480,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^[-\\w]+\\/.+$"), ""),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedTransformInstanceTypes
 					"supported_transform_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -563,9 +490,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.SizeAtLeast(1),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -575,9 +499,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 15),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AdditionalInferenceSpecificationsToAdd
 		// CloudFormation resource type schema:
@@ -813,9 +734,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(63),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Environment
 								"environment":       // Pattern: ""
@@ -825,18 +743,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Sets the environment variables in the Docker container",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Framework
 								"framework": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The machine learning framework of the model package container image.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: FrameworkVersion
 								"framework_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -847,9 +759,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(3, 10),
 										stringvalidator.RegexMatches(regexp.MustCompile("[0-9]\\.[A-Za-z0-9.]+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Image
 								"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -861,9 +770,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("[\\S]{1,255}"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ImageDigest
 								"image_digest": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -874,9 +780,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelDataSource
 								"model_data_source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -896,9 +799,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ModelAccessConfig
 												"model_access_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -911,17 +811,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Bool{ /*START VALIDATORS*/
 																fwvalidators.NotNullBool(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies the access configuration file for the ML model.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: S3DataType
 												"s3_data_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -935,9 +829,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: S3Uri
 												"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -949,25 +840,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Specifies the S3 location of ML model data to deploy.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Specifies the location of ML model data to deploy during endpoint creation.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelDataUrl
 								"model_data_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -978,9 +860,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(1024),
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ModelInput
 								"model_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -995,25 +874,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("[\\S\\s]+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NearestModelName
 								"nearest_model_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that matches your model.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1024,9 +894,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							listvalidator.SizeBetween(1, 15),
 							fwvalidators.NotNullList(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1037,9 +904,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(1024),
 							stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1051,9 +915,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedContentTypes
 					"supported_content_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1067,9 +928,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedRealtimeInferenceInstanceTypes
 					"supported_realtime_inference_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1077,9 +935,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						Description: "A list of the instance types that are used to generate inferences in real-time",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedResponseMIMETypes
 					"supported_response_mime_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1093,9 +948,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^[-\\w]+\\/.+$"), ""),
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SupportedTransformInstanceTypes
 					"supported_transform_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1106,9 +958,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.SizeAtLeast(1),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1118,9 +967,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 15),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AdditionalInferenceSpecificationsToAdd is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ApprovalDescription
@@ -1140,9 +986,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(1024),
 				stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CertifyForMarketplace
 		// CloudFormation resource type schema:
@@ -1155,9 +998,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Whether to certify the model package for listing on AWS Marketplace.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ClientToken
 		// CloudFormation resource type schema:
@@ -1178,7 +1018,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ClientToken is a write-only property.
@@ -1224,9 +1063,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The metadata properties associated with the model package versions.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Domain
 		// CloudFormation resource type schema:
@@ -1240,7 +1076,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1558,9 +1393,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1571,9 +1403,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1585,17 +1414,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a File Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PostTrainingConstraints
 						"post_training_constraints": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1609,9 +1432,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1623,9 +1443,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1637,17 +1454,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PreTrainingConstraints
 						"pre_training_constraints": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1661,9 +1472,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1675,9 +1483,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1689,25 +1494,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Represents the drift check bias baselines that can be used when the model monitor is set using the model package.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Explainability
 				"explainability": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1724,9 +1520,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1737,9 +1530,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1751,17 +1541,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a File Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Constraints
 						"constraints": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1775,9 +1559,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1789,9 +1570,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1803,25 +1581,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Contains explainability metrics for a model.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelDataQuality
 				"model_data_quality": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1838,9 +1607,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1852,9 +1618,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1866,17 +1629,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistics
 						"statistics": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1890,9 +1647,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1904,9 +1658,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1918,25 +1669,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Represents the drift check data quality baselines that can be used when the model monitor is set using the model package.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelQuality
 				"model_quality": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1953,9 +1695,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1967,9 +1706,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1981,17 +1717,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistics
 						"statistics": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2005,9 +1735,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2019,9 +1746,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2033,32 +1757,22 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Represents the drift check model quality baselines that can be used when the model monitor is set using the model package.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Represents the drift check baselines that can be used when the model monitor is set using the model package.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2277,9 +1991,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthAtMost(63),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Environment
 							"environment":       // Pattern: ""
@@ -2289,18 +2000,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								Description: "Sets the environment variables in the Docker container",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Framework
 							"framework": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The machine learning framework of the model package container image.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: FrameworkVersion
 							"framework_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2311,9 +2016,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(3, 10),
 									stringvalidator.RegexMatches(regexp.MustCompile("[0-9]\\.[A-Za-z0-9.]+"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Image
 							"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2325,9 +2027,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("[\\S]{1,255}"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ImageDigest
 							"image_digest": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2338,9 +2037,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthAtMost(72),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ModelDataSource
 							"model_data_source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2360,9 +2056,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ModelAccessConfig
 											"model_access_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2375,17 +2068,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Bool{ /*START VALIDATORS*/
 															fwvalidators.NotNullBool(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Specifies the access configuration file for the ML model.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3DataType
 											"s3_data_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2399,9 +2086,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3Uri
 											"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2413,25 +2097,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the S3 location of ML model data to deploy.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Specifies the location of ML model data to deploy during endpoint creation.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ModelDataUrl
 							"model_data_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2442,9 +2117,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthAtMost(1024),
 									stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ModelInput
 							"model_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2459,25 +2131,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("[\\S\\s]+"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: NearestModelName
 							"nearest_model_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that matches your model.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -2489,9 +2152,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.UniqueValues(),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SupportedContentTypes
 				"supported_content_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2506,9 +2166,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SupportedRealtimeInferenceInstanceTypes
 				"supported_realtime_inference_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2516,9 +2173,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A list of the instance types that are used to generate inferences in real-time",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SupportedResponseMIMETypes
 				"supported_response_mime_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2533,9 +2187,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SupportedTransformInstanceTypes
 				"supported_transform_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2546,16 +2197,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.List{ /*START VALIDATORS*/
 						listvalidator.SizeAtLeast(1),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Details about inference jobs that can be run with models based on this model package.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2570,9 +2217,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The time at which the model package was last modified.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MetadataProperties
 		// CloudFormation resource type schema:
@@ -2619,9 +2263,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: GeneratedBy
 				"generated_by": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2632,9 +2273,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ProjectId
 				"project_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2645,9 +2283,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Repository
 				"repository": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2658,16 +2293,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(1024),
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Metadata properties of the tracking entity, trial, or trial component.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -2694,9 +2325,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 					"PendingManualApproval",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModelCard
 		// CloudFormation resource type schema:
@@ -2741,9 +2369,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelCardStatus
 				"model_card_status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2759,17 +2384,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The model card associated with the model package.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModelMetrics
 		// CloudFormation resource type schema:
@@ -3058,9 +2677,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3072,9 +2688,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3086,17 +2699,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PreTrainingReport
 						"pre_training_report": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3110,9 +2717,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3124,9 +2728,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3138,17 +2739,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Report
 						"report": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3162,9 +2757,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3176,9 +2768,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3190,25 +2779,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Contains bias metrics for a model.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Explainability
 				"explainability": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3225,9 +2805,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3239,9 +2816,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3253,25 +2827,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Contains explainability metrics for a model.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelDataQuality
 				"model_data_quality": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3288,9 +2853,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3302,9 +2864,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3316,17 +2875,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistics
 						"statistics": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3340,9 +2893,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3354,9 +2904,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3368,25 +2915,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Metrics that measure the quality of the input data for a model.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelQuality
 				"model_quality": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3403,9 +2941,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3417,9 +2952,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3431,17 +2963,11 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistics
 						"statistics": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3455,9 +2981,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(72),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContentType
 								"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3469,9 +2992,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: S3Uri
 								"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3483,32 +3003,22 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Represents a Metric Source Object.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Metrics that measure the quality of a model.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A structure that contains model metrics reports.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3547,7 +3057,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("[\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}]*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3569,7 +3078,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 170),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3584,9 +3092,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name or arn of the model package.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModelPackageStatus
 		// CloudFormation resource type schema:
@@ -3666,9 +3171,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								Description: "If the overall status is Failed, the reason for the failure.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3680,9 +3182,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Status
 							"status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3698,25 +3197,16 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Details about the current status of the model package.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModelPackageVersion
 		// CloudFormation resource type schema:
@@ -3733,9 +3223,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.AtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SamplePayloadUrl
 		// CloudFormation resource type schema:
@@ -3755,7 +3242,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3790,16 +3276,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:/_-]*$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An optional AWS Key Management Service key to encrypt, decrypt, and re-encrypt model package information for regulated workloads with highly sensitive data.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3824,9 +3306,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 					"All",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SourceAlgorithmSpecification
 		// CloudFormation resource type schema:
@@ -3887,9 +3366,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 170),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ModelDataUrl
 							"model_data_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3900,9 +3376,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthAtMost(1024),
 									stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -3913,16 +3386,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.SizeBetween(1, 1),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Details about the algorithm that was used to create the model package.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -3943,9 +3412,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -3992,9 +3458,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4006,9 +3469,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -4018,9 +3478,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Task
 		// CloudFormation resource type schema:
@@ -4034,7 +3491,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -4277,9 +3733,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$"), ""),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TransformJobDefinition
 							"transform_job_definition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4295,9 +3748,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 												"SingleRecord",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Environment
 									"environment":       // Pattern: ""
@@ -4307,9 +3757,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Sets the environment variables in the Docker container",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-											mapplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MaxConcurrentTransforms
 									"max_concurrent_transforms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4319,9 +3766,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MaxPayloadInMB
 									"max_payload_in_mb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4331,9 +3775,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransformInput
 									"transform_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4349,9 +3790,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														"Gzip",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ContentType
 											"content_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4362,9 +3800,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthAtMost(256),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DataSource
 											"data_source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4385,9 +3820,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 																	),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: S3Uri
 															"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4399,9 +3831,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 																	stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Describes the S3 data source.",
@@ -4410,9 +3839,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Object{ /*START VALIDATORS*/
 															fwvalidators.NotNullObject(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Describes the input source of a transform job and the way the transform job consumes it.",
@@ -4421,9 +3847,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SplitType
 											"split_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4438,9 +3861,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														"RecordIO",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Describes the input source of a transform job and the way the transform job consumes it.",
@@ -4449,9 +3869,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransformOutput
 									"transform_output": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4465,9 +3882,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthAtMost(256),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: AssembleWith
 											"assemble_with": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4480,9 +3894,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 														"Line",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: KmsKeyId
 											"kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4493,9 +3904,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthAtMost(2048),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3OutputPath
 											"s3_output_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4507,9 +3915,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Describes the results of a transform job.",
@@ -4518,9 +3923,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransformResources
 									"transform_resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4534,9 +3936,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													int64validator.AtLeast(1),
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: InstanceType
 											"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4546,9 +3945,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: VolumeKmsKeyId
 											"volume_kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4559,9 +3955,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthAtMost(2048),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Describes the resources, including ML instance types and ML instance count, to use for transform job.",
@@ -4570,9 +3963,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Defines the input needed to run a transform job using the inference specification specified in the algorithm.",
@@ -4581,9 +3971,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -4593,9 +3980,6 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.SizeBetween(1, 1),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ValidationRole
 				"validation_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4607,16 +3991,12 @@ func modelPackageResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies configurations for one or more transform jobs that Amazon SageMaker runs to test the model package.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

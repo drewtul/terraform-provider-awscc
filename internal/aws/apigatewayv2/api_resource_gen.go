@@ -11,11 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -70,9 +65,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "An API key selection expression. Supported only for WebSocket APIs. See [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: BasePath
 		// CloudFormation resource type schema:
@@ -85,9 +77,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies how to interpret the base path of the API during import. Valid values are ``ignore``, ``prepend``, and ``split``. The default value is ``ignore``. To learn more, see [Set the OpenAPI basePath Property](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html). Supported only for HTTP APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BasePath is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Body
@@ -102,9 +91,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The OpenAPI definition. Supported only for HTTP APIs. To import an HTTP API, you must specify a ``Body`` or ``BodyS3Location``. If you specify a ``Body`` or ``BodyS3Location``, don't specify CloudFormation resources such as ``AWS::ApiGatewayV2::Authorizer`` or ``AWS::ApiGatewayV2::Route``. API Gateway doesn't support the combination of OpenAPI and CloudFormation resources.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Body is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BodyS3Location
@@ -140,9 +126,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The S3 bucket that contains the OpenAPI definition to import. Required if you specify a ``BodyS3Location`` for an API.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// Bucket is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: Etag
@@ -150,9 +133,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The Etag of the S3 object.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// Etag is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: Key
@@ -160,9 +140,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The key of the S3 object. Required if you specify a ``BodyS3Location`` for an API.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// Key is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: Version
@@ -170,18 +147,12 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The version of the S3 object.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// Version is a write-only property.
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The S3 location of an OpenAPI definition. Supported only for HTTP APIs. To import an HTTP API, you must specify a ``Body`` or ``BodyS3Location``. If you specify a ``Body`` or ``BodyS3Location``, don't specify CloudFormation resources such as ``AWS::ApiGatewayV2::Authorizer`` or ``AWS::ApiGatewayV2::Route``. API Gateway doesn't support the combination of OpenAPI and CloudFormation resources.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BodyS3Location is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CorsConfiguration
@@ -241,9 +212,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Specifies whether credentials are included in the CORS request. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AllowHeaders
 				"allow_headers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -251,9 +219,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Represents a collection of allowed headers. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AllowMethods
 				"allow_methods": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -261,9 +226,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Represents a collection of allowed HTTP methods. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: AllowOrigins
 				"allow_origins": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -271,9 +233,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Represents a collection of allowed origins. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExposeHeaders
 				"expose_headers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -281,26 +240,17 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Represents a collection of exposed headers. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxAge
 				"max_age": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Description: "The number of seconds that the browser should cache preflight request results. Supported only for HTTP APIs.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A CORS configuration. Supported only for HTTP APIs. See [Configuring CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html) for more information.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CredentialsArn
 		// CloudFormation resource type schema:
@@ -313,9 +263,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This property is part of quick create. It specifies the credentials required for the integration, if any. For a Lambda integration, three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify ``arn:aws:iam::*:user/*``. To use resource-based permissions on supported AWS services, specify ``null``. Currently, this property is not used for HTTP integrations. Supported only for HTTP APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CredentialsArn is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Description
@@ -329,9 +276,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The description of the API.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisableExecuteApiEndpoint
 		// CloudFormation resource type schema:
@@ -344,9 +288,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether clients can invoke your API by using the default ``execute-api`` endpoint. By default, clients can invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisableSchemaValidation
 		// CloudFormation resource type schema:
@@ -359,9 +300,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Avoid validating models when creating a deployment. Supported only for WebSocket APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// DisableSchemaValidation is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: FailOnWarnings
@@ -375,9 +313,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to rollback the API creation when a warning is encountered. By default, API creation continues if a warning is encountered.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// FailOnWarnings is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: IpAddressType
@@ -391,9 +326,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -406,9 +338,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the API. Required unless you specify an OpenAPI definition for ``Body`` or ``S3BodyLocation``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ProtocolType
 		// CloudFormation resource type schema:
@@ -422,7 +351,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -437,9 +365,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This property is part of quick create. If you don't specify a ``routeKey``, a default route of ``$default`` is created. The ``$default`` route acts as a catch-all for any request made to your API, for a particular stage. The ``$default`` route key can't be modified. You can add routes after creating the API, and you can update the route keys of additional routes. Supported only for HTTP APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RouteKey is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: RouteSelectionExpression
@@ -453,9 +378,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The route selection expression for the API. For HTTP APIs, the ``routeSelectionExpression`` must be ``${request.method} ${request.path}``. If not provided, this will be the default for HTTP APIs. This property is required for WebSocket APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -476,9 +398,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The collection of tags. Each tag element is associated with a given resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Target
 		// CloudFormation resource type schema:
@@ -491,9 +410,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This property is part of quick create. Quick create produces an API with an integration, a default catch-all route, and a default stage which is configured to automatically deploy changes. For HTTP integrations, specify a fully qualified URL. For Lambda integrations, specify a function ARN. The type of the integration will be HTTP_PROXY or AWS_PROXY, respectively. Supported only for HTTP APIs.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Target is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Version
@@ -507,9 +423,6 @@ func apiResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A version identifier for the API.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -456,9 +453,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PolicyQualifiers
 									"policy_qualifiers": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -472,9 +466,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Qualifier
 												"qualifier": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -487,9 +478,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Defines the qualifier type. AWS Private CA supports the use of a URI for a CPS qualifier in this field.",
@@ -498,27 +486,18 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Object{ /*START VALIDATORS*/
 														fwvalidators.NotNullObject(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "Modifies the given ``CertPolicyId`` with a qualifier. AWS Private CA supports the certification practice statement (CPS) qualifier.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "Contains a sequence of one or more policy information terms, each of which consists of an object identifier (OID) and optional qualifiers. For more information, see NIST's definition of [Object Identifier (OID)](https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier).\n In an end-entity certificate, these terms indicate the policy under which the certificate was issued and the purposes for which it may be used. In a CA certificate, these terms limit the set of policies for certification paths that include this certificate.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomExtensions
 						"custom_extensions": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -529,9 +508,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Specifies the critical flag of the X.509 extension.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ObjectIdentifier
 									"object_identifier": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -541,9 +517,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Value
 									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -553,18 +526,12 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "Contains a sequence of one or more X.509 extensions, each of which consists of an object identifier (OID), a base64-encoded value, and the critical flag. For more information, see the [Global OID reference database.](https://docs.aws.amazon.com/https://oidref.com/2.5.29)",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ExtendedKeyUsage
 						"extended_key_usage": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -575,27 +542,18 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Description: "Specifies a custom ``ExtendedKeyUsage`` with an object identifier (OID).",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ExtendedKeyUsageType
 									"extended_key_usage_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Specifies a standard ``ExtendedKeyUsage`` as defined as in [RFC 5280](https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12).",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "Specifies additional purposes for which the certified public key may be used other than basic purposes indicated in the ``KeyUsage`` extension.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KeyUsage
 						"key_usage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -606,9 +564,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DataEncipherment
 								"data_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -616,9 +571,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DecipherOnly
 								"decipher_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -626,9 +578,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DigitalSignature
 								"digital_signature": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -636,9 +585,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EncipherOnly
 								"encipher_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -646,9 +592,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyAgreement
 								"key_agreement": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -656,9 +599,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyCertSign
 								"key_cert_sign": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -666,9 +606,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KeyEncipherment
 								"key_encipherment": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -676,9 +613,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NonRepudiation
 								"non_repudiation": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -686,17 +620,11 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 									Optional:    true,
 									Computed:    true,
 									Default:     booldefault.StaticBool(false),
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Defines one or more purposes for which the key contained in the certificate can be used. Default value for each option is false.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SubjectAlternativeNames
 						"subject_alternative_names": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -710,18 +638,12 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 												Description: "For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length limit.\n Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated with the certificate subject.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Country
 											"country": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Two-digit code that specifies the country in which the certificate subject located.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: CustomAttributes
 											"custom_attributes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -735,9 +657,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Value
 														"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -747,143 +666,95 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
 												Description: "Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object identifier (OID) and a value. For more information, see NIST?s definition of [Object Identifier (OID)](https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier).\n  Custom attributes cannot be used in combination with standard attributes.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-													listplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DistinguishedNameQualifier
 											"distinguished_name_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Disambiguating information for the certificate subject.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: GenerationQualifier
 											"generation_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Typically a qualifier appended to the name of an individual. Examples include Jr. for junior, Sr. for senior, and III for third.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: GivenName
 											"given_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "First name.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Initials
 											"initials": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Concatenation that typically contains the first letter of the *GivenName*, the first letter of the middle name if one exists, and the first letter of the *Surname*.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Locality
 											"locality": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The locality (such as a city or town) in which the certificate subject is located.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Organization
 											"organization": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Legal name of the organization with which the certificate subject is affiliated.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: OrganizationalUnit
 											"organizational_unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "A subdivision or unit of the organization (such as sales or finance) with which the certificate subject is affiliated.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Pseudonym
 											"pseudonym": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Typically a shortened version of a longer *GivenName*. For example, Jonathan is often shortened to John. Elizabeth is often shortened to Beth, Liz, or Eliza.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SerialNumber
 											"serial_number": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The certificate serial number.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: State
 											"state": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "State in which the subject of the certificate is located.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Surname
 											"surname": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "Family name. In the US and the UK, for example, the surname of an individual is ordered last. In Asian cultures the surname is typically ordered first.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Title
 											"title": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "A title such as Mr. or Ms., which is pre-pended to the name to refer formally to the certificate subject.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Contains information about the certificate subject. The certificate can be one issued by your private certificate authority (CA) or it can be your private CA certificate. The Subject field in the certificate identifies the entity that owns or controls the public key in the certificate. The entity can be a user, computer, device, or service. The Subject must contain an X.500 distinguished name (DN). A DN is a sequence of relative distinguished names (RDNs). The RDNs are separated by commas in the certificate. The DN must be unique for each entity, but your private CA can issue more than one certificate with the same DN to the same entity.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DnsName
 									"dns_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Represents ``GeneralName`` as a DNS name.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: EdiPartyName
 									"edi_party_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -896,9 +767,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: PartyName
 											"party_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -908,26 +776,17 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Represents ``GeneralName`` as an ``EdiPartyName`` object.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: IpAddress
 									"ip_address": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Represents ``GeneralName`` as an IPv4 or IPv6 address.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OtherName
 									"other_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -940,9 +799,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Value
 											"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -952,61 +808,40 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Represents ``GeneralName`` using an ``OtherName`` object.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RegisteredId
 									"registered_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Represents ``GeneralName`` as an object identifier (OID).",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Rfc822Name
 									"rfc_822_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Represents ``GeneralName`` as an [RFC 822](https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc822) email address.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: UniformResourceIdentifier
 									"uniform_resource_identifier": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "Represents ``GeneralName`` as a URI.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "The subject alternative name extension allows identities to be bound to the subject of the certificate. These identities may be included in addition to or in place of the identity in the subject field of the certificate.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies X.509 extension information for a certificate.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Subject
 				"subject": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1016,18 +851,12 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 							Description: "For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length limit.\n Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated with the certificate subject.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Country
 						"country": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Two-digit code that specifies the country in which the certificate subject located.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomAttributes
 						"custom_attributes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1041,9 +870,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Value
 									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1053,141 +879,95 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object identifier (OID) and a value. For more information, see NIST?s definition of [Object Identifier (OID)](https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier).\n  Custom attributes cannot be used in combination with standard attributes.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DistinguishedNameQualifier
 						"distinguished_name_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Disambiguating information for the certificate subject.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GenerationQualifier
 						"generation_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Typically a qualifier appended to the name of an individual. Examples include Jr. for junior, Sr. for senior, and III for third.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GivenName
 						"given_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "First name.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Initials
 						"initials": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Concatenation that typically contains the first letter of the *GivenName*, the first letter of the middle name if one exists, and the first letter of the *Surname*.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Locality
 						"locality": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "The locality (such as a city or town) in which the certificate subject is located.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Organization
 						"organization": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Legal name of the organization with which the certificate subject is affiliated.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OrganizationalUnit
 						"organizational_unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "A subdivision or unit of the organization (such as sales or finance) with which the certificate subject is affiliated.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Pseudonym
 						"pseudonym": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Typically a shortened version of a longer *GivenName*. For example, Jonathan is often shortened to John. Elizabeth is often shortened to Beth, Liz, or Eliza.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SerialNumber
 						"serial_number": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "The certificate serial number.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: State
 						"state": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "State in which the subject of the certificate is located.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Surname
 						"surname": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "Family name. In the US and the UK, for example, the surname of an individual is ordered last. In Asian cultures the surname is typically ordered first.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Title
 						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "A title such as Mr. or Ms., which is pre-pended to the name to refer formally to the certificate subject.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Contains information about the certificate subject. The Subject field in the certificate identifies the entity that owns or controls the public key in the certificate. The entity can be a user, computer, device, or service. The Subject must contain an X.500 distinguished name (DN). A DN is a sequence of relative distinguished names (RDNs). The RDNs are separated by commas in the certificate.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies X.509 certificate information to be included in the issued certificate. An ``APIPassthrough`` or ``APICSRPassthrough`` template variant must be selected, or else this parameter is ignored.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ApiPassthrough is a write-only property.
@@ -1278,7 +1058,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// TemplateArn is a write-only property.
@@ -1357,9 +1136,6 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Value
 				"value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1369,16 +1145,12 @@ func certificateResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						fwvalidators.NotNullFloat64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Information describing the start of the validity period of the certificate. This parameter sets the ?Not Before\" date for the certificate.\n By default, when issuing a certificate, PCAshort sets the \"Not Before\" date to the issuance time minus 60 minutes. This compensates for clock inconsistencies across computer systems. The ``ValidityNotBefore`` parameter can be used to customize the ?Not Before? value. \n Unlike the ``Validity`` parameter, the ``ValidityNotBefore`` parameter is optional.\n The ``ValidityNotBefore`` value is expressed as an explicit date and time, using the ``Validity`` type value ``ABSOLUTE``.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ValidityNotBefore is a write-only property.

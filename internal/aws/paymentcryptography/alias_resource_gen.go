@@ -62,9 +62,6 @@ func aliasResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(70, 150),
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws:payment-cryptography:[a-z]{2}-[a-z]{1,16}-[0-9]+:[0-9]{12}:key/[0-9a-zA-Z]{16,64}$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

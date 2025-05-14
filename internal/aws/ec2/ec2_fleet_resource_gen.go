@@ -14,8 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -44,9 +42,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 		"context": schema.StringAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ExcessCapacityTerminationPolicy
 		// CloudFormation resource type schema:
@@ -67,9 +62,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 					"no-termination",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FleetId
 		// CloudFormation resource type schema:
@@ -463,9 +455,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 							"launch_template_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: LaunchTemplateName
 							"launch_template_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -475,9 +464,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(3, 128),
 									stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9\\(\\)\\.\\-/_]+"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Version
 							"version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -486,16 +472,10 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Overrides
 					"overrides": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -505,9 +485,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 								"availability_zone": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InstanceRequirements
 								"instance_requirements": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -519,24 +496,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AcceleratorManufacturers
 										"accelerator_manufacturers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -554,9 +522,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AcceleratorNames
 										"accelerator_names": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -581,9 +546,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AcceleratorTotalMemoryMiB
 										"accelerator_total_memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -592,24 +554,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AcceleratorTypes
 										"accelerator_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -625,9 +578,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AllowedInstanceTypes
 										"allowed_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -640,9 +590,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9\\.\\*]+"), ""),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: BareMetal
 										"bare_metal": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -655,9 +602,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													"excluded",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: BaselineEbsBandwidthMbps
 										"baseline_ebs_bandwidth_mbps": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -666,24 +610,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: BaselinePerformanceFactors
 										"baseline_performance_factors": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -699,31 +634,19 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 																	"instance_family": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 															}, /*END NESTED OBJECT*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																listplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: BurstablePerformance
 										"burstable_performance": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -736,9 +659,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													"excluded",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: CpuManufacturers
 										"cpu_manufacturers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -755,9 +675,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ExcludedInstanceTypes
 										"excluded_instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -770,9 +687,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9\\.\\*]+"), ""),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: InstanceGenerations
 										"instance_generations": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -787,9 +701,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LocalStorage
 										"local_storage": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -802,9 +713,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													"excluded",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LocalStorageTypes
 										"local_storage_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -819,17 +727,11 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 													),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MaxSpotPriceAsPercentageOfOptimalOnDemandPrice
 										"max_spot_price_as_percentage_of_optimal_on_demand_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MemoryGiBPerVCpu
 										"memory_gi_b_per_v_cpu": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -838,24 +740,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MemoryMiB
 										"memory_mi_b": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -864,24 +757,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: NetworkBandwidthGbps
 										"network_bandwidth_gbps": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -890,24 +774,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: NetworkInterfaceCount
 										"network_interface_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -916,48 +791,30 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: OnDemandMaxPricePercentageOverLowestPrice
 										"on_demand_max_price_percentage_over_lowest_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RequireHibernateSupport
 										"require_hibernate_support": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: SpotMaxPricePercentageOverLowestPrice
 										"spot_max_price_percentage_over_lowest_price": schema.Int64Attribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: TotalLocalStorageGB
 										"total_local_storage_gb": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -966,24 +823,15 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Float64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-														float64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: VCpuCount
 										"v_cpu_count": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -992,47 +840,29 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 												"max": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Min
 												"min": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InstanceType
 								"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxPrice
 								"max_price": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Placement
 								"placement": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1041,104 +871,65 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 										"affinity": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: AvailabilityZone
 										"availability_zone": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: GroupName
 										"group_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: HostId
 										"host_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: HostResourceGroupArn
 										"host_resource_group_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PartitionNumber
 										"partition_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: SpreadDomain
 										"spread_domain": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Tenancy
 										"tenancy": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Priority
 								"priority": schema.Float64Attribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SubnetId
 								"subnet_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: WeightedCapacity
 								"weighted_capacity": schema.Float64Attribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-										float64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1192,9 +983,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 				"allocation_strategy": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CapacityReservationOptions
 				"capacity_reservation_options": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1208,54 +996,35 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 									"use-capacity-reservations-first",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxTotalPrice
 				"max_total_price": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MinTargetCapacity
 				"min_target_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SingleAvailabilityZone
 				"single_availability_zone": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SingleInstanceType
 				"single_instance_type": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1269,7 +1038,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1360,9 +1128,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 							"price-capacity-optimized",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: InstanceInterruptionBehavior
 				"instance_interruption_behavior": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1375,17 +1140,11 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 							"terminate",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: InstancePoolsToUseCount
 				"instance_pools_to_use_count": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaintenanceStrategies
 				"maintenance_strategies": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1403,69 +1162,44 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 											"launch-before-terminate",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: TerminationDelay
 								"termination_delay": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MaxTotalPrice
 				"max_total_price": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MinTargetCapacity
 				"min_target_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SingleAvailabilityZone
 				"single_availability_zone": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SingleInstanceType
 				"single_instance_type": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1612,9 +1346,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 								"vpn-gateway",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Tags
 					"tags": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1627,9 +1358,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1638,24 +1366,17 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1707,25 +1428,16 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 							"spot",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: OnDemandTargetCapacity
 				"on_demand_target_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SpotTargetCapacity
 				"spot_target_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TargetCapacityUnitType
 				"target_capacity_unit_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1738,9 +1450,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 							"units",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TotalTargetCapacity
 				"total_target_capacity": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1759,7 +1468,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1785,7 +1493,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 				),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1799,7 +1506,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1813,7 +1519,6 @@ func eC2FleetResource(ctx context.Context) (resource.Resource, error) {
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

@@ -150,9 +150,6 @@ func dBProxyEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(128),
 							stringvalidator.RegexMatches(regexp.MustCompile("(\\w|\\d|\\s|\\\\|-|\\.:=+-)*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -162,9 +159,6 @@ func dBProxyEndpointResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthAtMost(128),
 							stringvalidator.RegexMatches(regexp.MustCompile("(\\w|\\d|\\s|\\\\|-|\\.:=+-)*"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -173,7 +167,6 @@ func dBProxyEndpointResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TargetRole
@@ -197,9 +190,6 @@ func dBProxyEndpointResource(ctx context.Context) (resource.Resource, error) {
 					"READ_ONLY",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcId
 		// CloudFormation resource type schema:
@@ -237,7 +227,6 @@ func dBProxyEndpointResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcSubnetIds

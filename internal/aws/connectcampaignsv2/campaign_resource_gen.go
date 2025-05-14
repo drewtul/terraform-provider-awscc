@@ -17,13 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -332,9 +326,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultOutboundConfig
 						"default_outbound_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -349,9 +340,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-\\.\\+]+@([\\w-]+\\.)+[\\w-]{2,4}$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SourceEmailAddressDisplayName
 								"source_email_address_display_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -361,9 +349,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthBetween(1, 127),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: WisdomTemplateArn
 								"wisdom_template_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -375,9 +360,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Default SMS outbound config",
@@ -386,9 +368,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OutboundMode
 						"outbound_mode": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -399,9 +378,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Agentless config",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Email Outbound Mode",
@@ -410,17 +386,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Email Channel Subtype config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Sms
 				"sms": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -433,9 +403,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultOutboundConfig
 						"default_outbound_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -450,9 +417,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: WisdomTemplateArn
 								"wisdom_template_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -464,9 +428,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Default SMS outbound config",
@@ -475,9 +436,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OutboundMode
 						"outbound_mode": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -488,9 +446,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Agentless config",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "SMS Outbound Mode",
@@ -499,17 +454,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "SMS Channel Subtype config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Telephony
 				"telephony": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -522,9 +471,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.Between(0.010000, 1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ConnectQueueId
 						"connect_queue_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -534,9 +480,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(500),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultOutboundConfig
 						"default_outbound_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -549,9 +492,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 											Description: "Enables detection of prompts (e.g., beep after after a voicemail greeting)",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: EnableAnswerMachineDetection
 										"enable_answer_machine_detection": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -561,17 +501,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Bool{ /*START VALIDATORS*/
 												fwvalidators.NotNullBool(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The configuration used for answering machine detection during outbound calls",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectContactFlowId
 								"connect_contact_flow_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -582,9 +516,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(500),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectSourcePhoneNumber
 								"connect_source_phone_number": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -594,9 +525,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(100),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Default Telephone Outbound config",
@@ -605,9 +533,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OutboundMode
 						"outbound_mode": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -618,9 +543,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Description: "Agentless config",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PredictiveConfig
 								"predictive_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -634,17 +556,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(0.000000, 1.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Predictive config",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ProgressiveConfig
 								"progressive_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -658,17 +574,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												float64validator.Between(0.000000, 1.000000),
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Progressive config",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Telephony Outbound Mode",
@@ -677,17 +587,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Telephony Channel Subtype config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The possible types of channel subtype config parameters",
@@ -759,9 +663,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 											int64validator.AtLeast(1),
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MaxCountPerRecipient
 									"max_count_per_recipient": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -771,9 +672,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 											int64validator.AtLeast(1),
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Unit
 									"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -786,9 +684,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 											),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -797,24 +692,17 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Computed:    true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Communication limits",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Communication limits config",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CommunicationTimeConfig
 		// CloudFormation resource type schema:
@@ -1232,9 +1120,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 														"SUNDAY",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Value
 											"value": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1249,9 +1134,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: StartTime
 														"start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1262,9 +1144,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -1273,7 +1152,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Computed:    true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
@@ -1284,9 +1162,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Set{ /*START VALIDATORS*/
 										fwvalidators.NotNullSet(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Open Hours config",
@@ -1295,9 +1170,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RestrictedPeriods
 						"restricted_periods": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1315,9 +1187,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1327,9 +1196,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(127),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: StartDate
 											"start_date": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1340,9 +1206,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1351,24 +1214,17 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Computed:    true,
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Restricted period config",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Time window config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LocalTimeZoneConfig
 				"local_time_zone_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1378,9 +1234,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Time Zone Id in the IANA format",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LocalTimeZoneDetection
 						"local_time_zone_detection": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1398,7 +1251,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
@@ -1408,9 +1260,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Sms
 				"sms": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1438,9 +1287,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 														"SUNDAY",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Value
 											"value": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1455,9 +1301,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: StartTime
 														"start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1468,9 +1311,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -1479,7 +1319,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Computed:    true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
@@ -1490,9 +1329,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Set{ /*START VALIDATORS*/
 										fwvalidators.NotNullSet(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Open Hours config",
@@ -1501,9 +1337,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RestrictedPeriods
 						"restricted_periods": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1521,9 +1354,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1533,9 +1363,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(127),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: StartDate
 											"start_date": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1546,9 +1373,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1557,24 +1381,17 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Computed:    true,
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Restricted period config",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Time window config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Telephony
 				"telephony": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1602,9 +1419,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 														"SUNDAY",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Value
 											"value": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1619,9 +1433,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: StartTime
 														"start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1632,9 +1443,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^T\\d{2}:\\d{2}$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -1643,7 +1451,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Computed:    true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
@@ -1654,9 +1461,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Set{ /*START VALIDATORS*/
 										fwvalidators.NotNullSet(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Open Hours config",
@@ -1665,9 +1469,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RestrictedPeriods
 						"restricted_periods": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1685,9 +1486,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1697,9 +1495,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(127),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: StartDate
 											"start_date": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1710,9 +1505,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1721,32 +1513,22 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 									Computed:    true,
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Restricted period config",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Time window config",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Campaign communication time config",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ConnectCampaignFlowArn
 		// CloudFormation resource type schema:
@@ -1766,9 +1548,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(20, 500),
 				stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ConnectInstanceId
 		// CloudFormation resource type schema:
@@ -1849,9 +1628,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(100),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RefreshFrequency
 				"refresh_frequency": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1862,9 +1638,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(0, 50),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9.]*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StartTime
 				"start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1875,17 +1648,11 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(100),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Campaign schedule",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Source
 		// CloudFormation resource type schema:
@@ -1941,9 +1708,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(20, 500),
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EventTrigger
 				"event_trigger": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1957,25 +1721,16 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(20, 500),
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The event trigger of the campaign",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The possible source of the campaign",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -2016,9 +1771,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2028,9 +1780,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2040,9 +1789,6 @@ func campaignResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -10,7 +10,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -50,9 +49,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the capacity it attempts to maintain.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EndTime
 		// CloudFormation resource type schema:
@@ -65,9 +61,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The latest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxSize
 		// CloudFormation resource type schema:
@@ -80,9 +73,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The minimum size of the Auto Scaling group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MinSize
 		// CloudFormation resource type schema:
@@ -95,9 +85,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The minimum size of the Auto Scaling group.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Recurrence
 		// CloudFormation resource type schema:
@@ -110,9 +97,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The recurring schedule for the action, in Unix cron syntax format. When StartTime and EndTime are specified with Recurrence , they form the boundaries of when the recurring action starts and stops.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ScheduledActionName
 		// CloudFormation resource type schema:
@@ -139,9 +123,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The earliest scheduled start time to return. If scheduled action names are provided, this parameter is ignored.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TimeZone
 		// CloudFormation resource type schema:
@@ -154,9 +135,6 @@ func scheduledActionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The time zone for the cron expression.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

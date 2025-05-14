@@ -14,8 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -161,9 +159,6 @@ func integrationResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(20, 2048),
 								stringvalidator.RegexMatches(regexp.MustCompile("[\\w#+=/:,.@-]*\\*?"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DashboardViewerPrincipals
 						"dashboard_viewer_principals": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -177,9 +172,6 @@ func integrationResource(ctx context.Context) (resource.Resource, error) {
 								),
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DataSourceRoleArn
 						"data_source_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -190,9 +182,6 @@ func integrationResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("[\\w#+=/:,.@-]*\\*?"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KmsKeyArn
 						"kms_key_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -202,9 +191,6 @@ func integrationResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthBetween(20, 2048),
 								stringvalidator.RegexMatches(regexp.MustCompile("[\\w#+=/:,.@-]*\\*?"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RetentionDays
 						"retention_days": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -213,16 +199,10 @@ func integrationResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(1, 3650),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "OpenSearchResourceConfig for the given Integration",

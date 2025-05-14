@@ -10,7 +10,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -50,9 +49,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The delivery policy JSON assigned to the subscription. Enables the subscriber to define the message delivery retry strategy in the case of an HTTP/S endpoint subscribed to the topic.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Endpoint
 		// CloudFormation resource type schema:
@@ -66,7 +62,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -81,9 +76,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The filter policy JSON assigned to the subscription. Enables the subscriber to filter out unwanted messages.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FilterPolicyScope
 		// CloudFormation resource type schema:
@@ -96,9 +88,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This attribute lets you choose the filtering scope by using one of the following string value types: MessageAttributes (default) and MessageBody.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Protocol
 		// CloudFormation resource type schema:
@@ -125,9 +114,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "When set to true, enables raw message delivery. Raw messages don't contain any JSON formatting and can be sent to Amazon SQS and HTTP/S endpoints.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RedrivePolicy
 		// CloudFormation resource type schema:
@@ -140,9 +126,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "When specified, sends undeliverable messages to the specified Amazon SQS dead-letter queue. Messages that can't be delivered due to client errors are held in the dead-letter queue for further analysis or reprocessing.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Region
 		// CloudFormation resource type schema:
@@ -155,9 +138,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "For cross-region subscriptions, the region in which the topic resides.If no region is specified, AWS CloudFormation uses the region of the caller as the default.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Region is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ReplayPolicy
@@ -171,9 +151,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether Amazon SNS resends the notification to the subscription when a message's attribute changes.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SubscriptionRoleArn
 		// CloudFormation resource type schema:
@@ -186,9 +163,6 @@ func subscriptionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "This property applies only to Amazon Data Firehose delivery stream subscriptions.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TopicArn
 		// CloudFormation resource type schema:

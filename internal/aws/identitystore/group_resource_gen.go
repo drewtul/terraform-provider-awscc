@@ -45,9 +45,6 @@ func groupResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 1024),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}\\t\\n\\r  \u3000]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisplayName
 		// CloudFormation resource type schema:

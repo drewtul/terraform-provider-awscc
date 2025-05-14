@@ -87,7 +87,6 @@ func robotApplicationVersionResource(ctx context.Context) (resource.Resource, er
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_.\\-]*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

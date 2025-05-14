@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -126,17 +125,11 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(256),
 								stringvalidator.RegexMatches(regexp.MustCompile("(s3|http|https)://.+"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Amazon S3 bucket that contains the training data to import.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DatasetArn
 				"dataset_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -147,9 +140,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(256),
 						stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):personalize:.*:.*:.+"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DatasetImportJobArn
 				"dataset_import_job_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -160,9 +150,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(256),
 						stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):personalize:.*:.*:.+"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: JobName
 				"job_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -173,9 +160,6 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthBetween(1, 63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9\\-_]*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RoleArn
 				"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -186,17 +170,11 @@ func datasetResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(256),
 						stringvalidator.RegexMatches(regexp.MustCompile("arn:([a-z\\d-]+):iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Initial DatasetImportJob for the created dataset",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DatasetType
 		// CloudFormation resource type schema:

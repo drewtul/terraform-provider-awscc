@@ -14,9 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -76,9 +73,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(1, 100),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Rules
 		// CloudFormation resource type schema:
@@ -960,9 +954,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[xX]\\-[a-zA-Z0-9\\-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: HeaderValue
 										"header_value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -972,16 +963,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.LengthBetween(1, 128),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Archive
 								"archive": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -996,9 +981,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: TargetArchive
 										"target_archive": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1009,16 +991,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DeliverToMailbox
 								"deliver_to_mailbox": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1033,9 +1009,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MailboxArn
 										"mailbox_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1046,9 +1019,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RoleArn
 										"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1059,16 +1029,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DeliverToQBusiness
 								"deliver_to_q_business": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1083,9 +1047,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ApplicationId
 										"application_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1096,9 +1057,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: IndexId
 										"index_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1109,9 +1067,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RoleArn
 										"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1122,25 +1077,16 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Drop
 								"drop": schema.StringAttribute{ /*START ATTRIBUTE*/
 									CustomType: jsontypes.NormalizedType{},
 									Optional:   true,
 									Computed:   true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Relay
 								"relay": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1155,9 +1101,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MailFrom
 										"mail_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1169,9 +1112,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"PRESERVE",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Relay
 										"relay": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1182,16 +1122,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ReplaceRecipient
 								"replace_recipient": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1209,16 +1143,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													stringvalidator.RegexMatches(regexp.MustCompile("^[0-9A-Za-z@+.-]+$"), ""),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Send
 								"send": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1233,9 +1161,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RoleArn
 										"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1246,16 +1171,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: WriteToS3
 								"write_to_s3": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1270,9 +1189,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													"DROP",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RoleArn
 										"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1283,9 +1199,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: S3Bucket
 										"s3_bucket": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1296,9 +1209,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9.-]+$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: S3Prefix
 										"s3_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1308,9 +1218,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.LengthBetween(1, 62),
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9!_.*'()/-]+$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: S3SseKmsKeyId
 										"s3_sse_kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1320,16 +1227,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.LengthBetween(20, 2048),
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9-:/]+$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1359,9 +1260,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1372,16 +1270,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1394,9 +1286,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"TLS_WRAPPED",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1404,9 +1293,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1419,16 +1305,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DmarcExpression
 								"dmarc_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1444,9 +1324,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1464,16 +1341,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IpExpression
 								"ip_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1490,9 +1361,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"SOURCE_IP",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1500,9 +1368,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1515,9 +1380,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1532,16 +1394,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NumberExpression
 								"number_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1558,9 +1414,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"MESSAGE_SIZE",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1568,9 +1421,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1587,9 +1437,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Value
 										"value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1598,16 +1445,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Float64{ /*START VALIDATORS*/
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StringExpression
 								"string_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1626,9 +1467,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1639,16 +1477,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1666,9 +1498,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"CC",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MimeHeaderAttribute
 												"mime_header_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1677,9 +1506,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.RegexMatches(regexp.MustCompile("^X-[a-zA-Z0-9-]{1,256}$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1687,9 +1513,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1705,9 +1528,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1721,16 +1541,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: VerdictExpression
 								"verdict_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1749,9 +1563,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1762,16 +1573,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1783,9 +1588,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"DKIM",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1793,9 +1595,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1808,9 +1607,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1829,16 +1625,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -1847,9 +1637,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.SizeBetween(0, 10),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Name
 					"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1859,9 +1646,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 32),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_.-]+$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Unless
 					"unless": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1884,9 +1668,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1897,16 +1678,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1919,9 +1694,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"TLS_WRAPPED",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -1929,9 +1701,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1944,16 +1713,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DmarcExpression
 								"dmarc_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1969,9 +1732,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1989,16 +1749,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IpExpression
 								"ip_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2015,9 +1769,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"SOURCE_IP",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2025,9 +1776,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2040,9 +1788,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2057,16 +1802,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: NumberExpression
 								"number_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2083,9 +1822,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"MESSAGE_SIZE",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2093,9 +1829,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2112,9 +1845,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Value
 										"value": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -2123,16 +1853,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Float64{ /*START VALIDATORS*/
 												fwvalidators.NotNullFloat64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-												float64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StringExpression
 								"string_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2151,9 +1875,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2164,16 +1885,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2191,9 +1906,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"CC",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MimeHeaderAttribute
 												"mime_header_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2202,9 +1914,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.RegexMatches(regexp.MustCompile("^X-[a-zA-Z0-9-]{1,256}$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2212,9 +1921,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2230,9 +1936,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2246,16 +1949,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: VerdictExpression
 								"verdict_expression": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2274,9 +1971,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9:_/+=,@.#-]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ResultField
 														"result_field": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2287,16 +1981,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 																stringvalidator.RegexMatches(regexp.MustCompile("^(addon\\.)?[\\sa-zA-Z0-9_]+$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attribute
 												"attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2308,9 +1996,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 															"DKIM",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
@@ -2318,9 +2003,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Operator
 										"operator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2333,9 +2015,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Values
 										"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2354,16 +2033,10 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -2372,9 +2045,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 						Validators: []validator.List{ /*START VALIDATORS*/
 							listvalidator.SizeBetween(0, 10),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2425,9 +2095,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9/_\\+=\\.:@\\-]+$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2438,9 +2105,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9/_\\+=\\.:@\\-]*$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2449,9 +2113,6 @@ func mailManagerRuleSetResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(0, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

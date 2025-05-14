@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -43,9 +42,6 @@ func environmentActionsResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(2048),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainId
 		// CloudFormation resource type schema:
@@ -78,7 +74,6 @@ func environmentActionsResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("^dzd[-_][a-zA-Z0-9_-]{1,36}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// DomainIdentifier is a write-only property.
@@ -119,7 +114,6 @@ func environmentActionsResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("[a-zA-Z0-9_-]{1,36}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// EnvironmentIdentifier is a write-only property.
@@ -159,9 +153,6 @@ func environmentActionsResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(1, 36),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]{1,36}$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Identifier is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Name
@@ -208,17 +199,11 @@ func environmentActionsResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The parameters of the environment action.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -14,10 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -49,9 +46,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.Between(0, 60),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DataInputConfiguration
 		// CloudFormation resource type schema:
@@ -125,9 +119,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(0, 1),
 								stringvalidator.RegexMatches(regexp.MustCompile("^(\\-|\\_|\\s)?$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TimestampFormat
 						"timestamp_format": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -137,17 +128,11 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^EPOCH|yyyy-MM-dd-HH-mm-ss|yyyyMMddHHmmss$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies configuration information for the input data for the inference, including timestamp format and delimiter.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: InputTimeZoneOffset
 				"input_time_zone_offset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -157,9 +142,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.RegexMatches(regexp.MustCompile("^(\\+|\\-)[0-9]{2}\\:[0-9]{2}$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3InputConfiguration
 				"s3_input_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -179,9 +161,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(0, 1024),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies configuration information for the input data for the inference, including input data S3 location.",
@@ -242,9 +221,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3OutputConfiguration
 				"s3_output_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -264,9 +240,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(0, 1024),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies configuration information for the output results from the inference, including output S3 location.",
@@ -339,7 +312,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.RegexMatches(regexp.MustCompile("^[0-9a-zA-Z_-]{1,200}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -400,7 +372,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthBetween(1, 2048),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -451,9 +422,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -465,9 +433,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.RegexMatches(regexp.MustCompile("[\\s\\w+-=\\.:/@]*"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -477,9 +442,6 @@ func inferenceSchedulerResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

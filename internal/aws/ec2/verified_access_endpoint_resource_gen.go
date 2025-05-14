@@ -12,9 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -45,7 +42,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -124,7 +120,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -140,9 +135,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ToPort
 							"to_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -152,18 +144,12 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Description: "The list of port range.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Protocol
 				"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -171,7 +157,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -182,7 +167,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
 						setplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -190,9 +174,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Description: "The options for cidr type endpoint.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CreationTime
 		// CloudFormation resource type schema:
@@ -219,9 +200,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Description: "A description for the AWS Verified Access endpoint.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DeviceValidationDomain
 		// CloudFormation resource type schema:
@@ -249,7 +227,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -279,7 +256,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -378,7 +354,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -390,9 +365,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 65535),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PortRanges
 				"port_ranges": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -406,9 +378,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ToPort
 							"to_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -418,27 +387,18 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Description: "The list of port range.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Protocol
 				"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The IP protocol.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SubnetIds
 				"subnet_ids": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -446,17 +406,11 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Description: "The IDs of the subnets.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The load balancer details if creating the AWS Verified Access endpoint as load-balancer type.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NetworkInterfaceOptions
 		// CloudFormation resource type schema:
@@ -515,7 +469,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -527,9 +480,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 65535),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: PortRanges
 				"port_ranges": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -543,9 +493,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ToPort
 							"to_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -555,35 +502,23 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 65535),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Description: "The list of port ranges.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Protocol
 				"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The IP protocol.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The options for network-interface type endpoint.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PolicyDocument
 		// CloudFormation resource type schema:
@@ -596,9 +531,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Description: "The AWS Verified Access policy document.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PolicyEnabled
 		// CloudFormation resource type schema:
@@ -611,9 +543,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Description: "The status of the Verified Access policy.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RdsOptions
 		// CloudFormation resource type schema:
@@ -671,9 +600,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 65535),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Protocol
 				"protocol": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -681,7 +607,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -691,7 +616,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -701,7 +625,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -711,7 +634,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Optional:    true,
 					Computed:    true,
 					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
 						stringplanmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
@@ -720,9 +642,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Description: "The RDS endpoint.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SubnetIds
 				"subnet_ids": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -730,17 +649,11 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Description: "The IDs of the subnets.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The options for rds type endpoint.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SecurityGroupIds
 		// CloudFormation resource type schema:
@@ -761,7 +674,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
 				setplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -790,26 +702,17 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 					Description: "Whether to encrypt the policy with the provided key or disable encryption",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: KmsKeyArn
 				"kms_key_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "KMS Key Arn used to encrypt the group policy",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The configuration options for customer provided KMS encryption.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Status
 		// CloudFormation resource type schema:
@@ -869,9 +772,6 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -882,18 +782,12 @@ func verifiedAccessEndpointResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "An array of key-value pairs to apply to this resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VerifiedAccessEndpointId
 		// CloudFormation resource type schema:

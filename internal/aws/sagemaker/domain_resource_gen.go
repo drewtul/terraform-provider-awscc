@@ -15,11 +15,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -57,9 +55,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					"VpcOnly",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AppSecurityGroupManagement
 		// CloudFormation resource type schema:
@@ -82,9 +77,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					"Customer",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AuthMode
 		// CloudFormation resource type schema:
@@ -738,9 +730,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^(fs-[0-9a-f]{8,})$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: FileSystemPath
 									"file_system_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -750,16 +739,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/\\S*$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: FSxLustreFileSystemConfig
 							"fsx_lustre_file_system_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -773,9 +756,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^(fs-[0-9a-f]{8,})$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: FileSystemPath
 									"file_system_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -785,16 +765,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/\\S*$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -804,9 +778,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.SizeBetween(0, 2),
 						listvalidator.UniqueValues(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CustomPosixUserConfig
 				"custom_posix_user_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -819,9 +790,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.Between(1001, 4000000),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Uid
 						"uid": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -831,17 +799,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.Between(10000, 4000000),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Jupyter lab's custom posix user configurations.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExecutionRole
 				"execution_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -853,9 +815,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: JupyterLabAppSettings
 				"jupyter_lab_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -874,9 +833,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LifecycleManagement
 										"lifecycle_management": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -889,9 +845,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 													"DISABLED",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MaxIdleTimeoutInMinutes
 										"max_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -901,9 +854,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MinIdleTimeoutInMinutes
 										"min_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -913,23 +863,14 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CodeRepositories
 						"code_repositories": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -944,9 +885,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthAtMost(256),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -956,9 +894,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(0, 30),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomImages
 						"custom_images": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -974,9 +909,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -988,9 +920,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1000,9 +929,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -1012,9 +938,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(0, 200),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
 						"default_resource_spec": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1091,9 +1014,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1104,9 +1024,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1117,9 +1034,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1130,17 +1044,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the JupyterLab app.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1155,17 +1063,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Jupyter lab's app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: JupyterServerAppSettings
 				"jupyter_server_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1245,9 +1147,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1258,9 +1157,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1271,9 +1167,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1284,16 +1177,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1308,17 +1195,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Jupyter server's app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: KernelGatewayAppSettings
 				"kernel_gateway_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1337,9 +1218,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1351,9 +1229,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1363,9 +1238,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -1377,7 +1249,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
@@ -1455,9 +1326,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1468,9 +1336,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1481,9 +1346,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1494,17 +1356,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1519,17 +1375,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The kernel gateway app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SecurityGroups
 				"security_groups": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1546,7 +1396,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SpaceStorageSettings
@@ -1564,9 +1413,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										int64validator.Between(5, 16384),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaximumEbsVolumeSizeInGb
 								"maximum_ebs_volume_size_in_gb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1577,33 +1423,21 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										int64validator.Between(5, 16384),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Properties related to the Amazon Elastic Block Store volume. Must be provided if storage type is Amazon EBS and must not be provided if storage type is not Amazon EBS",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Jupyter lab's space storage settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The default space settings.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DefaultUserSettings
 		// CloudFormation resource type schema:
@@ -2677,9 +2511,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LifecycleManagement
 										"lifecycle_management": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2692,9 +2523,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 													"DISABLED",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MaxIdleTimeoutInMinutes
 										"max_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2704,9 +2532,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MinIdleTimeoutInMinutes
 										"min_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2716,23 +2541,14 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomImages
 						"custom_images": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2748,9 +2564,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2762,9 +2575,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2774,9 +2584,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -2786,9 +2593,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(0, 200),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
 						"default_resource_spec": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2865,9 +2669,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2878,9 +2679,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2891,9 +2689,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2904,17 +2699,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the CodeEditor app.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2929,17 +2718,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The CodeEditor app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CustomFileSystemConfigs
 				"custom_file_system_configs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2957,9 +2740,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^(fs-[0-9a-f]{8,})$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: FileSystemPath
 									"file_system_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2969,16 +2749,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/\\S*$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: FSxLustreFileSystemConfig
 							"fsx_lustre_file_system_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2992,9 +2766,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^(fs-[0-9a-f]{8,})$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: FileSystemPath
 									"file_system_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3004,16 +2775,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthBetween(1, 256),
 											stringvalidator.RegexMatches(regexp.MustCompile("^\\/\\S*$"), ""),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -3023,9 +2788,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.SizeBetween(0, 2),
 						listvalidator.UniqueValues(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CustomPosixUserConfig
 				"custom_posix_user_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3038,9 +2800,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.Between(1001, 4000000),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Uid
 						"uid": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3050,16 +2809,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.Between(10000, 4000000),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DefaultLandingUri
 				"default_landing_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3069,9 +2822,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(1023),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExecutionRole
 				"execution_role": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3099,9 +2849,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LifecycleManagement
 										"lifecycle_management": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3114,9 +2861,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 													"DISABLED",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MaxIdleTimeoutInMinutes
 										"max_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3126,9 +2870,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MinIdleTimeoutInMinutes
 										"min_idle_timeout_in_minutes": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3138,23 +2879,14 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(60, 525600),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CodeRepositories
 						"code_repositories": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3169,9 +2901,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.LengthAtMost(256),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3181,9 +2910,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(0, 30),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomImages
 						"custom_images": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3199,9 +2925,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3213,9 +2936,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3225,9 +2945,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3237,9 +2954,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.List{ /*START VALIDATORS*/
 								listvalidator.SizeBetween(0, 200),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
 						"default_resource_spec": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3316,9 +3030,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3329,9 +3040,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3342,9 +3050,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3355,17 +3060,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the JupyterLab app.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3380,17 +3079,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The JupyterLab app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: JupyterServerAppSettings
 				"jupyter_server_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3470,9 +3163,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3483,9 +3173,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3496,9 +3183,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3509,16 +3193,10 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3533,17 +3211,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The Jupyter server's app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: KernelGatewayAppSettings
 				"kernel_gateway_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3562,9 +3234,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3576,9 +3245,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3588,9 +3254,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3602,7 +3265,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
@@ -3680,9 +3342,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3693,9 +3352,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3706,9 +3362,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3719,17 +3372,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LifecycleConfigArns
 						"lifecycle_config_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3744,17 +3391,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The kernel gateway app settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RSessionAppSettings
 				"r_session_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3773,9 +3414,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageName
 									"image_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3787,9 +3425,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]([-.]?[a-zA-Z0-9]){0,62}$"), ""),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImageVersionNumber
 									"image_version_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3799,9 +3434,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											int64validator.AtLeast(0),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3813,7 +3445,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DefaultResourceSpec
@@ -3891,9 +3522,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3904,9 +3532,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3917,9 +3542,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3930,24 +3552,15 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A collection of settings that apply to an RSessionGateway app.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RStudioServerProAppSettings
 				"r_studio_server_pro_app_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3963,9 +3576,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									"DISABLED",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: UserGroup
 						"user_group": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3978,17 +3588,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									"R_STUDIO_USER",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A collection of settings that configure user interaction with the RStudioServerPro app.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SecurityGroups
 				"security_groups": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -4005,7 +3609,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SharingSettings
@@ -4022,9 +3625,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									"Disabled",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3KmsKeyId
 						"s3_kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4035,9 +3635,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(2048),
 								stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3OutputPath
 						"s3_output_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4048,17 +3645,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(1024),
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The sharing settings.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SpaceStorageSettings
 				"space_storage_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4075,9 +3666,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										int64validator.Between(5, 16384),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaximumEbsVolumeSizeInGb
 								"maximum_ebs_volume_size_in_gb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4088,25 +3676,16 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										int64validator.Between(5, 16384),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Properties related to the Amazon Elastic Block Store volume. Must be provided if storage type is Amazon EBS and must not be provided if storage type is not Amazon EBS",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Default storage settings for a space.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StudioWebPortal
 				"studio_web_portal": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4119,9 +3698,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							"DISABLED",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StudioWebPortalSettings
 				"studio_web_portal_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4146,9 +3722,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HiddenMlTools
 						"hidden_ml_tools": schema.SetAttribute{ /*START ATTRIBUTE*/
@@ -4183,17 +3756,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Studio settings. If these settings are applied on a user level, they take priority over the settings applied on a domain level.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The default user settings.",
@@ -4447,9 +4014,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 									"DISABLED",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: VpcOnlyTrustedAccounts
 						"vpc_only_trusted_accounts": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -4466,16 +4030,12 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A collection of settings that are required to start docker-proxy server.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExecutionRoleIdentityConfig
 				"execution_role_identity_config": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4488,9 +4048,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							"DISABLED",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RStudioServerProDomainSettings
 				"r_studio_server_pro_domain_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4570,9 +4127,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 											"ml.trn1n.32xlarge",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LifecycleConfigArn
 								"lifecycle_config_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4583,9 +4137,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:studio-lifecycle-config/.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageArn
 								"sage_maker_image_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4596,9 +4147,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SageMakerImageVersionArn
 								"sage_maker_image_version_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4609,15 +4157,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws(-[\\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
 							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
 								objectplanmodifier.RequiresReplaceIfConfigured(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
@@ -4631,9 +4175,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RStudioConnectUrl
 						"r_studio_connect_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4643,9 +4184,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https:|http:|www\\.)\\S*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RStudioPackageManagerUrl
 						"r_studio_package_manager_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4655,17 +4193,11 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https:|http:|www\\.)\\S*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A collection of settings that update the current configuration for the RStudioServerPro Domain-level app.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SecurityGroupIds
 				"security_group_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -4682,16 +4214,12 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A collection of Domain settings.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: HomeEfsFileSystemId
 		// CloudFormation resource type schema:
@@ -4726,7 +4254,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -4828,9 +4355,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 					"DISABLED",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -4874,9 +4398,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4886,9 +4407,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -4900,7 +4418,6 @@ func domainResource(ctx context.Context) (resource.Resource, error) {
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// Tags is a write-only property.

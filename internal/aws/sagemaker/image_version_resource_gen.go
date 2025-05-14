@@ -13,9 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -49,9 +47,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 128),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Alias is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Aliases
@@ -78,9 +73,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 					stringvalidator.LengthBetween(1, 128),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// Aliases is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BaseImage
@@ -132,9 +124,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates Horovod compatibility.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ImageArn
 		// CloudFormation resource type schema:
@@ -214,9 +203,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 					"NOTEBOOK_KERNEL",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MLFramework
 		// CloudFormation resource type schema:
@@ -236,9 +222,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 128),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z]+ ?\\d+\\.\\d+(\\.\\d+)?$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Processor
 		// CloudFormation resource type schema:
@@ -261,9 +244,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 					"GPU",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ProgrammingLang
 		// CloudFormation resource type schema:
@@ -283,9 +263,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 128),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z]+ ?\\d+\\.\\d+(\\.\\d+)?$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ReleaseNotes
 		// CloudFormation resource type schema:
@@ -305,9 +282,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(1, 255),
 				stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VendorGuidance
 		// CloudFormation resource type schema:
@@ -334,9 +308,6 @@ func imageVersionResource(ctx context.Context) (resource.Resource, error) {
 					"ARCHIVED",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Version
 		// CloudFormation resource type schema:

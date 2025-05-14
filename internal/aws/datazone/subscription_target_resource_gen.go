@@ -210,9 +210,6 @@ func subscriptionTargetResource(ctx context.Context) (resource.Resource, error) 
 			Description: "The manage access role that is used to create the subscription target.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -256,9 +253,6 @@ func subscriptionTargetResource(ctx context.Context) (resource.Resource, error) 
 			Description: "The provider of the subscription target.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SubscriptionTargetConfig
 		// CloudFormation resource type schema:

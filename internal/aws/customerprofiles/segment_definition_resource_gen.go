@@ -16,12 +16,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -70,9 +66,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 1000),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DisplayName
 		// CloudFormation resource type schema:
@@ -1742,9 +1735,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Int64{ /*START VALIDATORS*/
 																			int64validator.Between(0, 366),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Start
 																	"start": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1755,9 +1745,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			int64validator.Between(1, 366),
 																			fwvalidators.NotNullInt64(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Unit
 																	"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1770,25 +1757,16 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Defines the range to be applied to the calculated attribute definition.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Overrides the condition block within the original calculated attribute definition.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: DimensionType
 													"dimension_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1814,9 +1792,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"EQUAL",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Values
 													"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1831,7 +1806,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														}, /*END VALIDATORS*/
 														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 															generic.Multiset(),
-															listplanmodifier.UseStateForUnknown(),
 														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
@@ -1839,9 +1813,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Description: "One or more calculated attributes to use as criteria for the segment.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-												mapplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ProfileAttributes
 										"profile_attributes": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1864,9 +1835,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1882,16 +1850,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: AdditionalInformation
 												"additional_information": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1911,9 +1875,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1929,16 +1890,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies criteria for a segment using extended-length string values.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Address
 												"address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1961,9 +1918,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1979,16 +1933,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Country
 														"country": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2008,9 +1958,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2026,16 +1973,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: County
 														"county": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2055,9 +1998,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2073,16 +2013,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: PostalCode
 														"postal_code": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2102,9 +2038,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2120,16 +2053,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Province
 														"province": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2149,9 +2078,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2167,16 +2093,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: State
 														"state": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2196,9 +2118,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2214,24 +2133,17 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "The address based criteria for the segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Attributes
 												"attributes":              // Pattern: ""
@@ -2262,9 +2174,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		"EQUAL",
 																	),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Values
 															"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2279,7 +2188,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
@@ -2287,9 +2195,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Description: "One or more custom attributes to use as criteria for the segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-														mapplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: BillingAddress
 												"billing_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2312,9 +2217,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2330,16 +2232,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Country
 														"country": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2359,9 +2257,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2377,16 +2272,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: County
 														"county": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2406,9 +2297,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2424,16 +2312,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: PostalCode
 														"postal_code": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2453,9 +2337,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2471,16 +2352,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Province
 														"province": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2500,9 +2377,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2518,16 +2392,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: State
 														"state": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2547,9 +2417,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2565,24 +2432,17 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "The address based criteria for the segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: BirthDate
 												"birth_date": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2602,9 +2462,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2617,16 +2474,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies date based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: BusinessEmailAddress
 												"business_email_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2646,9 +2499,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2664,16 +2514,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: BusinessName
 												"business_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2693,9 +2539,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2711,16 +2554,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: BusinessPhoneNumber
 												"business_phone_number": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2740,9 +2579,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2758,16 +2594,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EmailAddress
 												"email_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2787,9 +2619,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2805,16 +2634,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: FirstName
 												"first_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2834,9 +2659,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2852,16 +2674,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: GenderString
 												"gender_string": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2881,9 +2699,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2899,16 +2714,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: HomePhoneNumber
 												"home_phone_number": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2928,9 +2739,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2946,16 +2754,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: LastName
 												"last_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2975,9 +2779,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2993,16 +2794,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MailingAddress
 												"mailing_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3025,9 +2822,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3043,16 +2837,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Country
 														"country": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3072,9 +2862,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3090,16 +2877,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: County
 														"county": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3119,9 +2902,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3137,16 +2917,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: PostalCode
 														"postal_code": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3166,9 +2942,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3184,16 +2957,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Province
 														"province": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3213,9 +2982,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3231,16 +2997,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: State
 														"state": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3260,9 +3022,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3278,24 +3037,17 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "The address based criteria for the segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MiddleName
 												"middle_name": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3315,9 +3067,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3333,16 +3082,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MobilePhoneNumber
 												"mobile_phone_number": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3362,9 +3107,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3380,16 +3122,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PartyTypeString
 												"party_type_string": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3409,9 +3147,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3427,16 +3162,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PersonalEmailAddress
 												"personal_email_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3456,9 +3187,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3474,16 +3202,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PhoneNumber
 												"phone_number": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3503,9 +3227,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Values
 														"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3521,16 +3242,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Specifies profile based criteria for a segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ShippingAddress
 												"shipping_address": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3553,9 +3270,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3571,16 +3285,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Country
 														"country": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3600,9 +3310,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3618,16 +3325,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: County
 														"county": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3647,9 +3350,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3665,16 +3365,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: PostalCode
 														"postal_code": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3694,9 +3390,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3712,16 +3405,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Province
 														"province": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3741,9 +3430,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3759,16 +3445,12 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: State
 														"state": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3788,9 +3470,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		),
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Values
 																"values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -3806,40 +3485,27 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	}, /*END VALIDATORS*/
 																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																		generic.Multiset(),
-																		listplanmodifier.UseStateForUnknown(),
 																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "Specifies profile based criteria for a segment.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "The address based criteria for the segment.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Specifies the dimension settings within profile attributes for a segment.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceSegments
 							"source_segments": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3853,17 +3519,11 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 64),
 												stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceType
 							"source_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3877,9 +3537,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										"NONE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Type
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3893,17 +3550,11 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										"NONE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Include
 				"include": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3917,9 +3568,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							"NONE",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An array that defines the set of segment criteria to evaluate when handling segment groups for the segment.",
@@ -3975,9 +3623,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3988,9 +3633,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -4000,9 +3642,6 @@ func segmentDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeBetween(0, 50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

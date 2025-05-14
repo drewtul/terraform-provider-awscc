@@ -13,8 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -106,9 +104,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(1000000),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Category
 					"category": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -134,9 +129,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ColorMode
 					"color_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -150,9 +142,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Extension
 					"extension": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -168,9 +157,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 							),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ResourceId
 					"resource_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -180,17 +166,11 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 							stringvalidator.LengthBetween(1, 40),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[\\w\\- ]+$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ClientId
 		// CloudFormation resource type schema:
@@ -202,7 +182,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ClientId is a write-only property.
@@ -229,9 +208,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 		"return_merged_resources": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ReturnMergedResources is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Settings
@@ -244,9 +220,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 			CustomType: jsontypes.NormalizedType{},
 			Optional:   true,
 			Computed:   true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UseCognitoProvidedValues
 		// CloudFormation resource type schema:
@@ -257,9 +230,6 @@ func managedLoginBrandingResource(ctx context.Context) (resource.Resource, error
 		"use_cognito_provided_values": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UserPoolId
 		// CloudFormation resource type schema:

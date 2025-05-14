@@ -13,8 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -184,9 +182,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateAndUpdateDashboardEmailReports
 				"create_and_update_dashboard_email_reports": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -197,9 +192,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateAndUpdateDataSources
 				"create_and_update_data_sources": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -210,9 +202,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateAndUpdateDatasets
 				"create_and_update_datasets": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -223,9 +212,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateAndUpdateThemes
 				"create_and_update_themes": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -236,9 +222,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateAndUpdateThresholdAlerts
 				"create_and_update_threshold_alerts": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -249,9 +232,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateSPICEDataset
 				"create_spice_dataset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -262,9 +242,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CreateSharedFolders
 				"create_shared_folders": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -275,9 +252,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExportToCsv
 				"export_to_csv": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -288,9 +262,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExportToExcel
 				"export_to_excel": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -301,9 +272,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RenameSharedFolders
 				"rename_shared_folders": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -314,9 +282,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ShareAnalyses
 				"share_analyses": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -327,9 +292,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ShareDashboards
 				"share_dashboards": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -340,9 +302,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ShareDataSources
 				"share_data_sources": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -353,9 +312,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ShareDatasets
 				"share_datasets": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -366,9 +322,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SubscribeDashboardEmailReports
 				"subscribe_dashboard_email_reports": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -379,9 +332,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ViewAccountSPICECapacity
 				"view_account_spice_capacity": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -392,16 +342,10 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							"DENY",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CustomPermissionsName
 		// CloudFormation resource type schema:
@@ -465,9 +409,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -478,9 +419,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -489,9 +427,6 @@ func customPermissionsResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(1, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

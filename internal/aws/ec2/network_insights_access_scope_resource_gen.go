@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -270,27 +269,18 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPorts
 									"destination_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPrefixLists
 									"destination_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Protocols
 									"protocols": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -305,43 +295,28 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 												),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourceAddresses
 									"source_addresses": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePorts
 									"source_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePrefixLists
 									"source_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ResourceStatement
 							"resource_statement": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -351,32 +326,20 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Source
 					"source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -389,27 +352,18 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPorts
 									"destination_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPrefixLists
 									"destination_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Protocols
 									"protocols": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -424,43 +378,28 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 												),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourceAddresses
 									"source_addresses": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePorts
 									"source_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePrefixLists
 									"source_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ResourceStatement
 							"resource_statement": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -470,32 +409,20 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ThroughResources
 					"through_resources": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -509,40 +436,27 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 											ElementType: types.StringType,
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Resources
 										"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 											ElementType: types.StringType,
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// ExcludePaths is a write-only property.
@@ -774,27 +688,18 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPorts
 									"destination_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPrefixLists
 									"destination_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Protocols
 									"protocols": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -809,43 +714,28 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 												),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourceAddresses
 									"source_addresses": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePorts
 									"source_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePrefixLists
 									"source_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ResourceStatement
 							"resource_statement": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -855,32 +745,20 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Source
 					"source": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -893,27 +771,18 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPorts
 									"destination_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: DestinationPrefixLists
 									"destination_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Protocols
 									"protocols": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -928,43 +797,28 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 												),
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourceAddresses
 									"source_addresses": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePorts
 									"source_ports": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SourcePrefixLists
 									"source_prefix_lists": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ResourceStatement
 							"resource_statement": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -974,32 +828,20 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ThroughResources
 					"through_resources": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1013,40 +855,27 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 											ElementType: types.StringType,
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Resources
 										"resources": schema.ListAttribute{ /*START ATTRIBUTE*/
 											ElementType: types.StringType,
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Optional: true,
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// MatchPaths is a write-only property.
@@ -1107,17 +936,11 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Optional: true,
 						Computed: true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1125,7 +948,6 @@ func networkInsightsAccessScopeResource(ctx context.Context) (resource.Resource,
 			Computed: true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UpdatedDate

@@ -14,10 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -2256,17 +2252,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to clear the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDB
 															"dynamo_db": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2279,18 +2269,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyType
 																	"hash_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the hash key (also called the partition key). You can specify the following values:\n  +   ``'STRING'`` - The hash key is a string.\n  +   ``'NUMBER'`` - The hash key is a number.\n  \n If you don't specify ``hashKeyType``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyValue
 																	"hash_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2300,18 +2284,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Operation
 																	"operation": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The type of operation to perform. You can specify the following values: \n  +   ``'INSERT'`` - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.\n  +   ``'UPDATE'`` - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  +   ``'DELETE'`` - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  \n If you don't specify this parameter, ITE triggers the ``'INSERT'`` operation.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2325,9 +2303,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2337,53 +2312,35 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PayloadField
 																	"payload_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the DynamoDB column that receives the action payload.\n If you don't specify this parameter, the name of the DynamoDB column is ``payload``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyField
 																	"range_key_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the range key (also called the sort key). The ``rangeKeyField`` value must match the sort key of the target DynamoDB table.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyType
 																	"range_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the range key (also called the sort key), You can specify the following values:\n  +   ``'STRING'`` - The range key is a string.\n  +   ``'NUMBER'`` - The range key is number.\n  \n If you don't specify ``rangeKeyField``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyValue
 																	"range_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The value of the range key (also called the sort key).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2393,17 +2350,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDBv2
 															"dynamo_d_bv_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2420,9 +2371,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2432,17 +2380,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2452,17 +2394,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Firehose
 															"firehose": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2475,9 +2411,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2491,9 +2424,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2503,17 +2433,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon Data Firehose delivery stream.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Separator
 																	"separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2523,17 +2447,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.RegexMatches(regexp.MustCompile("([\\n\\t])|(\\r\\n)|(,)"), ""),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data Firehose delivery stream.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotEvents
 															"iot_events": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2548,9 +2466,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2564,9 +2479,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2576,25 +2488,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an ITE input.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends ITE input, which passes information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotSiteWise
 															"iot_site_wise": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2604,36 +2507,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "The ID of the asset that has the specified property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: EntryId
 																	"entry_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "A unique identifier for this entry. You can use the entry ID to track which data entry causes an error in case of failure. The default is a new unique identifier.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyAlias
 																	"property_alias": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The alias of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyId
 																	"property_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The ID of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyValue
 																	"property_value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2643,9 +2534,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Description: "The quality of the asset property value. The value must be ``'GOOD'``, ``'BAD'``, or ``'UNCERTAIN'``.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Timestamp
 																			"timestamp": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2655,9 +2543,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The nanosecond offset converted from ``timeInSeconds``. The valid range is between 0-999999999.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: TimeInSeconds
 																					"time_in_seconds": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2667,17 +2552,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The timestamp associated with the asset property value. The default is the current event time.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2687,36 +2566,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The asset property value is a Boolean value that must be ``'TRUE'`` or ``'FALSE'``. You must use an expression, and the evaluated result should be a Boolean value.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: DoubleValue
 																					"double_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a double. You must use an expression, and the evaluated result should be a double.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: IntegerValue
 																					"integer_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is an integer. You must use an expression, and the evaluated result should be an integer.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: StringValue
 																					"string_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a string. You must use an expression, and the evaluated result should be a string.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The value to send to an asset property.",
@@ -2725,9 +2592,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.Object{ /*START VALIDATORS*/
 																					fwvalidators.NotNullObject(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The value to send to the asset property. This value contains timestamp, quality, and value (TQV) information.",
@@ -2736,17 +2600,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an asset property in ITSW .",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotTopicPublish
 															"iot_topic_publish": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2760,9 +2618,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2776,9 +2631,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2788,25 +2640,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you publish a message to an IoTCore topic.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Publishes an MQTT message with the given topic to the IoT message broker.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Lambda
 															"lambda": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2820,9 +2663,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2836,9 +2676,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2848,25 +2685,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to a Lambda function.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Calls a Lambda function, passing in information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ResetTimer
 															"reset_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2880,17 +2708,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to reset the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetTimer
 															"set_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2903,9 +2725,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 1024),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Seconds
 																	"seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2915,9 +2734,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Int64{ /*START VALIDATORS*/
 																			int64validator.Between(60, 31622400),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TimerName
 																	"timer_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2928,17 +2744,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to set the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetVariable
 															"set_variable": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2952,9 +2762,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: VariableName
 																	"variable_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2966,17 +2773,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sets a variable to a specified value.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sns
 															"sns": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2993,9 +2794,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3005,17 +2803,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message as an Amazon SNS push notification.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TargetArn
 																	"target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3026,17 +2818,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sqs
 															"sqs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3053,9 +2839,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3065,17 +2848,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon SQS queue.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: QueueUrl
 																	"queue_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3085,26 +2862,17 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: UseBase64
 																	"use_base_64": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Description: "Set this to TRUE if you want the data to be base-64 encoded before it is written to the queue. Otherwise, set this to FALSE.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -3113,7 +2881,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Computed:    true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Condition
@@ -3124,9 +2891,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.LengthAtMost(512),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3137,9 +2901,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthAtMost(128),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -3148,16 +2909,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "When entering this state, perform these ``actions`` if the ``condition`` is TRUE.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OnExit
 							"on_exit": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3182,17 +2939,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to clear the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDB
 															"dynamo_db": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3205,18 +2956,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyType
 																	"hash_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the hash key (also called the partition key). You can specify the following values:\n  +   ``'STRING'`` - The hash key is a string.\n  +   ``'NUMBER'`` - The hash key is a number.\n  \n If you don't specify ``hashKeyType``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyValue
 																	"hash_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3226,18 +2971,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Operation
 																	"operation": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The type of operation to perform. You can specify the following values: \n  +   ``'INSERT'`` - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.\n  +   ``'UPDATE'`` - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  +   ``'DELETE'`` - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  \n If you don't specify this parameter, ITE triggers the ``'INSERT'`` operation.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3251,9 +2990,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3263,53 +2999,35 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PayloadField
 																	"payload_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the DynamoDB column that receives the action payload.\n If you don't specify this parameter, the name of the DynamoDB column is ``payload``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyField
 																	"range_key_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the range key (also called the sort key). The ``rangeKeyField`` value must match the sort key of the target DynamoDB table.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyType
 																	"range_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the range key (also called the sort key), You can specify the following values:\n  +   ``'STRING'`` - The range key is a string.\n  +   ``'NUMBER'`` - The range key is number.\n  \n If you don't specify ``rangeKeyField``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyValue
 																	"range_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The value of the range key (also called the sort key).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3319,17 +3037,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDBv2
 															"dynamo_d_bv_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3346,9 +3058,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3358,17 +3067,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3378,17 +3081,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Firehose
 															"firehose": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3401,9 +3098,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3417,9 +3111,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3429,17 +3120,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon Data Firehose delivery stream.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Separator
 																	"separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3449,17 +3134,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.RegexMatches(regexp.MustCompile("([\\n\\t])|(\\r\\n)|(,)"), ""),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data Firehose delivery stream.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotEvents
 															"iot_events": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3474,9 +3153,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3490,9 +3166,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3502,25 +3175,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an ITE input.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends ITE input, which passes information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotSiteWise
 															"iot_site_wise": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3530,36 +3194,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "The ID of the asset that has the specified property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: EntryId
 																	"entry_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "A unique identifier for this entry. You can use the entry ID to track which data entry causes an error in case of failure. The default is a new unique identifier.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyAlias
 																	"property_alias": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The alias of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyId
 																	"property_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The ID of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyValue
 																	"property_value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3569,9 +3221,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Description: "The quality of the asset property value. The value must be ``'GOOD'``, ``'BAD'``, or ``'UNCERTAIN'``.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Timestamp
 																			"timestamp": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3581,9 +3230,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The nanosecond offset converted from ``timeInSeconds``. The valid range is between 0-999999999.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: TimeInSeconds
 																					"time_in_seconds": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3593,17 +3239,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The timestamp associated with the asset property value. The default is the current event time.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3613,36 +3253,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The asset property value is a Boolean value that must be ``'TRUE'`` or ``'FALSE'``. You must use an expression, and the evaluated result should be a Boolean value.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: DoubleValue
 																					"double_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a double. You must use an expression, and the evaluated result should be a double.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: IntegerValue
 																					"integer_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is an integer. You must use an expression, and the evaluated result should be an integer.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: StringValue
 																					"string_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a string. You must use an expression, and the evaluated result should be a string.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The value to send to an asset property.",
@@ -3651,9 +3279,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.Object{ /*START VALIDATORS*/
 																					fwvalidators.NotNullObject(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The value to send to the asset property. This value contains timestamp, quality, and value (TQV) information.",
@@ -3662,17 +3287,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an asset property in ITSW .",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotTopicPublish
 															"iot_topic_publish": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3686,9 +3305,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3702,9 +3318,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3714,25 +3327,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you publish a message to an IoTCore topic.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Publishes an MQTT message with the given topic to the IoT message broker.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Lambda
 															"lambda": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3746,9 +3350,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3762,9 +3363,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3774,25 +3372,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to a Lambda function.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Calls a Lambda function, passing in information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ResetTimer
 															"reset_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3806,17 +3395,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to reset the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetTimer
 															"set_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3829,9 +3412,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 1024),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Seconds
 																	"seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -3841,9 +3421,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Int64{ /*START VALIDATORS*/
 																			int64validator.Between(60, 31622400),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TimerName
 																	"timer_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3854,17 +3431,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to set the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetVariable
 															"set_variable": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3878,9 +3449,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: VariableName
 																	"variable_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3892,17 +3460,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sets a variable to a specified value.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sns
 															"sns": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3919,9 +3481,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3931,17 +3490,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message as an Amazon SNS push notification.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TargetArn
 																	"target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3952,17 +3505,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sqs
 															"sqs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3979,9 +3526,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3991,17 +3535,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon SQS queue.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: QueueUrl
 																	"queue_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4011,26 +3549,17 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: UseBase64
 																	"use_base_64": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Description: "Set this to TRUE if you want the data to be base-64 encoded before it is written to the queue. Otherwise, set this to FALSE.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -4039,7 +3568,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Computed:    true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Condition
@@ -4050,9 +3578,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.LengthAtMost(512),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4063,9 +3588,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthAtMost(128),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -4074,16 +3596,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "When exiting this state, perform these ``actions`` if the specified ``condition`` is ``TRUE``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OnInput
 							"on_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4108,17 +3626,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to clear the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDB
 															"dynamo_db": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4131,18 +3643,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyType
 																	"hash_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the hash key (also called the partition key). You can specify the following values:\n  +   ``'STRING'`` - The hash key is a string.\n  +   ``'NUMBER'`` - The hash key is a number.\n  \n If you don't specify ``hashKeyType``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyValue
 																	"hash_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4152,18 +3658,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Operation
 																	"operation": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The type of operation to perform. You can specify the following values: \n  +   ``'INSERT'`` - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.\n  +   ``'UPDATE'`` - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  +   ``'DELETE'`` - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  \n If you don't specify this parameter, ITE triggers the ``'INSERT'`` operation.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4177,9 +3677,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4189,53 +3686,35 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PayloadField
 																	"payload_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the DynamoDB column that receives the action payload.\n If you don't specify this parameter, the name of the DynamoDB column is ``payload``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyField
 																	"range_key_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the range key (also called the sort key). The ``rangeKeyField`` value must match the sort key of the target DynamoDB table.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyType
 																	"range_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the range key (also called the sort key), You can specify the following values:\n  +   ``'STRING'`` - The range key is a string.\n  +   ``'NUMBER'`` - The range key is number.\n  \n If you don't specify ``rangeKeyField``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyValue
 																	"range_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The value of the range key (also called the sort key).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4245,17 +3724,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDBv2
 															"dynamo_d_bv_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4272,9 +3745,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4284,17 +3754,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4304,17 +3768,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Firehose
 															"firehose": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4327,9 +3785,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4343,9 +3798,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4355,17 +3807,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon Data Firehose delivery stream.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Separator
 																	"separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4375,17 +3821,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.RegexMatches(regexp.MustCompile("([\\n\\t])|(\\r\\n)|(,)"), ""),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data Firehose delivery stream.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotEvents
 															"iot_events": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4400,9 +3840,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4416,9 +3853,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4428,25 +3862,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an ITE input.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends ITE input, which passes information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotSiteWise
 															"iot_site_wise": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4456,36 +3881,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "The ID of the asset that has the specified property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: EntryId
 																	"entry_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "A unique identifier for this entry. You can use the entry ID to track which data entry causes an error in case of failure. The default is a new unique identifier.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyAlias
 																	"property_alias": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The alias of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyId
 																	"property_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The ID of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyValue
 																	"property_value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4495,9 +3908,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Description: "The quality of the asset property value. The value must be ``'GOOD'``, ``'BAD'``, or ``'UNCERTAIN'``.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Timestamp
 																			"timestamp": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4507,9 +3917,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The nanosecond offset converted from ``timeInSeconds``. The valid range is between 0-999999999.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: TimeInSeconds
 																					"time_in_seconds": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4519,17 +3926,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The timestamp associated with the asset property value. The default is the current event time.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4539,36 +3940,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The asset property value is a Boolean value that must be ``'TRUE'`` or ``'FALSE'``. You must use an expression, and the evaluated result should be a Boolean value.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: DoubleValue
 																					"double_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a double. You must use an expression, and the evaluated result should be a double.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: IntegerValue
 																					"integer_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is an integer. You must use an expression, and the evaluated result should be an integer.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: StringValue
 																					"string_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a string. You must use an expression, and the evaluated result should be a string.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The value to send to an asset property.",
@@ -4577,9 +3966,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.Object{ /*START VALIDATORS*/
 																					fwvalidators.NotNullObject(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The value to send to the asset property. This value contains timestamp, quality, and value (TQV) information.",
@@ -4588,17 +3974,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an asset property in ITSW .",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotTopicPublish
 															"iot_topic_publish": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4612,9 +3992,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4628,9 +4005,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4640,25 +4014,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you publish a message to an IoTCore topic.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Publishes an MQTT message with the given topic to the IoT message broker.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Lambda
 															"lambda": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4672,9 +4037,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4688,9 +4050,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4700,25 +4059,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to a Lambda function.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Calls a Lambda function, passing in information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ResetTimer
 															"reset_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4732,17 +4082,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to reset the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetTimer
 															"set_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4755,9 +4099,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 1024),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Seconds
 																	"seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4767,9 +4108,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Int64{ /*START VALIDATORS*/
 																			int64validator.Between(60, 31622400),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TimerName
 																	"timer_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4780,17 +4118,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to set the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetVariable
 															"set_variable": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4804,9 +4136,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: VariableName
 																	"variable_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4818,17 +4147,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sets a variable to a specified value.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sns
 															"sns": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4845,9 +4168,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4857,17 +4177,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message as an Amazon SNS push notification.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TargetArn
 																	"target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4878,17 +4192,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sqs
 															"sqs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4905,9 +4213,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4917,17 +4222,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon SQS queue.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: QueueUrl
 																	"queue_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4937,26 +4236,17 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: UseBase64
 																	"use_base_64": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Description: "Set this to TRUE if you want the data to be base-64 encoded before it is written to the queue. Otherwise, set this to FALSE.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -4965,7 +4255,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Computed:    true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Condition
@@ -4976,9 +4265,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.LengthAtMost(512),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4989,9 +4275,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthAtMost(128),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5000,7 +4283,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransitionEvents
@@ -5023,17 +4305,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to clear the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDB
 															"dynamo_db": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5046,18 +4322,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyType
 																	"hash_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the hash key (also called the partition key). You can specify the following values:\n  +   ``'STRING'`` - The hash key is a string.\n  +   ``'NUMBER'`` - The hash key is a number.\n  \n If you don't specify ``hashKeyType``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: HashKeyValue
 																	"hash_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5067,18 +4337,12 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Operation
 																	"operation": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The type of operation to perform. You can specify the following values: \n  +   ``'INSERT'`` - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.\n  +   ``'UPDATE'`` - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  +   ``'DELETE'`` - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.\n  \n If you don't specify this parameter, ITE triggers the ``'INSERT'`` operation.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5092,9 +4356,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5104,53 +4365,35 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PayloadField
 																	"payload_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the DynamoDB column that receives the action payload.\n If you don't specify this parameter, the name of the DynamoDB column is ``payload``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyField
 																	"range_key_field": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The name of the range key (also called the sort key). The ``rangeKeyField`` value must match the sort key of the target DynamoDB table.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyType
 																	"range_key_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The data type for the range key (also called the sort key), You can specify the following values:\n  +   ``'STRING'`` - The range key is a string.\n  +   ``'NUMBER'`` - The range key is number.\n  \n If you don't specify ``rangeKeyField``, the default value is ``'STRING'``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RangeKeyValue
 																	"range_key_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The value of the range key (also called the sort key).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5160,17 +4403,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DynamoDBv2
 															"dynamo_d_bv_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5187,9 +4424,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5199,17 +4433,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Information needed to configure the payload.\n By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TableName
 																	"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5219,17 +4447,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *Developer Guide*.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Firehose
 															"firehose": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5242,9 +4464,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5258,9 +4477,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5270,17 +4486,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon Data Firehose delivery stream.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Separator
 																	"separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5290,17 +4500,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.RegexMatches(regexp.MustCompile("([\\n\\t])|(\\r\\n)|(,)"), ""),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data Firehose delivery stream.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotEvents
 															"iot_events": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5315,9 +4519,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5331,9 +4532,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5343,25 +4541,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an ITE input.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends ITE input, which passes information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotSiteWise
 															"iot_site_wise": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5371,36 +4560,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "The ID of the asset that has the specified property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: EntryId
 																	"entry_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "A unique identifier for this entry. You can use the entry ID to track which data entry causes an error in case of failure. The default is a new unique identifier.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyAlias
 																	"property_alias": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The alias of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyId
 																	"property_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Description: "The ID of the asset property.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PropertyValue
 																	"property_value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5410,9 +4587,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Description: "The quality of the asset property value. The value must be ``'GOOD'``, ``'BAD'``, or ``'UNCERTAIN'``.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Timestamp
 																			"timestamp": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5422,9 +4596,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The nanosecond offset converted from ``timeInSeconds``. The valid range is between 0-999999999.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: TimeInSeconds
 																					"time_in_seconds": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5434,17 +4605,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The timestamp associated with the asset property value. The default is the current event time.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Value
 																			"value": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5454,36 +4619,24 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																						Description: "The asset property value is a Boolean value that must be ``'TRUE'`` or ``'FALSE'``. You must use an expression, and the evaluated result should be a Boolean value.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: DoubleValue
 																					"double_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a double. You must use an expression, and the evaluated result should be a double.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: IntegerValue
 																					"integer_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is an integer. You must use an expression, and the evaluated result should be an integer.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: StringValue
 																					"string_value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																						Description: "The asset property value is a string. You must use an expression, and the evaluated result should be a string.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "The value to send to an asset property.",
@@ -5492,9 +4645,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.Object{ /*START VALIDATORS*/
 																					fwvalidators.NotNullObject(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The value to send to the asset property. This value contains timestamp, quality, and value (TQV) information.",
@@ -5503,17 +4653,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends information about the detector model instance and the event that triggered the action to an asset property in ITSW .",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IotTopicPublish
 															"iot_topic_publish": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5527,9 +4671,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5543,9 +4684,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5555,25 +4693,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you publish a message to an IoTCore topic.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Publishes an MQTT message with the given topic to the IoT message broker.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Lambda
 															"lambda": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5587,9 +4716,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Payload
 																	"payload": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5603,9 +4729,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5615,25 +4738,16 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to a Lambda function.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Calls a Lambda function, passing in information about the detector model instance and the event that triggered the action.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ResetTimer
 															"reset_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5647,17 +4761,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to reset the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetTimer
 															"set_timer": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5670,9 +4778,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			stringvalidator.LengthBetween(1, 1024),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Seconds
 																	"seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -5682,9 +4787,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Int64{ /*START VALIDATORS*/
 																			int64validator.Between(60, 31622400),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TimerName
 																	"timer_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5695,17 +4797,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 128),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Information needed to set the timer.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: SetVariable
 															"set_variable": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5719,9 +4815,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 1024),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: VariableName
 																	"variable_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5733,17 +4826,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$"), ""),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sets a variable to a specified value.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sns
 															"sns": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5760,9 +4847,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5772,17 +4856,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message as an Amazon SNS push notification.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TargetArn
 																	"target_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5793,17 +4871,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																			stringvalidator.LengthBetween(1, 2048),
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Sqs
 															"sqs": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5820,9 +4892,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthAtLeast(1),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Type
 																			"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5832,17 +4901,11 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "You can configure the action payload when you send a message to an Amazon SQS queue.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: QueueUrl
 																	"queue_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5852,26 +4915,17 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: UseBase64
 																	"use_base_64": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Description: "Set this to TRUE if you want the data to be base-64 encoded before it is written to the queue. Otherwise, set this to FALSE.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Sends an Amazon SNS message.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -5880,7 +4934,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 													Computed:    true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Condition
@@ -5892,9 +4945,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthAtMost(512),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EventName
 												"event_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5905,9 +4955,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 128),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: NextState
 												"next_state": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5918,26 +4965,17 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 128),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Description: "Specifies the actions performed, and the next state entered, when a ``condition`` evaluates to TRUE.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "When an input is received and the ``condition`` is TRUE, perform the specified ``actions``.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: StateName
 							"state_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5977,9 +5015,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DetectorModelName
 		// CloudFormation resource type schema:
@@ -6000,7 +5035,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_-]+$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -6025,9 +5059,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 					"SERIAL",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Key
 		// CloudFormation resource type schema:
@@ -6048,7 +5079,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^((`[\\w\\- ]+`)|([\\w\\-]+))(\\.((`[\\w\\- ]+`)|([\\w\\-]+)))*$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -6107,9 +5137,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6119,9 +5146,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -6130,7 +5154,6 @@ func detectorModelResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

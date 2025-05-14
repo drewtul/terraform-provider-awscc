@@ -49,7 +49,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 				stringvalidator.LengthBetween(12, 12),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -187,9 +186,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 255),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The principal to be granted a permission.",
@@ -501,9 +497,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 					Description: "The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your LFlong environment.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DataCellsFilter
 				"data_cells_filter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -517,9 +510,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Name
 						"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -530,9 +520,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TableCatalogId
 						"table_catalog_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -543,9 +530,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TableName
 						"table_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -556,17 +540,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A data cell filter.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: DataLocation
 				"data_location": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -580,9 +558,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ResourceArn
 						"resource_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -592,17 +567,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The location of an Amazon S3 path where permissions are granted or revoked.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Database
 				"database": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -616,9 +585,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Name
 						"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -629,17 +595,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The database for the resource. Unique to the Data Catalog. A database is a set of associated table definitions organized into a logical group. You can Grant and Revoke database permissions to a principal.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LFTag
 				"lf_tag": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -653,9 +613,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TagKey
 						"tag_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -666,9 +623,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TagValues
 						"tag_values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -685,16 +639,12 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The LF-tag key and values attached to a resource.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LFTagPolicy
 				"lf_tag_policy": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -708,9 +658,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Expression
 						"expression": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -724,9 +671,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 										Validators: []validator.String{ /*START VALIDATORS*/
 											stringvalidator.LengthBetween(1, 128),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TagValues
 									"tag_values": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -742,7 +686,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 										}, /*END VALIDATORS*/
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
@@ -756,7 +699,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ResourceType
@@ -771,17 +713,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A list of LF-tag conditions that define a resource's LF-tag policy.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Table
 				"table": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -795,9 +731,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatabaseName
 						"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -808,9 +741,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Name
 						"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -820,9 +750,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 255),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TableWildcard
 						"table_wildcard": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -830,17 +757,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							Description: "A wildcard object representing every table under a database.\n At least one of ``TableResource$Name`` or ``TableResource$TableWildcard`` is required.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The table for the resource. A table is a metadata definition that represents your data. You can Grant and Revoke table privileges to a principal.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: TableWithColumns
 				"table_with_columns": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -854,9 +775,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(12, 12),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ColumnNames
 						"column_names": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -871,7 +789,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 							}, /*END VALIDATORS*/
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ColumnWildcard
@@ -890,16 +807,12 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 									}, /*END VALIDATORS*/
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "A wildcard specified by a ``ColumnWildcard`` object. At least one of ``ColumnNames`` or ``ColumnWildcard`` is required.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatabaseName
 						"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -910,9 +823,6 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Name
 						"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -923,17 +833,11 @@ func principalPermissionsResource(ctx context.Context) (resource.Resource, error
 								stringvalidator.LengthBetween(1, 255),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The table with columns for the resource. A principal with permissions to this resource can select metadata from the columns of a table in the Data Catalog and the underlying data in Amazon S3.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The resource to be granted or revoked permissions.",

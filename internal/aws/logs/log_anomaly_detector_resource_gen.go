@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -41,9 +40,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 			Description: "Account ID for owner of detector",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AccountId is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: AnomalyDetectorArn
@@ -85,9 +81,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-				float64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CreationTimeStamp
 		// CloudFormation resource type schema:
@@ -114,9 +107,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 			Description: "Name of detector",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EvaluationFrequency
 		// CloudFormation resource type schema:
@@ -145,9 +135,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 					"ONE_HOUR",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FilterPattern
 		// CloudFormation resource type schema:
@@ -161,9 +148,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: KmsKeyId
 		// CloudFormation resource type schema:
@@ -180,9 +164,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(256),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LastModifiedTimeStamp
 		// CloudFormation resource type schema:
@@ -222,9 +203,6 @@ func logAnomalyDetectorResource(ctx context.Context) (resource.Resource, error) 
 					stringvalidator.LengthBetween(20, 2048),
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

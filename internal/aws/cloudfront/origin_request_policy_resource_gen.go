@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -157,9 +156,6 @@ func originRequestPolicyResource(ctx context.Context) (resource.Resource, error)
 					Description: "A comment to describe the origin request policy. The comment cannot be longer than 128 characters.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: CookiesConfig
 				"cookies_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -178,9 +174,6 @@ func originRequestPolicyResource(ctx context.Context) (resource.Resource, error)
 							Description: "Contains a list of cookie names.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The cookies from viewer requests to include in origin requests.",
@@ -203,9 +196,6 @@ func originRequestPolicyResource(ctx context.Context) (resource.Resource, error)
 							Description: "Contains a list of HTTP header names.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The HTTP headers to include in origin requests. These can include headers from viewer requests and additional headers added by CloudFront.",
@@ -233,9 +223,6 @@ func originRequestPolicyResource(ctx context.Context) (resource.Resource, error)
 							Description: "Contains a list of query string names.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The URL query strings from viewer requests to include in origin requests.",

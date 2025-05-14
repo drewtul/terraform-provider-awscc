@@ -50,9 +50,6 @@ func modelResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The content-type for the model, for example, \"application/json\".",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Description
 		// CloudFormation resource type schema:
@@ -65,9 +62,6 @@ func modelResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The description of the model.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ModelId
 		// CloudFormation resource type schema:

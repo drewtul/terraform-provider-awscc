@@ -14,11 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -74,9 +69,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(256),
 				stringvalidator.RegexMatches(regexp.MustCompile("[\\w!@#.-]+"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ConnectorProfileArn
 		// CloudFormation resource type schema:
@@ -1139,9 +1131,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SecretKey
 								"secret_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1152,16 +1141,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: CustomConnector
 						"custom_connector": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1178,9 +1161,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ApiSecretKey
 										"api_secret_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1190,16 +1170,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(256),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: AuthenticationType
 								"authentication_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1214,9 +1188,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Basic
 								"basic": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1230,9 +1201,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Username
 										"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1243,16 +1211,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Custom
 								"custom": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1264,9 +1226,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "A map for properties for custom authentication.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-												mapplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: CustomAuthenticationType
 										"custom_authentication_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1277,16 +1236,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Oauth2
 								"oauth_2": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1299,9 +1252,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ClientId
 										"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1311,9 +1261,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ClientSecret
 										"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1323,9 +1270,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: OAuthRequest
 										"o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1335,25 +1279,16 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 													Description: "The code provided by the connector when it has been authenticated via the connected app.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: RedirectUri
 												"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RefreshToken
 										"refresh_token": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1363,23 +1298,14 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Datadog
 						"datadog": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1394,9 +1320,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ApplicationKey
 								"application_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1408,16 +1331,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Dynatrace
 						"dynatrace": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1432,16 +1349,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: GoogleAnalytics
 						"google_analytics": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1455,9 +1366,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientId
 								"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1469,9 +1377,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientSecret
 								"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1483,9 +1388,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1495,26 +1397,17 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RefreshToken
 								"refresh_token": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1525,16 +1418,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InforNexus
 						"infor_nexus": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1549,9 +1436,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Datakey
 								"datakey": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1563,9 +1447,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SecretAccessKey
 								"secret_access_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1577,9 +1458,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: UserId
 								"user_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1591,16 +1469,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Marketo
 						"marketo": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1614,9 +1486,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientId
 								"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1628,9 +1497,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientSecret
 								"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1642,9 +1508,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1654,33 +1517,21 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Pardot
 						"pardot": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1694,9 +1545,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientCredentialsArn
 								"client_credentials_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1707,9 +1555,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(2048),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws:secretsmanager:.*:[0-9]+:.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1719,26 +1564,17 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RefreshToken
 								"refresh_token": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1749,16 +1585,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Redshift
 						"redshift": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1772,9 +1602,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Username
 								"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1785,16 +1612,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SAPOData
 						"sapo_data": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1811,9 +1632,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Username
 										"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1824,16 +1642,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OAuthCredentials
 								"o_auth_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1846,9 +1658,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ClientId
 										"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1858,9 +1667,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ClientSecret
 										"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1870,9 +1676,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ConnectorOAuthRequest
 										"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1882,25 +1685,16 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 													Description: "The code provided by the connector when it has been authenticated via the connected app.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: RedirectUri
 												"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RefreshToken
 										"refresh_token": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1910,23 +1704,14 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(512),
 												stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Salesforce
 						"salesforce": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1940,9 +1725,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientCredentialsArn
 								"client_credentials_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1953,9 +1735,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(2048),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws:secretsmanager:.*:[0-9]+:.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1965,26 +1744,17 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RefreshToken
 								"refresh_token": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1995,16 +1765,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceNow
 						"service_now": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2019,9 +1783,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Username
 								"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2033,16 +1794,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Singular
 						"singular": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2057,16 +1812,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Slack
 						"slack": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2080,9 +1829,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientId
 								"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2094,9 +1840,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientSecret
 								"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2108,9 +1851,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2120,33 +1860,21 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Snowflake
 						"snowflake": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2161,9 +1889,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Username
 								"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2175,16 +1900,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Trendmicro
 						"trendmicro": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2199,16 +1918,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Veeva
 						"veeva": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2223,9 +1936,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Username
 								"username": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2237,16 +1947,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Zendesk
 						"zendesk": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2260,9 +1964,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientId
 								"client_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2274,9 +1975,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientSecret
 								"client_secret": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2288,9 +1986,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ConnectorOAuthRequest
 								"connector_o_auth_request": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2300,41 +1995,26 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "The code provided by the connector when it has been authenticated via the connected app.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RedirectUri
 										"redirect_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The URL to which the authentication server redirects the browser after authorization has been\ngranted.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The oauth needed to request security tokens from the connector endpoint.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Connector specific configuration needed to create connector profile based on Authentication mechanism",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConnectorProfileProperties
 				"connector_profile_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2355,9 +2035,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 													"AUTHORIZATION_CODE",
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: TokenUrl
 										"token_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2367,9 +2044,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(0, 256),
 												stringvalidator.RegexMatches(regexp.MustCompile("^(https?)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: TokenUrlCustomProperties
 										"token_url_custom_properties": // Pattern: ""
@@ -2378,16 +2052,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 											Description: "A map for properties for custom connector Token Url.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-												mapplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ProfileProperties
 								"profile_properties": // Pattern: ""
@@ -2396,16 +2064,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 									Description: "A map for properties for custom connector.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Datadog
 						"datadog": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2420,16 +2082,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Dynatrace
 						"dynatrace": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2444,16 +2100,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InforNexus
 						"infor_nexus": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2468,16 +2118,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Marketo
 						"marketo": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2492,16 +2136,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Pardot
 						"pardot": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2516,9 +2154,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InstanceUrl
 								"instance_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2529,25 +2164,16 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IsSandboxEnvironment
 								"is_sandbox_environment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Indicates whether the connector profile applies to a demo or production environment",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Redshift
 						"redshift": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2562,9 +2188,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BucketPrefix
 								"bucket_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2574,9 +2197,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(128),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClusterIdentifier
 								"cluster_identifier": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2587,9 +2207,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DataApiRoleArn
 								"data_api_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2600,9 +2217,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws:iam:.*:[0-9]+:.*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DatabaseName
 								"database_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2613,9 +2227,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DatabaseUrl
 								"database_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2626,18 +2237,12 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IsRedshiftServerless
 								"is_redshift_serverless": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "If Amazon AppFlow will connect to Amazon Redshift Serverless or Amazon Redshift cluster.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RoleArn
 								"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2649,9 +2254,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("arn:aws:iam:.*:[0-9]+:.*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: WorkgroupName
 								"workgroup_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2662,16 +2264,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SAPOData
 						"sapo_data": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2684,9 +2280,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https?)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ApplicationServicePath
 								"application_service_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2696,9 +2289,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ClientNumber
 								"client_number": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2708,9 +2298,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthBetween(3, 3),
 										stringvalidator.RegexMatches(regexp.MustCompile("^\\d{3}$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LogonLanguage
 								"logon_language": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2720,9 +2307,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(2),
 										stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9_]*$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OAuthProperties
 								"o_auth_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2735,9 +2319,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(256),
 												stringvalidator.RegexMatches(regexp.MustCompile("^(https?)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: OAuthScopes
 										"o_auth_scopes": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -2751,9 +2332,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("[/\\w]*"), ""),
 												),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: TokenUrl
 										"token_url": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2763,16 +2341,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthAtMost(256),
 												stringvalidator.RegexMatches(regexp.MustCompile("^(https?)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PortNumber
 								"port_number": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2781,9 +2353,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										int64validator.Between(1, 65535),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PrivateLinkServiceName
 								"private_link_service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2793,16 +2362,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Salesforce
 						"salesforce": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2816,25 +2379,16 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(256),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IsSandboxEnvironment
 								"is_sandbox_environment": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Indicates whether the connector profile applies to a sandbox or production environment",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceNow
 						"service_now": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2849,16 +2403,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Slack
 						"slack": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2873,16 +2421,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Snowflake
 						"snowflake": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2896,9 +2438,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BucketName
 								"bucket_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2910,9 +2449,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: BucketPrefix
 								"bucket_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2922,9 +2458,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(128),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PrivateLinkServiceName
 								"private_link_service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2935,9 +2468,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(512),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Region
 								"region": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2948,9 +2478,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.LengthAtMost(64),
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Stage
 								"stage": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2962,9 +2489,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Warehouse
 								"warehouse": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2976,16 +2500,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("[\\s\\w/!@#+=.-]*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Veeva
 						"veeva": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3000,16 +2518,10 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Zendesk
 						"zendesk": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3024,32 +2536,20 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("\\S+"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Connector specific properties needed to create connector profile - currently not needed for Amplitude, Trendmicro, Googleanalytics and Singular",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Connector specific configurations needed to create connector profile",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ConnectorProfileConfig is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ConnectorProfileName
@@ -3163,7 +2663,6 @@ func connectorProfileResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("arn:aws:kms:.*:[0-9]+:.*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -189,9 +188,6 @@ func wirelessDeviceImportTaskResource(ctx context.Context) (resource.Resource, e
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(1024),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// DeviceCreationFile is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: DeviceCreationFileList
@@ -211,9 +207,6 @@ func wirelessDeviceImportTaskResource(ctx context.Context) (resource.Resource, e
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(2048),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SidewalkManufacturingSn
 				"sidewalk_manufacturing_sn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -222,9 +215,6 @@ func wirelessDeviceImportTaskResource(ctx context.Context) (resource.Resource, e
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(64),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// SidewalkManufacturingSn is a write-only property.
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
@@ -311,9 +301,6 @@ func wirelessDeviceImportTaskResource(ctx context.Context) (resource.Resource, e
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -324,18 +311,12 @@ func wirelessDeviceImportTaskResource(ctx context.Context) (resource.Resource, e
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "An array of key-value pairs to apply to this resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

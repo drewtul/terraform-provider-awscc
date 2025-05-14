@@ -37,9 +37,6 @@ func documentationVersionResource(ctx context.Context) (resource.Resource, error
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DocumentationVersion
 		// CloudFormation resource type schema:

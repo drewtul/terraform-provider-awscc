@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -102,9 +101,6 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 							Description: "The key name for the notification subscription.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// AuthorizationApiKeyName is a write-only property.
 						}, /*END ATTRIBUTE*/
 						// Property: AuthorizationApiKeyValue
@@ -112,9 +108,6 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 							Description: "The key value for the notification subscription.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// AuthorizationApiKeyValue is a write-only property.
 						}, /*END ATTRIBUTE*/
 						// Property: Endpoint
@@ -126,9 +119,6 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile("^https?://.+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// Endpoint is a write-only property.
 						}, /*END ATTRIBUTE*/
 						// Property: HttpMethod
@@ -142,9 +132,6 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 									"PUT",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// HttpMethod is a write-only property.
 						}, /*END ATTRIBUTE*/
 						// Property: TargetRoleArn
@@ -156,18 +143,12 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:.*$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// TargetRoleArn is a write-only property.
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The configuration for HTTPS subscriber notification.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SqsNotificationConfiguration
 				"sqs_notification_configuration": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -175,9 +156,6 @@ func subscriberNotificationResource(ctx context.Context) (resource.Resource, err
 					Description: "The configurations for SQS subscriber notification. The members of this structure are context-dependent.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Required: true,

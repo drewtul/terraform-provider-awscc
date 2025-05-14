@@ -63,9 +63,6 @@ func deploymentResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The description for the deployment resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: StageName
 		// CloudFormation resource type schema:
@@ -78,9 +75,6 @@ func deploymentResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of an existing stage to associate with the deployment.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// StageName is a write-only property.
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

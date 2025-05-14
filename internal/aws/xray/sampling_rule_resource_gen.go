@@ -13,11 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -65,9 +61,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 32),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SamplingRule
 		// CloudFormation resource type schema:
@@ -171,9 +164,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Matches attributes derived from the request.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FixedRate
 				"fixed_rate": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -184,9 +174,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						float64validator.Between(0.000000, 1.000000),
 						fwvalidators.NotNullFloat64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: HTTPMethod
 				"http_method": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -197,9 +184,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(10),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Host
 				"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -210,9 +194,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(64),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Priority
 				"priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -223,9 +204,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						int64validator.Between(1, 9999),
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ReservoirSize
 				"reservoir_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -236,9 +214,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						int64validator.AtLeast(0),
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceARN
 				"resource_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -249,18 +224,12 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(500),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuleARN
 				"rule_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuleName
 				"rule_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -270,9 +239,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 32),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceName
 				"service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -283,9 +249,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(64),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceType
 				"service_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -296,9 +259,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(64),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: URLPath
 				"url_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -309,9 +269,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.LengthAtMost(128),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Version
 				"version": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -322,16 +279,12 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						int64validator.AtLeast(1),
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
 						int64planmodifier.RequiresReplaceIfConfigured(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SamplingRuleRecord
 		// CloudFormation resource type schema:
@@ -447,18 +400,12 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "When the rule was created, in Unix time seconds.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModifiedAt
 				"modified_at": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "When the rule was modified, in Unix time seconds.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SamplingRule
 				"sampling_rule": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -470,9 +417,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 							Description: "Matches attributes derived from the request.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: FixedRate
 						"fixed_rate": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -483,9 +427,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								float64validator.Between(0.000000, 1.000000),
 								fwvalidators.NotNullFloat64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HTTPMethod
 						"http_method": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -496,9 +437,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(10),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Host
 						"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -509,9 +447,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Priority
 						"priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -522,9 +457,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.Between(1, 9999),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ReservoirSize
 						"reservoir_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -535,9 +467,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								int64validator.AtLeast(0),
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ResourceARN
 						"resource_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -548,18 +477,12 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(500),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RuleARN
 						"rule_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Description: "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RuleName
 						"rule_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -569,9 +492,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 32),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceName
 						"service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -582,9 +502,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceType
 						"service_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -595,9 +512,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(64),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: URLPath
 						"url_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -608,9 +522,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 								stringvalidator.LengthAtMost(128),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Version
 						"version": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -620,23 +531,14 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.AtLeast(1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SamplingRuleUpdate
 		// CloudFormation resource type schema:
@@ -724,9 +626,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "Matches attributes derived from the request.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FixedRate
 				"fixed_rate": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -736,9 +635,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						float64validator.Between(0.000000, 1.000000),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: HTTPMethod
 				"http_method": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -748,9 +644,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(10),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Host
 				"host": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -760,9 +653,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(64),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Priority
 				"priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -772,9 +662,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.Between(1, 9999),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ReservoirSize
 				"reservoir_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -784,9 +671,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.AtLeast(0),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceARN
 				"resource_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -796,18 +680,12 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(500),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuleARN
 				"rule_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuleName
 				"rule_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -817,9 +695,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 32),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceName
 				"service_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -829,9 +704,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(64),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ServiceType
 				"service_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -841,9 +713,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(64),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: URLPath
 				"url_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -853,16 +722,10 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(128),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -901,9 +764,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -913,9 +773,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -924,7 +781,6 @@ func samplingRuleResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

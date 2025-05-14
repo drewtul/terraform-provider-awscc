@@ -10,8 +10,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -53,9 +51,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The resolver code that contains the request and response functions. When code is used, the runtime is required. The runtime value must be APPSYNC_JS.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CodeS3Location
 		// CloudFormation resource type schema:
@@ -68,9 +63,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The Amazon S3 endpoint (where the code is located??).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CodeS3Location is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: DataSourceName
@@ -95,9 +87,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The function description.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FunctionArn
 		// CloudFormation resource type schema:
@@ -138,9 +127,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The version of the request mapping template. Currently, only the 2018-05-29 version of the template is supported.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MaxBatchSize
 		// CloudFormation resource type schema:
@@ -153,9 +139,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The maximum number of resolver request inputs that will be sent to a single AWS Lambda function in a BatchInvoke operation.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Name
 		// CloudFormation resource type schema:
@@ -179,9 +162,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The Function request mapping template. Functions support only the 2018-05-29 version of the request mapping template.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RequestMappingTemplateS3Location
 		// CloudFormation resource type schema:
@@ -194,9 +174,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "Describes a Sync configuration for a resolver. Contains information on which Conflict Detection, as well as Resolution strategy, should be performed when the resolver is invoked.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RequestMappingTemplateS3Location is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ResponseMappingTemplate
@@ -210,9 +187,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The Function response mapping template.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ResponseMappingTemplateS3Location
 		// CloudFormation resource type schema:
@@ -225,9 +199,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 			Description: "The location of a response mapping template in an Amazon S3 bucket. Use this if you want to provision with a template file in Amazon S3 rather than embedding it in your CloudFormation template.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ResponseMappingTemplateS3Location is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Runtime
@@ -262,9 +233,6 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuntimeVersion
 				"runtime_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -274,17 +242,11 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Describes a runtime used by an AWS AppSync pipeline resolver or AWS AppSync function. Specifies the name and version of the runtime to use. Note that if a runtime is specified, code must also be specified.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SyncConfig
 		// CloudFormation resource type schema:
@@ -328,18 +290,12 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConflictHandler
 				"conflict_handler": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The Conflict Resolution strategy to perform in the event of a conflict.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LambdaConflictHandlerConfig
 				"lambda_conflict_handler_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -349,25 +305,16 @@ func functionConfigurationResource(ctx context.Context) (resource.Resource, erro
 							Description: "The Amazon Resource Name (ARN) for the Lambda function to use as the Conflict Handler.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The LambdaConflictHandlerConfig when configuring LAMBDA as the Conflict Handler.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Describes a Sync configuration for a resolver. Specifies which Conflict Detection strategy and Resolution strategy to use when the resolver is invoked.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -10,9 +10,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -93,9 +90,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A string of the characters that you don't want in the password.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// ExcludeCharacters is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: KmsKeyArn
@@ -103,9 +97,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of the KMS key that Secrets Manager uses to encrypt the secret. If you don't specify this value, then Secrets Manager uses the key aws/secretsmanager. If aws/secretsmanager doesn't yet exist, then Secrets Manager creates it for you automatically the first time it encrypts the secret value.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// KmsKeyArn is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: MasterSecretArn
@@ -113,9 +104,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of the secret that contains superuser credentials, if you use the alternating users rotation strategy. CloudFormation grants the execution role for the Lambda rotation function GetSecretValue permission to the secret in this property.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// MasterSecretArn is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: MasterSecretKmsKeyArn
@@ -123,9 +111,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of the KMS key that Secrets Manager used to encrypt the superuser secret, if you use the alternating users strategy and the superuser secret is encrypted with a customer managed key. You don't need to specify this property if the superuser secret is encrypted using the key aws/secretsmanager. CloudFormation grants the execution role for the Lambda rotation function Decrypt, DescribeKey, and GenerateDataKey permission to the key in this property.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// MasterSecretKmsKeyArn is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: RotationLambdaName
@@ -133,9 +118,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The name of the Lambda rotation function.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// RotationLambdaName is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: RotationType
@@ -146,9 +128,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// RotationType is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: Runtime
@@ -156,9 +135,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The python runtime associated with the Lambda function",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// Runtime is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: SuperuserSecretArn
@@ -166,9 +142,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of the secret that contains superuser credentials, if you use the alternating users rotation strategy. CloudFormation grants the execution role for the Lambda rotation function GetSecretValue permission to the secret in this property.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// SuperuserSecretArn is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: SuperuserSecretKmsKeyArn
@@ -176,9 +149,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The ARN of the KMS key that Secrets Manager used to encrypt the superuser secret, if you use the alternating users strategy and the superuser secret is encrypted with a customer managed key. You don't need to specify this property if the superuser secret is encrypted using the key aws/secretsmanager. CloudFormation grants the execution role for the Lambda rotation function Decrypt, DescribeKey, and GenerateDataKey permission to the key in this property.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// SuperuserSecretKmsKeyArn is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: VpcSecurityGroupIds
@@ -186,9 +156,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A comma-separated list of security group IDs applied to the target database.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// VpcSecurityGroupIds is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: VpcSubnetIds
@@ -196,18 +163,12 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "A comma separated list of VPC subnet IDs of the target database network. The Lambda rotation function is in the same subnet group.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// VpcSubnetIds is a write-only property.
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Creates a new Lambda rotation function based on one of the Secrets Manager rotation function templates. To use a rotation function that already exists, specify RotationLambdaARN instead.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// HostedRotationLambda is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Id
@@ -235,9 +196,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to rotate the secret immediately or wait until the next scheduled rotation window.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RotateImmediatelyOnUpdate is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: RotationLambdaARN
@@ -251,9 +209,6 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ARN of an existing Lambda rotation function. To specify a rotation function that is also defined in this template, use the Ref function.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RotationRules
 		// CloudFormation resource type schema:
@@ -284,35 +239,23 @@ func rotationScheduleResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The number of days between automatic scheduled rotations of the secret. You can use this value to check that your secret meets your compliance guidelines for how often secrets must be rotated.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Duration
 				"duration": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "The length of the rotation window in hours, for example 3h for a three hour window. Secrets Manager rotates your secret at any time during this window. The window must not extend into the next rotation window or the next UTC day. The window starts according to the ScheduleExpression. If you don't specify a Duration, for a ScheduleExpression in hours, the window automatically closes after one hour. For a ScheduleExpression in days, the window automatically closes at the end of the UTC day.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ScheduleExpression
 				"schedule_expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Description: "A cron() or rate() expression that defines the schedule for rotating your secret. Secrets Manager rotation schedules use UTC time zone.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A structure that defines the rotation configuration for this secret.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SecretId
 		// CloudFormation resource type schema:

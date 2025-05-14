@@ -13,11 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -233,9 +228,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 									stringvalidator.LengthAtMost(2048),
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SecurityControlsConfiguration
 						"security_controls_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -253,9 +245,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 											stringvalidator.LengthAtMost(2048),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EnabledSecurityControlIdentifiers
 								"enabled_security_control_identifiers": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -270,9 +259,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 											stringvalidator.LengthAtMost(2048),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SecurityControlCustomParameters
 								"security_control_custom_parameters": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -291,18 +277,12 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																	Description: "A control parameter that is a boolean.",
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Double
 																"double": schema.Float64Attribute{ /*START ATTRIBUTE*/
 																	Description: "A control parameter that is a double.",
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-																		float64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Enum
 																"enum": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -312,9 +292,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		stringvalidator.LengthAtMost(2048),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: EnumList
 																"enum_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -329,18 +306,12 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																			stringvalidator.LengthAtMost(2048),
 																		),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																		listplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Integer
 																"integer": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																	Description: "A control parameter that is an integer.",
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																		int64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: IntegerList
 																"integer_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -352,9 +323,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																		listvalidator.SizeAtMost(100),
 																		listvalidator.UniqueValues(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																		listplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: String
 																"string": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -364,9 +332,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		stringvalidator.LengthAtMost(2048),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: StringList
 																"string_list": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -381,17 +346,11 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																			stringvalidator.LengthAtMost(2048),
 																		),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																		listplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Description: "An object that includes the data type of a security control parameter and its current value.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ValueType
 														"value_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -404,18 +363,12 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 																	"CUSTOM",
 																),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
 												Description: "An object that specifies parameter values for a control in a configuration policy.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SecurityControlId
 											"security_control_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -425,9 +378,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(2048),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -438,34 +388,22 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 										listvalidator.SizeAtMost(1000),
 										listvalidator.UniqueValues(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "An object that defines which security controls are enabled in an AWS Security Hub configuration policy.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceEnabled
 						"service_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Description: "Indicates whether Security Hub is enabled in the policy.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "An object that defines how AWS Security Hub is configured.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "An object that defines how Security Hub is configured.",
@@ -501,9 +439,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(0, 512),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:
@@ -572,9 +507,6 @@ func configurationPolicyResource(ctx context.Context) (resource.Resource, error)
 			Description: "A key-value pair to associate with a resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: UpdatedAt
 		// CloudFormation resource type schema:

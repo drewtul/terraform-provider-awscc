@@ -14,14 +14,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -93,9 +87,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							int64validator.Between(1, 10080),
 							fwvalidators.NotNullInt64(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-							int64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -105,9 +96,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeBetween(0, 10),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CreatedTime
 		// CloudFormation resource type schema:
@@ -142,9 +130,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EvaluationType
 		// CloudFormation resource type schema:
@@ -250,9 +235,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(1, 1024),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RecurrenceRule
 					"recurrence_rule": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -266,26 +248,17 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									stringvalidator.LengthBetween(1, 1024),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This object defines how often to repeat a time exclusion window.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: StartTime
 					"start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The time you want the exclusion window to start at. Note that time exclusion windows can only be scheduled in the future, not the past.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Window
 					"window": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -299,9 +272,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									int64validator.AtLeast(1),
 									fwvalidators.NotNullInt64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: DurationUnit
 							"duration_unit": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -317,9 +287,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "This object defines the length of time an exclusion window should span.",
@@ -328,9 +295,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 						Validators: []validator.Object{ /*START VALIDATORS*/
 							fwvalidators.NotNullObject(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -340,9 +304,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeBetween(0, 10),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Goal
 		// CloudFormation resource type schema:
@@ -434,9 +395,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 					Description: "The threshold that determines if the goal is being met. An attainment goal is the ratio of good periods that meet the threshold requirements to the total periods within the interval. For example, an attainment goal of 99.9% means that within your interval, you are targeting 99.9% of the periods to be in healthy state.\nIf you omit this parameter, 99 is used to represent 99% as the attainment goal.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Interval
 				"interval": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -453,9 +411,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										int64validator.AtLeast(1),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DurationUnit
 								"duration_unit": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -471,9 +426,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StartTime
 								"start_time": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -484,17 +436,11 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										int64validator.AtLeast(946684800),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "If the interval for this service level objective is a calendar interval, this structure contains the interval specifications.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RollingInterval
 						"rolling_interval": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -508,9 +454,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										int64validator.AtLeast(1),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DurationUnit
 								"duration_unit": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -526,42 +469,27 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "If the interval is a calendar interval, this structure contains the interval specifications.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The time period used to evaluate the SLO. It can be either a calendar interval or rolling interval.\nIf you omit this parameter, a rolling interval of 7 days is used.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: WarningThreshold
 				"warning_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
 					Description: "The percentage of remaining budget over total budget that you want to get warnings for. If you omit this parameter, the default of 50.0 is used.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "A structure that contains the attributes that determine the goal of the SLO. This includes the time period for evaluation and the attainment threshold.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LastUpdatedTime
 		// CloudFormation resource type schema:
@@ -989,18 +917,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							"GreaterThan",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MetricThreshold
 				"metric_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
 					Description: "The value that the SLI metric is compared to.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RequestBasedSliMetric
 				"request_based_sli_metric": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1018,9 +940,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									Validators: []validator.Map{ /*START VALIDATORS*/
 										fwvalidators.NotNullMap(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DependencyOperationName
 								"dependency_operation_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1031,17 +950,11 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										stringvalidator.LengthBetween(1, 255),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Configuration for identifying a dependency and its operation",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KeyAttributes
 						"key_attributes":    // Pattern: ""
@@ -1050,9 +963,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Description: "This is a string-to-string map that contains information about the type of object that this SLO is related to.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MetricType
 						"metric_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1065,9 +975,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									"AVAILABILITY",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoredRequestCountMetric
 						"monitored_request_count_metric": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1081,18 +988,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Description: "The ID of the account where the metrics are located, if this is a cross-account alarm.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Expression
 											"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The math expression to be performed on the returned data.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Id
 											"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1102,9 +1003,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MetricStat
 											"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1124,9 +1022,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1136,9 +1031,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -1147,7 +1039,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																Computed:    true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MetricName
@@ -1155,18 +1046,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																Description: "The name of the metric to use.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Namespace
 															"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The namespace of the metric.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "This structure defines the metric used for a service level indicator, including the metric name, namespace, and dimensions.",
@@ -1175,9 +1060,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.Object{ /*START VALIDATORS*/
 															fwvalidators.NotNullObject(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Period
 													"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1187,9 +1069,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.Int64{ /*START VALIDATORS*/
 															fwvalidators.NotNullInt64(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Stat
 													"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1199,44 +1078,29 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Unit
 													"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "If you omit Unit then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "A metric to be used directly for the SLO, or to be used in the math expression that will be used for the SLO. Within one MetricDataQuery, you must specify either Expression or MetricStat but not both.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ReturnData
 											"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Description: "This option indicates whether to return the timestamps and raw data values of this metric.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
 									Description: "If you want to count \"bad requests\" to determine the percentage of successful requests for this request-based SLO, specify the metric to use as \"bad requests\" in this structure.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: GoodCountMetric
 								"good_count_metric": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1247,18 +1111,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Description: "The ID of the account where the metrics are located, if this is a cross-account alarm.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Expression
 											"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "The math expression to be performed on the returned data.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Id
 											"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1268,9 +1126,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MetricStat
 											"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1290,9 +1145,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1302,9 +1154,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -1313,7 +1162,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																Computed:    true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MetricName
@@ -1321,18 +1169,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																Description: "The name of the metric to use.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Namespace
 															"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Description: "The namespace of the metric.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "This structure defines the metric used for a service level indicator, including the metric name, namespace, and dimensions.",
@@ -1341,9 +1183,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.Object{ /*START VALIDATORS*/
 															fwvalidators.NotNullObject(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Period
 													"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1353,9 +1192,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.Int64{ /*START VALIDATORS*/
 															fwvalidators.NotNullInt64(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Stat
 													"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1365,52 +1201,34 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Unit
 													"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "If you omit Unit then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "A metric to be used directly for the SLO, or to be used in the math expression that will be used for the SLO. Within one MetricDataQuery, you must specify either Expression or MetricStat but not both.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ReturnData
 											"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Description: "This option indicates whether to return the timestamps and raw data values of this metric.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
 									Description: "If you want to count \"good requests\" to determine the percentage of successful requests for this request-based SLO, specify the metric to use as \"good requests\" in this structure.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "This structure defines the metric that is used as the \"good request\" or \"bad request\" value for a request-based SLO. This value observed for the metric defined in `TotalRequestCountMetric` is divided by the number found for `MonitoredRequestCountMetric` to determine the percentage of successful requests that this SLO tracks.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OperationName
 						"operation_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1420,9 +1238,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 255),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TotalRequestCountMetric
 						"total_request_count_metric": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1433,18 +1248,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										Description: "The ID of the account where the metrics are located, if this is a cross-account alarm.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Expression
 									"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "The math expression to be performed on the returned data.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Id
 									"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1454,9 +1263,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MetricStat
 									"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1476,9 +1282,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Value
 																"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1488,9 +1291,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -1499,7 +1299,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Computed:    true,
 														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 															generic.Multiset(),
-															listplanmodifier.UseStateForUnknown(),
 														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MetricName
@@ -1507,18 +1306,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Description: "The name of the metric to use.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Namespace
 													"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The namespace of the metric.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "This structure defines the metric used for a service level indicator, including the metric name, namespace, and dimensions.",
@@ -1527,9 +1320,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Period
 											"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1539,9 +1329,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Stat
 											"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1551,44 +1338,29 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Unit
 											"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "If you omit Unit then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "A metric to be used directly for the SLO, or to be used in the math expression that will be used for the SLO. Within one MetricDataQuery, you must specify either Expression or MetricStat but not both.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ReturnData
 									"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Description: "This option indicates whether to return the timestamps and raw data values of this metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "This structure defines the metric that is used as the \"total requests\" number for a request-based SLO. The number observed for this metric is divided by the number of \"good requests\" or \"bad requests\" that is observed for the metric defined in `MonitoredRequestCountMetric`.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "This structure contains the information about the metric that is used for a request-based SLO.",
@@ -1597,17 +1369,11 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "This structure contains information about the performance metric that a request-based SLO monitors.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Sli
 		// CloudFormation resource type schema:
@@ -1818,9 +1584,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MetricThreshold
 				"metric_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -1830,9 +1593,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.Float64{ /*START VALIDATORS*/
 						fwvalidators.NotNullFloat64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-						float64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SliMetric
 				"sli_metric": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1850,9 +1610,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									Validators: []validator.Map{ /*START VALIDATORS*/
 										fwvalidators.NotNullMap(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DependencyOperationName
 								"dependency_operation_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1863,17 +1620,11 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										stringvalidator.LengthBetween(1, 255),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Configuration for identifying a dependency and its operation",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: KeyAttributes
 						"key_attributes":    // Pattern: ""
@@ -1882,9 +1633,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Description: "This is a string-to-string map that contains information about the type of object that this SLO is related to.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MetricDataQueries
 						"metric_data_queries": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1895,18 +1643,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										Description: "The ID of the account where the metrics are located, if this is a cross-account alarm.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Expression
 									"expression": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Description: "The math expression to be performed on the returned data.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Id
 									"id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1916,9 +1658,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MetricStat
 									"metric_stat": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1938,9 +1677,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Value
 																"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1950,9 +1686,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -1961,7 +1694,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Computed:    true,
 														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 															generic.Multiset(),
-															listplanmodifier.UseStateForUnknown(),
 														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: MetricName
@@ -1969,18 +1701,12 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 														Description: "The name of the metric to use.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Namespace
 													"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Description: "The namespace of the metric.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "This structure defines the metric used for a service level indicator, including the metric name, namespace, and dimensions.",
@@ -1989,9 +1715,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Period
 											"period": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2001,9 +1724,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Stat
 											"stat": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2013,44 +1733,29 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Unit
 											"unit": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Description: "If you omit Unit then all data that was collected with any unit is returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit specified. If you specify a unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "A metric to be used directly for the SLO, or to be used in the math expression that will be used for the SLO. Within one MetricDataQuery, you must specify either Expression or MetricStat but not both.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ReturnData
 									"return_data": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Description: "This option indicates whether to return the timestamps and raw data values of this metric.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
 							Description: "If this SLO monitors a CloudWatch metric or the result of a CloudWatch metric math expression, this structure includes the information about that metric or expression.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MetricType
 						"metric_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2063,9 +1768,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 									"AVAILABILITY",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OperationName
 						"operation_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2075,9 +1777,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 255),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: PeriodSeconds
 						"period_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2087,9 +1786,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(60, 900),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Statistic
 						"statistic": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2099,9 +1795,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthBetween(1, 20),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "A structure that contains information about the metric that the SLO monitors.",
@@ -2110,17 +1803,11 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 					Validators: []validator.Object{ /*START VALIDATORS*/
 						fwvalidators.NotNullObject(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "This structure contains information about the performance metric that an SLO monitors.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -2168,9 +1855,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2181,9 +1865,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -2193,9 +1874,6 @@ func serviceLevelObjectiveResource(ctx context.Context) (resource.Resource, erro
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeBetween(1, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

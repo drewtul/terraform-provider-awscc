@@ -65,9 +65,6 @@ func listenerResource(ctx context.Context) (resource.Resource, error) {
 					"SOURCE_IP",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ListenerArn
 		// CloudFormation resource type schema:
@@ -158,9 +155,6 @@ func listenerResource(ctx context.Context) (resource.Resource, error) {
 					"UDP",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -15,10 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -166,9 +163,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 											stringvalidator.LengthBetween(1, 255),
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -178,16 +172,10 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 								listvalidator.SizeBetween(1, 10),
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RollingUpdatePolicy
 				"rolling_update_policy": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -206,9 +194,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -218,17 +203,11 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Capacity size configuration for the inference component",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MaximumExecutionTimeoutInSeconds
 						"maximum_execution_timeout_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -237,9 +216,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(600, 28800),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RollbackMaximumBatchSize
 						"rollback_maximum_batch_size": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -255,9 +231,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 										),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Value
 								"value": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -267,17 +240,11 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 									Validators: []validator.Int64{ /*START VALIDATORS*/
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Capacity size configuration for the inference component",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: WaitIntervalInSeconds
 						"wait_interval_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -286,25 +253,16 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(0, 3600),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The rolling update policy for the inference component",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The deployment config for the inference component",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// DeploymentConfig is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: EndpointArn
@@ -323,9 +281,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 256),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EndpointName
 		// CloudFormation resource type schema:
@@ -392,9 +347,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthAtMost(63),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: InferenceComponentStatus
 		// CloudFormation resource type schema:
@@ -462,9 +414,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						int64validator.AtLeast(0),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 					// CopyCount is a write-only property.
 				}, /*END ATTRIBUTE*/
 				// Property: CurrentCopyCount
@@ -487,9 +436,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 			Description: "The runtime config for the inference component",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Specification
 		// CloudFormation resource type schema:
@@ -616,9 +562,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ComputeResourceRequirements
 				"compute_resource_requirements": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -630,9 +573,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.AtLeast(128),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MinMemoryRequiredInMb
 						"min_memory_required_in_mb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -641,9 +581,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.AtLeast(128),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: NumberOfAcceleratorDevicesRequired
 						"number_of_accelerator_devices_required": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -652,9 +589,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.AtLeast(1.000000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: NumberOfCpuCoresRequired
 						"number_of_cpu_cores_required": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -663,17 +597,11 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Float64{ /*START VALIDATORS*/
 								float64validator.AtLeast(0.250000),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Container
 				"container": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -686,9 +614,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthAtMost(1024),
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DeployedImage
 						"deployed_image": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -721,9 +646,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Description: "Environment variables to specify on the container",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Image
 						"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -734,18 +656,12 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthAtMost(255),
 								stringvalidator.RegexMatches(regexp.MustCompile("[\\S]+"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 							// Image is a write-only property.
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ModelName
 				"model_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -756,9 +672,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: StartupParameters
 				"startup_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -770,9 +683,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(60, 3600),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ModelDataDownloadTimeoutInSeconds
 						"model_data_download_timeout_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -781,17 +691,11 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								int64validator.Between(60, 3600),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The specification for the inference component",
@@ -840,9 +744,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -853,9 +754,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.LengthBetween(1, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -865,9 +763,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VariantName
 		// CloudFormation resource type schema:
@@ -886,9 +781,6 @@ func inferenceComponentResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthAtMost(63),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

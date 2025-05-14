@@ -14,9 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -202,9 +199,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 1),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[!&'()*+,\\-./:;?=%@\\[\\]_{}|<>~^`\"]$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: DataElementSeparator
 												"data_element_separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -214,9 +208,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 1),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[!&'()*+,\\-./:;?=%@\\[\\]_{}|<>~^`\"]$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SegmentTerminator
 												"segment_terminator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -226,16 +217,10 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 1),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[!&'()*+,\\-./:;?=%@\\[\\]_{}|<>~^`\"]$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FunctionalGroupHeaders
 										"functional_group_headers": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -248,9 +233,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(2, 15),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9 ]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ApplicationSenderCode
 												"application_sender_code": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -260,9 +242,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(2, 15),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9 ]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ResponsibleAgencyCode
 												"responsible_agency_code": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -272,16 +251,10 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 2),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: InterchangeControlHeaders
 										"interchange_control_headers": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -294,9 +267,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 1),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReceiverId
 												"receiver_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -306,9 +276,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(15, 15),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9 ]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReceiverIdQualifier
 												"receiver_id_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -318,9 +285,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(2, 2),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: RepetitionSeparator
 												"repetition_separator": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -329,9 +293,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														stringvalidator.LengthBetween(1, 1),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SenderId
 												"sender_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -341,9 +302,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(15, 15),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9 ]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SenderIdQualifier
 												"sender_id_qualifier": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -353,9 +311,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(2, 2),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: UsageIndicatorCode
 												"usage_indicator_code": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -365,52 +320,31 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 1),
 														stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9]*$"), ""),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ValidateEdi
 										"validate_edi": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CreatedAt
 		// CloudFormation resource type schema:
@@ -519,7 +453,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^\\+?([0-9 \\t\\-()\\/]{7,})(?:\\s*(?:#|x\\.?|ext\\.?|extension) \\t*(\\d+))?$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -581,9 +514,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -593,9 +523,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -604,9 +531,6 @@ func partnershipResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeBetween(0, 200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TradingPartnerId
 		// CloudFormation resource type schema:

@@ -46,7 +46,6 @@ func tagResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthBetween(12, 12),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

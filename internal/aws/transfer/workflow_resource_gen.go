@@ -15,11 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -71,7 +68,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[\\w\\- ]*$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -375,9 +371,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(3, 63),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Key
 											"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -388,25 +381,16 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 1024),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for a S3 file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Specifies the location for the file being copied. Only applicable for the Copy type of workflow steps.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -417,9 +401,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OverwriteExisting
 							"overwrite_existing": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -432,9 +413,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 										"FALSE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -445,17 +423,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that performs a file copy.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: CustomStepDetails
 					"custom_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -469,9 +441,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -482,9 +451,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Target
 							"target": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -495,9 +461,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 170),
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:[a-z-]+:lambda:.*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeoutSeconds
 							"timeout_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -507,17 +470,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 1800),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that invokes a lambda function.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DecryptStepDetails
 					"decrypt_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -537,9 +494,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													stringvalidator.RegexMatches(regexp.MustCompile("^(arn:aws[-a-z]*:elasticfilesystem:[0-9a-z-:]+:(access-point/fsap|file-system/fs)-[0-9a-f]{8,40}|fs(ap)?-[0-9a-f]{8,40})$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Path
 											"path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -550,17 +504,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 65536),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[^\\x00]+$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for an EFS file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: S3FileLocation
 									"s3_file_location": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -574,9 +522,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(3, 63),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Key
 											"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -587,17 +532,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 1024),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for a S3 file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Specifies the location for the file being decrypted. Only applicable for the Decrypt type of workflow steps.",
@@ -606,9 +545,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -619,9 +555,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OverwriteExisting
 							"overwrite_existing": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -634,9 +567,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 										"FALSE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -647,9 +577,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Type
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -662,17 +589,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that performs a file decryption.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DeleteStepDetails
 					"delete_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -686,9 +607,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -699,17 +617,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that deletes the file.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TagStepDetails
 					"tag_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -723,9 +635,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -736,9 +645,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Tags
 							"tags": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -753,9 +659,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 128),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Value
 										"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -766,9 +669,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(0, 256),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -778,17 +678,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Set{ /*START VALIDATORS*/
 									setvalidator.SizeAtMost(10),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-									setplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that creates one or more tags.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Type
 					"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -803,9 +697,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								"TAG",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -817,7 +708,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1121,9 +1011,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(3, 63),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Key
 											"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1134,25 +1021,16 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 1024),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for a S3 file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Specifies the location for the file being copied. Only applicable for the Copy type of workflow steps.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1163,9 +1041,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OverwriteExisting
 							"overwrite_existing": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1178,9 +1053,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 										"FALSE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1191,17 +1063,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that performs a file copy.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: CustomStepDetails
 					"custom_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1215,9 +1081,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1228,9 +1091,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Target
 							"target": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1241,9 +1101,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 170),
 									stringvalidator.RegexMatches(regexp.MustCompile("arn:[a-z-]+:lambda:.*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TimeoutSeconds
 							"timeout_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1253,17 +1110,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									int64validator.Between(1, 1800),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that invokes a lambda function.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DecryptStepDetails
 					"decrypt_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1283,9 +1134,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 128),
 													stringvalidator.RegexMatches(regexp.MustCompile("^(arn:aws[-a-z]*:elasticfilesystem:[0-9a-z-:]+:(access-point/fsap|file-system/fs)-[0-9a-f]{8,40}|fs(ap)?-[0-9a-f]{8,40})$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Path
 											"path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1296,17 +1144,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(1, 65536),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[^\\x00]+$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for an EFS file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: S3FileLocation
 									"s3_file_location": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1320,9 +1162,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(3, 63),
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Key
 											"key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1333,17 +1172,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.LengthBetween(0, 1024),
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Specifies the details for a S3 file.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Specifies the location for the file being decrypted. Only applicable for the Decrypt type of workflow steps.",
@@ -1352,9 +1185,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1365,9 +1195,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OverwriteExisting
 							"overwrite_existing": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1380,9 +1207,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 										"FALSE",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1393,9 +1217,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Type
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1408,17 +1229,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that performs a file decryption.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: DeleteStepDetails
 					"delete_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1432,9 +1247,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1445,17 +1257,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that deletes the file.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: TagStepDetails
 					"tag_step_details": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1469,9 +1275,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 30),
 									stringvalidator.RegexMatches(regexp.MustCompile("^[\\w-]*$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceFileLocation
 							"source_file_location": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1482,9 +1285,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(0, 256),
 									stringvalidator.RegexMatches(regexp.MustCompile("^\\$\\{(\\w+.)+\\w+\\}$"), ""),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Tags
 							"tags": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -1499,9 +1299,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 128),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Value
 										"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1512,9 +1309,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(0, 256),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -1524,17 +1318,11 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Set{ /*START VALIDATORS*/
 									setvalidator.SizeAtMost(10),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-									setplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Details for a step that creates one or more tags.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Type
 					"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1549,9 +1337,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 								"TAG",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1610,9 +1395,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1623,9 +1405,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1635,9 +1414,6 @@ func workflowResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: WorkflowId
 		// CloudFormation resource type schema:

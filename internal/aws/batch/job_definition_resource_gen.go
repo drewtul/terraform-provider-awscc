@@ -12,11 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -84,9 +79,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Quantity
 							"quantity": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -95,9 +87,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									fwvalidators.NotNullInt64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -107,16 +96,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						listvalidator.UniqueValues(),
 						fwvalidators.NotNullList(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ContainerProperties
 		// CloudFormation resource type schema:
@@ -496,17 +479,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					ElementType: types.StringType,
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EnableExecuteCommand
 				"enable_execute_command": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Environment
 				"environment": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -516,25 +493,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Value
 							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-						listplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EphemeralStorage
 				"ephemeral_storage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -546,24 +514,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Int64{ /*START VALIDATORS*/
 								fwvalidators.NotNullInt64(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ExecutionRoleArn
 				"execution_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FargatePlatformConfiguration
 				"fargate_platform_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -572,16 +531,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						"platform_version": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Image
 				"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -590,17 +543,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: JobRoleArn
 				"job_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LinuxParameters
 				"linux_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -613,17 +560,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HostPath
 									"host_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Permissions
 									"permissions": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -632,7 +573,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
@@ -641,40 +581,27 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InitProcessEnabled
 						"init_process_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MaxSwap
 						"max_swap": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SharedMemorySize
 						"shared_memory_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Swappiness
 						"swappiness": schema.Int64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-								int64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Tmpfs
 						"tmpfs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -687,9 +614,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MountOptions
 									"mount_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -698,7 +622,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Size
@@ -708,9 +631,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -718,15 +638,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LogConfiguration
 				"log_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -738,9 +654,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Options
 						"options":           // Pattern: ""
@@ -748,9 +661,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							ElementType: types.StringType,
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: SecretOptions
 						"secret_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -763,9 +673,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ValueFrom
 									"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -774,9 +681,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -784,23 +688,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Memory
 				"memory": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MountPoints
 				"mount_points": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -810,25 +707,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ReadOnly
 							"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SourceVolume
 							"source_volume": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -836,7 +724,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: NetworkConfiguration
@@ -846,32 +733,20 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						"assign_public_ip": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Privileged
 				"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ReadonlyRootFilesystem
 				"readonly_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RepositoryCredentials
 				"repository_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -883,16 +758,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.String{ /*START VALIDATORS*/
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ResourceRequirements
 				"resource_requirements": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -902,17 +771,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Value
 							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -920,7 +783,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: RuntimePlatform
@@ -930,24 +792,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 						"cpu_architecture": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: OperatingSystemFamily
 						"operating_system_family": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Secrets
 				"secrets": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -960,9 +813,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ValueFrom
 							"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -971,9 +821,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -981,7 +828,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Ulimits
@@ -995,9 +841,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									fwvalidators.NotNullInt64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1006,9 +849,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: SoftLimit
 							"soft_limit": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1017,9 +857,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Int64{ /*START VALIDATORS*/
 									fwvalidators.NotNullInt64(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-									int64planmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -1027,24 +864,17 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: User
 				"user": schema.StringAttribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Vcpus
 				"vcpus": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Volumes
 				"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1060,24 +890,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"access_point_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Iam
 											"iam": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: FileSystemId
 									"file_system_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1086,40 +907,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RootDirectory
 									"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransitEncryption
 									"transit_encryption": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: TransitEncryptionPort
 									"transit_encryption_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Host
 							"host": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1128,24 +934,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									"source_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -1153,15 +950,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EcsProperties
 		// CloudFormation resource type schema:
@@ -1616,9 +1409,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											ElementType: types.StringType,
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: DependsOn
 										"depends_on": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1631,9 +1421,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: ContainerName
 													"container_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1642,9 +1429,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1652,7 +1436,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed: true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Environment
@@ -1663,33 +1446,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Value
 													"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Essential
 										"essential": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FirelensConfiguration
 										"firelens_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1700,9 +1471,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													ElementType: types.StringType,
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-														mapplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Type
 												"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1711,16 +1479,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Image
 										"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1729,9 +1491,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LinuxParameters
 										"linux_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1744,17 +1503,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: HostPath
 															"host_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Permissions
 															"permissions": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1763,7 +1516,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed:    true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
@@ -1772,40 +1524,27 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Computed: true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: InitProcessEnabled
 												"init_process_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MaxSwap
 												"max_swap": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SharedMemorySize
 												"shared_memory_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Swappiness
 												"swappiness": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Tmpfs
 												"tmpfs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1818,9 +1557,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MountOptions
 															"mount_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1829,7 +1565,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed:    true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Size
@@ -1839,9 +1574,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Int64{ /*START VALIDATORS*/
 																	fwvalidators.NotNullInt64(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																	int64planmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -1849,15 +1581,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Computed: true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LogConfiguration
 										"log_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1869,9 +1597,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Options
 												"options":           // Pattern: ""
@@ -1879,9 +1604,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													ElementType: types.StringType,
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-														mapplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SecretOptions
 												"secret_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1894,9 +1616,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ValueFrom
 															"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1905,9 +1624,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -1915,15 +1631,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Computed: true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: MountPoints
 										"mount_points": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1933,25 +1645,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: ReadOnly
 													"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: SourceVolume
 													"source_volume": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -1959,32 +1662,22 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed: true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Name
 										"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Privileged
 										"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ReadonlyRootFilesystem
 										"readonly_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RepositoryCredentials
 										"repository_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1996,16 +1689,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ResourceRequirements
 										"resource_requirements": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2015,17 +1702,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Value
 													"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -2033,7 +1714,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed: true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Secrets
@@ -2047,9 +1727,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: ValueFrom
 													"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2058,9 +1735,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -2068,7 +1742,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed: true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Ulimits
@@ -2082,9 +1755,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Int64{ /*START VALIDATORS*/
 															fwvalidators.NotNullInt64(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Name
 													"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2093,9 +1763,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.String{ /*START VALIDATORS*/
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: SoftLimit
 													"soft_limit": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -2104,9 +1771,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														Validators: []validator.Int64{ /*START VALIDATORS*/
 															fwvalidators.NotNullInt64(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-															int64planmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 											}, /*END NESTED OBJECT*/
@@ -2114,16 +1778,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											Computed: true,
 											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 												generic.Multiset(),
-												listplanmodifier.UseStateForUnknown(),
 											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: User
 										"user": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2131,16 +1791,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed: true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: EnableExecuteCommand
 							"enable_execute_command": schema.BoolAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-									boolplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: EphemeralStorage
 							"ephemeral_storage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2152,32 +1808,20 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Int64{ /*START VALIDATORS*/
 											fwvalidators.NotNullInt64(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: ExecutionRoleArn
 							"execution_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: IpcMode
 							"ipc_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: NetworkConfiguration
 							"network_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2186,32 +1830,20 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									"assign_public_ip": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PidMode
 							"pid_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: PlatformVersion
 							"platform_version": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: RuntimePlatform
 							"runtime_platform": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2220,32 +1852,20 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									"cpu_architecture": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OperatingSystemFamily
 									"operating_system_family": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TaskRoleArn
 							"task_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Volumes
 							"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2261,24 +1881,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														"access_point_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Iam
 														"iam": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: FileSystemId
 												"file_system_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -2287,40 +1898,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: RootDirectory
 												"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TransitEncryption
 												"transit_encryption": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TransitEncryptionPort
 												"transit_encryption_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Host
 										"host": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2329,24 +1925,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"source_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Name
 										"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -2354,7 +1941,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed: true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
@@ -2366,15 +1952,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EksProperties
 		// CloudFormation resource type schema:
@@ -2786,18 +2368,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Command
 									"command": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Env
 									"env": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2810,17 +2386,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Value
 												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -2828,7 +2398,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Image
@@ -2838,25 +2407,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImagePullPolicy
 									"image_pull_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Name
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2867,9 +2427,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												ElementType: types.StringType,
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Requests
 											"requests":          // Pattern: ""
@@ -2877,16 +2434,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												ElementType: types.StringType,
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SecurityContext
 									"security_context": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -2895,56 +2446,35 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"allow_privilege_escalation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Privileged
 											"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ReadOnlyRootFilesystem
 											"read_only_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsGroup
 											"run_as_group": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsNonRoot
 											"run_as_non_root": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsUser
 											"run_as_user": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VolumeMounts
 									"volume_mounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -2954,33 +2484,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"mount_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Name
 												"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReadOnly
 												"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SubPath
 												"sub_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -2988,7 +2506,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
@@ -2997,24 +2514,17 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DnsPolicy
 						"dns_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: HostNetwork
 						"host_network": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ImagePullSecrets
 						"image_pull_secrets": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3024,9 +2534,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3034,7 +2541,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InitContainers
@@ -3046,18 +2552,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Command
 									"command": schema.ListAttribute{ /*START ATTRIBUTE*/
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Env
 									"env": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3070,17 +2570,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Value
 												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -3088,7 +2582,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Image
@@ -3098,25 +2591,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ImagePullPolicy
 									"image_pull_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Name
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Resources
 									"resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3127,9 +2611,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												ElementType: types.StringType,
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Requests
 											"requests":          // Pattern: ""
@@ -3137,16 +2618,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												ElementType: types.StringType,
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: SecurityContext
 									"security_context": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3155,56 +2630,35 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"allow_privilege_escalation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Privileged
 											"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ReadOnlyRootFilesystem
 											"read_only_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsGroup
 											"run_as_group": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsNonRoot
 											"run_as_non_root": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: RunAsUser
 											"run_as_user": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: VolumeMounts
 									"volume_mounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3214,33 +2668,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"mount_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Name
 												"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReadOnly
 												"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SubPath
 												"sub_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -3248,7 +2690,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
@@ -3257,7 +2698,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Metadata
@@ -3269,9 +2709,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									ElementType: types.StringType,
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Labels
 								"labels":            // Pattern: ""
@@ -3279,40 +2716,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 									ElementType: types.StringType,
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-										mapplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Namespace
 								"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Optional: true,
 									Computed: true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ServiceAccountName
 						"service_account_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ShareProcessNamespace
 						"share_process_namespace": schema.BoolAttribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Volumes
 						"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -3325,24 +2747,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"medium": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SizeLimit
 											"size_limit": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: HostPath
 									"host_path": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3351,16 +2764,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"path": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Name
 									"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3369,9 +2776,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: PersistentVolumeClaim
 									"persistent_volume_claim": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3383,24 +2787,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ReadOnly
 											"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Secret
 									"secret": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -3409,9 +2804,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"optional": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SecretName
 											"secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -3420,16 +2812,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -3437,22 +2823,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 							Computed: true,
 							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 								generic.Multiset(),
-								listplanmodifier.UseStateForUnknown(),
 							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: JobDefinitionArn
 		// CloudFormation resource type schema:
@@ -3480,7 +2859,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.LengthAtMost(128),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -4716,9 +4094,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: NodeRangeProperties
 				"node_range_properties": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4739,9 +4114,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Quantity
 												"quantity": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4750,9 +4122,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Int64{ /*START VALIDATORS*/
 														fwvalidators.NotNullInt64(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -4762,16 +4131,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											listvalidator.UniqueValues(),
 											fwvalidators.NotNullList(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Container
 							"container": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4781,17 +4144,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										ElementType: types.StringType,
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: EnableExecuteCommand
 									"enable_execute_command": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Environment
 									"environment": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4801,25 +4158,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Value
 												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-											listplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: EphemeralStorage
 									"ephemeral_storage": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4831,24 +4179,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Int64{ /*START VALIDATORS*/
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ExecutionRoleArn
 									"execution_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Image
 									"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4857,25 +4196,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.String{ /*START VALIDATORS*/
 											fwvalidators.NotNullString(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: InstanceType
 									"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: JobRoleArn
 									"job_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: LinuxParameters
 									"linux_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4888,17 +4218,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: HostPath
 														"host_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Permissions
 														"permissions": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -4907,7 +4231,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed:    true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
@@ -4916,40 +4239,27 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: InitProcessEnabled
 											"init_process_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MaxSwap
 											"max_swap": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SharedMemorySize
 											"shared_memory_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Swappiness
 											"swappiness": schema.Int64Attribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Tmpfs
 											"tmpfs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4962,9 +4272,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MountOptions
 														"mount_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -4973,7 +4280,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed:    true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Size
@@ -4983,9 +4289,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.Int64{ /*START VALIDATORS*/
 																fwvalidators.NotNullInt64(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																int64planmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -4993,15 +4296,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: LogConfiguration
 									"log_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5013,9 +4312,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Options
 											"options":           // Pattern: ""
@@ -5023,9 +4319,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												ElementType: types.StringType,
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-													mapplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SecretOptions
 											"secret_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5038,9 +4331,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ValueFrom
 														"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5049,9 +4339,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -5059,23 +4346,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Memory
 									"memory": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: MountPoints
 									"mount_points": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5085,25 +4365,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ReadOnly
 												"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SourceVolume
 												"source_volume": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5111,24 +4382,17 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Privileged
 									"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ReadonlyRootFilesystem
 									"readonly_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RepositoryCredentials
 									"repository_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5140,16 +4404,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: ResourceRequirements
 									"resource_requirements": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5159,17 +4417,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Value
 												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5177,7 +4429,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: RuntimePlatform
@@ -5187,24 +4438,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 											"cpu_architecture": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: OperatingSystemFamily
 											"operating_system_family": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Secrets
 									"secrets": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5217,9 +4459,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ValueFrom
 												"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5228,9 +4467,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5238,7 +4474,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Ulimits
@@ -5252,9 +4487,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Int64{ /*START VALIDATORS*/
 														fwvalidators.NotNullInt64(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Name
 												"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5263,9 +4495,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.String{ /*START VALIDATORS*/
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SoftLimit
 												"soft_limit": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -5274,9 +4503,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Int64{ /*START VALIDATORS*/
 														fwvalidators.NotNullInt64(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5284,24 +4510,17 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: User
 									"user": schema.StringAttribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Vcpus
 									"vcpus": schema.Int64Attribute{ /*START ATTRIBUTE*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-											int64planmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Volumes
 									"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5317,24 +4536,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"access_point_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Iam
 																"iam": schema.StringAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: FileSystemId
 														"file_system_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5343,40 +4553,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: RootDirectory
 														"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: TransitEncryption
 														"transit_encryption": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: TransitEncryptionPort
 														"transit_encryption_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																int64planmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Host
 												"host": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5385,24 +4580,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														"source_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Name
 												"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 										}, /*END NESTED OBJECT*/
@@ -5410,15 +4596,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										Computed: true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: EcsProperties
 							"ecs_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5436,9 +4618,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																ElementType: types.StringType,
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: DependsOn
 															"depends_on": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5451,9 +4630,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ContainerName
 																		"container_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5462,9 +4638,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -5472,7 +4645,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed: true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Environment
@@ -5483,33 +4655,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																	listplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Essential
 															"essential": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: FirelensConfiguration
 															"firelens_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5520,9 +4680,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		ElementType: types.StringType,
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																			mapplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Type
 																	"type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5531,16 +4688,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Image
 															"image": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5549,9 +4700,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.String{ /*START VALIDATORS*/
 																	fwvalidators.NotNullString(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LinuxParameters
 															"linux_parameters": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5564,17 +4712,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																				"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																					Optional: true,
 																					Computed: true,
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: HostPath
 																				"host_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																					Optional: true,
 																					Computed: true,
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Permissions
 																				"permissions": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -5583,7 +4725,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Computed:    true,
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
@@ -5592,40 +4733,27 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Computed: true,
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: InitProcessEnabled
 																	"init_process_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: MaxSwap
 																	"max_swap": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SharedMemorySize
 																	"shared_memory_size": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Swappiness
 																	"swappiness": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Tmpfs
 																	"tmpfs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5638,9 +4766,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: MountOptions
 																				"mount_options": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -5649,7 +4774,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Computed:    true,
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Size
@@ -5659,9 +4783,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Int64{ /*START VALIDATORS*/
 																						fwvalidators.NotNullInt64(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																						int64planmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -5669,15 +4790,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Computed: true,
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: LogConfiguration
 															"log_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5689,9 +4806,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Options
 																	"options":           // Pattern: ""
@@ -5699,9 +4813,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		ElementType: types.StringType,
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																			mapplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SecretOptions
 																	"secret_options": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5714,9 +4825,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ValueFrom
 																				"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5725,9 +4833,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -5735,15 +4840,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Computed: true,
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MountPoints
 															"mount_points": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5753,25 +4854,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		"container_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ReadOnly
 																		"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																				boolplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: SourceVolume
 																		"source_volume": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -5779,32 +4871,22 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed: true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Name
 															"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Privileged
 															"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ReadonlyRootFilesystem
 															"readonly_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: RepositoryCredentials
 															"repository_credentials": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5816,16 +4898,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: ResourceRequirements
 															"resource_requirements": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5835,17 +4911,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		"type": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Value
 																		"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																			Optional: true,
 																			Computed: true,
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -5853,7 +4923,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed: true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Secrets
@@ -5867,9 +4936,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ValueFrom
 																		"value_from": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5878,9 +4944,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -5888,7 +4951,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed: true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Ulimits
@@ -5902,9 +4964,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.Int64{ /*START VALIDATORS*/
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Name
 																		"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5913,9 +4972,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.String{ /*START VALIDATORS*/
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: SoftLimit
 																		"soft_limit": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -5924,9 +4980,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.Int64{ /*START VALIDATORS*/
 																				fwvalidators.NotNullInt64(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																				int64planmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -5934,16 +4987,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																Computed: true,
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: User
 															"user": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -5951,48 +5000,32 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Computed: true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: EnableExecuteCommand
 												"enable_execute_command": schema.BoolAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: ExecutionRoleArn
 												"execution_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: IpcMode
 												"ipc_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PidMode
 												"pid_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TaskRoleArn
 												"task_role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
 													Optional: true,
 													Computed: true,
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: Volumes
 												"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6008,24 +5041,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																			"access_point_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 																				Optional: true,
 																				Computed: true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Iam
 																			"iam": schema.StringAttribute{ /*START ATTRIBUTE*/
 																				Optional: true,
 																				Computed: true,
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: FileSystemId
 																	"file_system_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6034,40 +5058,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: RootDirectory
 																	"root_directory": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TransitEncryption
 																	"transit_encryption": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TransitEncryptionPort
 																	"transit_encryption_port": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Host
 															"host": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6076,24 +5085,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	"source_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Name
 															"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 																Optional: true,
 																Computed: true,
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
@@ -6101,7 +5101,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 													Computed: true,
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
@@ -6113,15 +5112,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 										}, /*END VALIDATORS*/
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: EksProperties
 							"eks_properties": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6138,18 +5133,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															ElementType: types.StringType,
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																listplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Command
 														"command": schema.ListAttribute{ /*START ATTRIBUTE*/
 															ElementType: types.StringType,
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																listplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Env
 														"env": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6162,17 +5151,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Value
 																	"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 															}, /*END NESTED OBJECT*/
@@ -6180,7 +5163,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed: true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Image
@@ -6190,25 +5172,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ImagePullPolicy
 														"image_pull_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Name
 														"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Resources
 														"resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6219,9 +5192,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	ElementType: types.StringType,
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																		mapplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Requests
 																"requests":          // Pattern: ""
@@ -6229,16 +5199,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	ElementType: types.StringType,
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																		mapplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: SecurityContext
 														"security_context": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6247,56 +5211,35 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"allow_privilege_escalation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Privileged
 																"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: ReadOnlyRootFilesystem
 																"read_only_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsGroup
 																"run_as_group": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																		int64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsNonRoot
 																"run_as_non_root": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsUser
 																"run_as_user": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																		int64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: VolumeMounts
 														"volume_mounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6306,33 +5249,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	"mount_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Name
 																	"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: ReadOnly
 																	"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SubPath
 																	"sub_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 															}, /*END NESTED OBJECT*/
@@ -6340,7 +5271,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed: true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
@@ -6349,24 +5279,17 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DnsPolicy
 											"dns_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: HostNetwork
 											"host_network": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ImagePullSecrets
 											"image_pull_secrets": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6376,9 +5299,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -6386,7 +5306,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: InitContainers
@@ -6398,18 +5317,12 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															ElementType: types.StringType,
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																listplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Command
 														"command": schema.ListAttribute{ /*START ATTRIBUTE*/
 															ElementType: types.StringType,
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-																listplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Env
 														"env": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6422,17 +5335,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.String{ /*START VALIDATORS*/
 																			fwvalidators.NotNullString(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Value
 																	"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 															}, /*END NESTED OBJECT*/
@@ -6440,7 +5347,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed: true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Image
@@ -6450,25 +5356,16 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: ImagePullPolicy
 														"image_pull_policy": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Name
 														"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Resources
 														"resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6479,9 +5376,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	ElementType: types.StringType,
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																		mapplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Requests
 																"requests":          // Pattern: ""
@@ -6489,16 +5383,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	ElementType: types.StringType,
 																	Optional:    true,
 																	Computed:    true,
-																	PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																		mapplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: SecurityContext
 														"security_context": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6507,56 +5395,35 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"allow_privilege_escalation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: Privileged
 																"privileged": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: ReadOnlyRootFilesystem
 																"read_only_root_filesystem": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsGroup
 																"run_as_group": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																		int64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsNonRoot
 																"run_as_non_root": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: RunAsUser
 																"run_as_user": schema.Int64Attribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																		int64planmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: VolumeMounts
 														"volume_mounts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6566,33 +5433,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	"mount_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Name
 																	"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: ReadOnly
 																	"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SubPath
 																	"sub_path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																		Optional: true,
 																		Computed: true,
-																		PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																			stringplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 															}, /*END NESTED OBJECT*/
@@ -6600,7 +5455,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Computed: true,
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
@@ -6609,7 +5463,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Metadata
@@ -6621,9 +5474,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														ElementType: types.StringType,
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-															mapplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Labels
 													"labels":            // Pattern: ""
@@ -6631,40 +5481,25 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 														ElementType: types.StringType,
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-															mapplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Namespace
 													"namespace": schema.StringAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ServiceAccountName
 											"service_account_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ShareProcessNamespace
 											"share_process_namespace": schema.BoolAttribute{ /*START ATTRIBUTE*/
 												Optional: true,
 												Computed: true,
-												PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-													boolplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Volumes
 											"volumes": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6677,24 +5512,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"medium": schema.StringAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: SizeLimit
 																"size_limit": schema.StringAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: HostPath
 														"host_path": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6703,16 +5529,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"path": schema.StringAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Name
 														"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6721,9 +5541,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 															Validators: []validator.String{ /*START VALIDATORS*/
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: PersistentVolumeClaim
 														"persistent_volume_claim": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6735,24 +5552,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: ReadOnly
 																"read_only": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: Secret
 														"secret": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6761,9 +5569,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																"optional": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																	Optional: true,
 																	Computed: true,
-																	PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																		boolplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 																// Property: SecretName
 																"secret_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6772,16 +5577,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 															Optional: true,
 															Computed: true,
-															PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																objectplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -6789,22 +5588,15 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 												Computed: true,
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Optional: true,
 										Computed: true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: InstanceTypes
 							"instance_types": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -6813,7 +5605,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Computed:    true,
 								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 									generic.Multiset(),
-									listplanmodifier.UseStateForUnknown(),
 								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TargetNodes
@@ -6823,9 +5614,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -6836,7 +5624,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					}, /*END VALIDATORS*/
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: NumNodes
@@ -6846,16 +5633,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Int64{ /*START VALIDATORS*/
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Parameters
 		// CloudFormation resource type schema:
@@ -6874,9 +5655,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			ElementType: types.StringType,
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PlatformCapabilities
 		// CloudFormation resource type schema:
@@ -6893,9 +5671,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			ElementType: types.StringType,
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PropagateTags
 		// CloudFormation resource type schema:
@@ -6906,9 +5681,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 		"propagate_tags": schema.BoolAttribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RetryStrategy
 		// CloudFormation resource type schema:
@@ -6954,9 +5726,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 				"attempts": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EvaluateOnExit
 				"evaluate_on_exit": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6969,33 +5738,21 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OnExitCode
 							"on_exit_code": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OnReason
 							"on_reason": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: OnStatusReason
 							"on_status_reason": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Optional: true,
 								Computed: true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -7003,15 +5760,11 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 					Computed: true,
 					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 						generic.Multiset(),
-						listplanmodifier.UseStateForUnknown(),
 					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SchedulingPriority
 		// CloudFormation resource type schema:
@@ -7022,9 +5775,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 		"scheduling_priority": schema.Int64Attribute{ /*START ATTRIBUTE*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -7045,9 +5795,6 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A key-value pair to associate with a resource.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Timeout
 		// CloudFormation resource type schema:
@@ -7067,16 +5814,10 @@ func jobDefinitionResource(ctx context.Context) (resource.Resource, error) {
 				"attempt_duration_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
 					Optional: true,
 					Computed: true,
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Optional: true,
 			Computed: true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Type
 		// CloudFormation resource type schema:

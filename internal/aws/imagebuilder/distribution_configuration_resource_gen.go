@@ -11,11 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -58,9 +53,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 			Description: "The description of the distribution configuration.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Distributions
 		// CloudFormation resource type schema:
@@ -328,27 +320,18 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 								Description: "The tags to apply to AMIs distributed to this Region.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-									mapplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Description
 							"description": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The description of the AMI distribution configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: KmsKeyId
 							"kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The KMS key identifier used to encrypt the distributed image.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: LaunchPermissionConfiguration
 							"launch_permission_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -361,7 +344,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: OrganizationalUnitArns
@@ -372,7 +354,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: UserGroups
@@ -383,7 +364,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: UserIds
@@ -394,25 +374,18 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 										Computed:    true,
 										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 											generic.Multiset(),
-											listplanmodifier.UseStateForUnknown(),
 										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "Launch permissions can be used to configure which AWS accounts can use the AMI to launch instances.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Name
 							"name": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The name of the AMI distribution configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TargetAccountIds
 							"target_account_ids": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -420,17 +393,11 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 								Description: "The ID of accounts to which you want to distribute an image.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "The specific AMI settings (for example, launch permissions, AMI tags).",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: ContainerDistributionConfiguration
 					"container_distribution_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -441,18 +408,12 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 								Description: "Tags that are attached to the container distribution configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-									listplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: Description
 							"description": schema.StringAttribute{ /*START ATTRIBUTE*/
 								Description: "The description of the container distribution configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: TargetRepository
 							"target_repository": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -462,9 +423,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 										Description: "The repository name of target container repository.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Service
 									"service": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -476,25 +434,16 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 												"ECR",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "The destination repository for the container distribution configuration.",
 								Optional:    true,
 								Computed:    true,
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Container distribution settings for encryption, licensing, and sharing in a specific Region.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: FastLaunchConfigurations
 					"fast_launch_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -505,18 +454,12 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 									Description: "The owner account ID for the fast-launch enabled Windows AMI.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Enabled
 								"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "A Boolean that represents the current state of faster launching for the Windows AMI. Set to true to start using Windows faster launching, or false to stop using it.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LaunchTemplate
 								"launch_template": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -526,44 +469,29 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 											Description: "The ID of the launch template to use for faster launching for a Windows AMI.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LaunchTemplateName
 										"launch_template_name": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The name of the launch template to use for faster launching for a Windows AMI.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: LaunchTemplateVersion
 										"launch_template_version": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The version of the launch template to use for faster launching for a Windows AMI.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The launch template that the fast-launch enabled Windows AMI uses when it launches Windows instances to create pre-provisioned snapshots.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MaxParallelLaunches
 								"max_parallel_launches": schema.Int64Attribute{ /*START ATTRIBUTE*/
 									Description: "The maximum number of parallel instances that are launched for creating resources.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SnapshotConfiguration
 								"snapshot_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -573,26 +501,17 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 											Description: "The number of pre-provisioned snapshots to keep on hand for a fast-launch enabled Windows AMI.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Configuration settings for managing the number of snapshots that are created from pre-provisioned instances for the Windows AMI when faster launching is enabled.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "The Windows faster-launching configurations to use for AMI distribution.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LaunchTemplateConfigurations
 					"launch_template_configurations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -603,36 +522,24 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 									Description: "The account ID that this configuration applies to.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: LaunchTemplateId
 								"launch_template_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "Identifies the EC2 launch template to use.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SetDefaultVersion
 								"set_default_version": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Set the specified EC2 launch template as the default launch template for the specified account.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "A group of launchTemplateConfiguration settings that apply to image distribution.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LicenseConfigurationArns
 					"license_configuration_arns": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -640,9 +547,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 						Description: "The License Manager Configuration to associate with the AMI in the specified Region.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Region
 					"region": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -658,9 +562,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 									Description: "The account ID for the AMI to update the parameter with.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DataType
 								"data_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -673,9 +574,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 											"aws:ec2:image",
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ParameterName
 								"parameter_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -685,18 +583,12 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 									Validators: []validator.String{ /*START VALIDATORS*/
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
 						Description: "The SSM parameter configurations to use for AMI distribution.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-							listplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -736,9 +628,6 @@ func distributionConfigurationResource(ctx context.Context) (resource.Resource, 
 			Description: "The tags associated with the component.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-				mapplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

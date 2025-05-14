@@ -114,7 +114,6 @@ func hostedConfigurationVersionResource(ctx context.Context) (resource.Resource,
 				stringvalidator.LengthBetween(0, 1024),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -130,7 +129,6 @@ func hostedConfigurationVersionResource(ctx context.Context) (resource.Resource,
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
 				int64planmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// LatestVersionNumber is a write-only property.
@@ -154,7 +152,6 @@ func hostedConfigurationVersionResource(ctx context.Context) (resource.Resource,
 				stringvalidator.RegexMatches(regexp.MustCompile("^$|.*[^0-9].*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/

@@ -16,14 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-provider-awscc/internal/generic"
@@ -65,9 +58,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to build the bot locales after bot creation completes.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AutoBuildBotLocales is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BotFileS3Location
@@ -116,9 +106,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3ObjectKey
 				"s3_object_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -130,9 +117,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-\\!\\*\\_\\'\\(\\)a-zA-Z0-9][\\.\\-\\!\\*\\_\\'\\(\\)\\/a-zA-Z0-9]*$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: S3ObjectVersion
 				"s3_object_version": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -142,17 +126,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthBetween(1, 1024),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "S3 location of bot definitions zip file, if it's not defined inline in CloudFormation.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BotFileS3Location is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BotLocales
@@ -4284,9 +4262,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.LengthBetween(1, 100),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Weight
 										"weight": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4296,9 +4271,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Int64{ /*START VALIDATORS*/
 												int64validator.Between(1, 3),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 								}, /*END NESTED OBJECT*/
@@ -4308,17 +4280,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									setvalidator.SizeAtMost(500),
 									fwvalidators.NotNullSet(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-									setplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "A custom vocabulary is a list of specific phrases that you want Amazon Lex V2 to recognize in the audio input.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Description
 					"description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4328,9 +4294,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthAtMost(200),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Intents
 					"intents": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -4344,9 +4307,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(200),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: DialogCodeHook
 								"dialog_code_hook": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4358,17 +4318,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Bool{ /*START VALIDATORS*/
 												fwvalidators.NotNullBool(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Settings that determine the Lambda function that Amazon Lex uses for processing user responses.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: FulfillmentCodeHook
 								"fulfillment_code_hook": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4380,9 +4334,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Bool{ /*START VALIDATORS*/
 												fwvalidators.NotNullBool(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: FulfillmentUpdatesSpecification
 										"fulfillment_updates_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4395,9 +4346,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Bool{ /*START VALIDATORS*/
 														fwvalidators.NotNullBool(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: StartResponse
 												"start_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4407,9 +4355,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															Description: "Determines whether the user can interrupt the start message while it is playing.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: DelayInSeconds
 														"delay_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4420,9 +4365,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																int64validator.Between(1, 900),
 																fwvalidators.NotNullInt64(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																int64planmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MessageGroups
 														"message_groups": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4443,17 +4385,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in a custom format defined by the client application.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageResponseCard
 																			"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4471,9 +4407,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Value
 																								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4484,9 +4417,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																						}, /*END NESTED OBJECT*/
@@ -4498,7 +4428,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						}, /*END VALIDATORS*/
 																						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																							generic.Multiset(),
-																							listplanmodifier.UseStateForUnknown(),
 																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageUrl
@@ -4509,9 +4438,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Subtitle
 																					"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4521,9 +4447,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Title
 																					"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4534,17 +4457,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 250),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message that defines a response card that the client application can show to the user.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: PlainTextMessage
 																			"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4558,17 +4475,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in plain text format.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: SSMLMessage
 																			"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4582,17 +4493,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in Speech Synthesis Markup Language (SSML).",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The primary message that Amazon Lex should send to the user.",
@@ -4601,9 +4506,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Variations
 																	"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4621,17 +4523,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4649,9 +4545,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4662,9 +4555,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -4676,7 +4566,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -4687,9 +4576,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4699,9 +4585,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4712,17 +4595,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4736,17 +4613,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4760,17 +4631,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -4782,7 +4647,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -4796,16 +4660,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Provides settings for a message that is sent to the user when a fulfillment Lambda function starts running.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TimeoutInSeconds
 												"timeout_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4815,9 +4675,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													Validators: []validator.Int64{ /*START VALIDATORS*/
 														int64validator.Between(1, 900),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: UpdateResponse
 												"update_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4827,9 +4684,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															Description: "Determines whether the user can interrupt an update message while it is playing.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: FrequencyInSeconds
 														"frequency_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -4840,9 +4694,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																int64validator.Between(1, 900),
 																fwvalidators.NotNullInt64(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																int64planmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MessageGroups
 														"message_groups": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -4863,17 +4714,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in a custom format defined by the client application.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageResponseCard
 																			"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4891,9 +4736,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Value
 																								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4904,9 +4746,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																						}, /*END NESTED OBJECT*/
@@ -4918,7 +4757,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						}, /*END VALIDATORS*/
 																						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																							generic.Multiset(),
-																							listplanmodifier.UseStateForUnknown(),
 																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageUrl
@@ -4929,9 +4767,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Subtitle
 																					"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4941,9 +4776,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Title
 																					"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -4954,17 +4786,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 250),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message that defines a response card that the client application can show to the user.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: PlainTextMessage
 																			"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -4978,17 +4804,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in plain text format.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: SSMLMessage
 																			"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5002,17 +4822,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in Speech Synthesis Markup Language (SSML).",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The primary message that Amazon Lex should send to the user.",
@@ -5021,9 +4835,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Variations
 																	"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5041,17 +4852,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5069,9 +4874,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5082,9 +4884,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -5096,7 +4895,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -5107,9 +4905,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5119,9 +4914,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5132,17 +4924,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5156,17 +4942,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5180,17 +4960,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -5202,7 +4976,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -5216,24 +4989,17 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Provides settings for a message that is sent periodically to the user while a fulfillment Lambda function is running.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Provides information for updating the user on the progress of fulfilling an intent.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PostFulfillmentStatusSpecification
 										"post_fulfillment_status_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5246,9 +5012,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MessageGroupsList
 														"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5269,17 +5032,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in a custom format defined by the client application.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageResponseCard
 																			"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5297,9 +5054,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Value
 																								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5310,9 +5064,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																						}, /*END NESTED OBJECT*/
@@ -5324,7 +5075,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						}, /*END VALIDATORS*/
 																						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																							generic.Multiset(),
-																							listplanmodifier.UseStateForUnknown(),
 																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageUrl
@@ -5335,9 +5085,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Subtitle
 																					"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5347,9 +5094,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Title
 																					"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5360,17 +5104,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 250),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message that defines a response card that the client application can show to the user.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: PlainTextMessage
 																			"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5384,17 +5122,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in plain text format.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: SSMLMessage
 																			"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5408,17 +5140,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in Speech Synthesis Markup Language (SSML).",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The primary message that Amazon Lex should send to the user.",
@@ -5427,9 +5153,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Variations
 																	"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5447,17 +5170,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5475,9 +5192,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5488,9 +5202,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -5502,7 +5213,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -5513,9 +5223,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5525,9 +5232,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5538,17 +5242,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5562,17 +5260,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5586,17 +5278,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -5608,7 +5294,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -5622,16 +5307,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "A list of message groups that Amazon Lex uses to respond the user input.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: SuccessResponse
 												"success_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5641,9 +5322,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MessageGroupsList
 														"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5664,17 +5342,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in a custom format defined by the client application.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageResponseCard
 																			"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5692,9 +5364,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Value
 																								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5705,9 +5374,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																						}, /*END NESTED OBJECT*/
@@ -5719,7 +5385,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						}, /*END VALIDATORS*/
 																						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																							generic.Multiset(),
-																							listplanmodifier.UseStateForUnknown(),
 																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageUrl
@@ -5730,9 +5395,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Subtitle
 																					"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5742,9 +5404,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Title
 																					"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5755,17 +5414,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 250),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message that defines a response card that the client application can show to the user.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: PlainTextMessage
 																			"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5779,17 +5432,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in plain text format.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: SSMLMessage
 																			"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5803,17 +5450,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in Speech Synthesis Markup Language (SSML).",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The primary message that Amazon Lex should send to the user.",
@@ -5822,9 +5463,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Variations
 																	"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -5842,17 +5480,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5870,9 +5502,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5883,9 +5512,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -5897,7 +5523,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -5908,9 +5533,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5920,9 +5542,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -5933,17 +5552,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5957,17 +5570,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -5981,17 +5588,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -6003,7 +5604,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -6017,16 +5617,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "A list of message groups that Amazon Lex uses to respond the user input.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: TimeoutResponse
 												"timeout_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6036,9 +5632,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 															Optional:    true,
 															Computed:    true,
-															PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																boolplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: MessageGroupsList
 														"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6059,17 +5652,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in a custom format defined by the client application.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageResponseCard
 																			"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6087,9 +5674,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Value
 																								"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6100,9 +5684,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 50),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																						}, /*END NESTED OBJECT*/
@@ -6114,7 +5695,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						}, /*END VALIDATORS*/
 																						PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																							generic.Multiset(),
-																							listplanmodifier.UseStateForUnknown(),
 																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageUrl
@@ -6125,9 +5705,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Subtitle
 																					"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6137,9 +5714,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						Validators: []validator.String{ /*START VALIDATORS*/
 																							stringvalidator.LengthBetween(1, 250),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: Title
 																					"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6150,17 +5724,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 250),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message that defines a response card that the client application can show to the user.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: PlainTextMessage
 																			"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6174,17 +5742,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in plain text format.",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: SSMLMessage
 																			"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6198,17 +5760,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							stringvalidator.LengthBetween(1, 1000),
 																							fwvalidators.NotNullString(),
 																						}, /*END VALIDATORS*/
-																						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																							stringplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																				Description: "A message in Speech Synthesis Markup Language (SSML).",
 																				Optional:    true,
 																				Computed:    true,
-																				PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																					objectplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "The primary message that Amazon Lex should send to the user.",
@@ -6217,9 +5773,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Object{ /*START VALIDATORS*/
 																			fwvalidators.NotNullObject(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: Variations
 																	"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6237,17 +5790,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6265,9 +5812,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6278,9 +5822,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -6292,7 +5833,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -6303,9 +5843,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6315,9 +5852,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6328,17 +5862,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6352,17 +5880,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6376,17 +5898,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																		}, /*END NESTED OBJECT*/
@@ -6398,7 +5914,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -6412,32 +5927,22 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															}, /*END VALIDATORS*/
 															PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																generic.Multiset(),
-																listplanmodifier.UseStateForUnknown(),
 															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "A list of message groups that Amazon Lex uses to respond the user input.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Provides information for updating the user on the progress of fulfilling an intent.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Settings that determine if a Lambda function should be invoked to fulfill a specific intent.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: InputContexts
 								"input_contexts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6453,9 +5958,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -6467,7 +5969,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									}, /*END VALIDATORS*/
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IntentClosingSetting
@@ -6481,9 +5982,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MessageGroupsList
 												"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6504,17 +6002,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in a custom format defined by the client application.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: ImageResponseCard
 																	"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6532,9 +6024,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Value
 																						"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6545,9 +6034,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																				}, /*END NESTED OBJECT*/
@@ -6559,7 +6045,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				}, /*END VALIDATORS*/
 																				PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																					generic.Multiset(),
-																					listplanmodifier.UseStateForUnknown(),
 																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageUrl
@@ -6570,9 +6055,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Subtitle
 																			"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6582,9 +6064,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Title
 																			"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6595,17 +6074,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 250),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message that defines a response card that the client application can show to the user.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PlainTextMessage
 																	"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6619,17 +6092,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in plain text format.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SSMLMessage
 																	"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6643,17 +6110,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in Speech Synthesis Markup Language (SSML).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "The primary message that Amazon Lex should send to the user.",
@@ -6662,9 +6123,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Object{ /*START VALIDATORS*/
 																	fwvalidators.NotNullObject(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Variations
 															"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6682,17 +6140,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in a custom format defined by the client application.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ImageResponseCard
 																		"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6710,9 +6162,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: Value
 																							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6723,9 +6172,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -6737,7 +6183,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageUrl
@@ -6748,9 +6193,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Subtitle
 																				"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6760,9 +6202,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Title
 																				"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6773,17 +6212,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 250),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message that defines a response card that the client application can show to the user.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: PlainTextMessage
 																		"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6797,17 +6230,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in plain text format.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: SSMLMessage
 																		"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6821,17 +6248,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in Speech Synthesis Markup Language (SSML).",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -6843,7 +6264,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
@@ -6857,7 +6277,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													}, /*END VALIDATORS*/
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
@@ -6867,25 +6286,16 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: IsActive
 										"is_active": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Response that Amazon Lex sends to the user when the intent is closed.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: IntentConfirmationSetting
 								"intent_confirmation_setting": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6898,9 +6308,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MessageGroupsList
 												"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -6921,17 +6328,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in a custom format defined by the client application.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: ImageResponseCard
 																	"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -6949,9 +6350,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Value
 																						"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6962,9 +6360,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																				}, /*END NESTED OBJECT*/
@@ -6976,7 +6371,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				}, /*END VALIDATORS*/
 																				PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																					generic.Multiset(),
-																					listplanmodifier.UseStateForUnknown(),
 																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageUrl
@@ -6987,9 +6381,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Subtitle
 																			"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -6999,9 +6390,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Title
 																			"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7012,17 +6400,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 250),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message that defines a response card that the client application can show to the user.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PlainTextMessage
 																	"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7036,17 +6418,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in plain text format.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SSMLMessage
 																	"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7060,17 +6436,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in Speech Synthesis Markup Language (SSML).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "The primary message that Amazon Lex should send to the user.",
@@ -7079,9 +6449,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Object{ /*START VALIDATORS*/
 																	fwvalidators.NotNullObject(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Variations
 															"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -7099,17 +6466,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in a custom format defined by the client application.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ImageResponseCard
 																		"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7127,9 +6488,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: Value
 																							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7140,9 +6498,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -7154,7 +6509,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageUrl
@@ -7165,9 +6519,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Subtitle
 																				"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7177,9 +6528,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Title
 																				"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7190,17 +6538,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 250),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message that defines a response card that the client application can show to the user.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: PlainTextMessage
 																		"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7214,17 +6556,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in plain text format.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: SSMLMessage
 																		"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7238,17 +6574,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in Speech Synthesis Markup Language (SSML).",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -7260,7 +6590,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
@@ -7274,7 +6603,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													}, /*END VALIDATORS*/
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
@@ -7284,17 +6612,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: IsActive
 										"is_active": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Optional: true,
 											Computed: true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: PromptSpecification
 										"prompt_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7304,9 +6626,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-														boolplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MaxRetries
 												"max_retries": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -7317,9 +6636,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 														int64validator.Between(0, 5),
 														fwvalidators.NotNullInt64(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-														int64planmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MessageGroupsList
 												"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -7340,17 +6656,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in a custom format defined by the client application.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: ImageResponseCard
 																	"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7368,9 +6678,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Value
 																						"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7381,9 +6688,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 50),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																				}, /*END NESTED OBJECT*/
@@ -7395,7 +6699,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				}, /*END VALIDATORS*/
 																				PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																					generic.Multiset(),
-																					listplanmodifier.UseStateForUnknown(),
 																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: ImageUrl
@@ -7406,9 +6709,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Subtitle
 																			"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7418,9 +6718,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				Validators: []validator.String{ /*START VALIDATORS*/
 																					stringvalidator.LengthBetween(1, 250),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: Title
 																			"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7431,17 +6728,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 250),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message that defines a response card that the client application can show to the user.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: PlainTextMessage
 																	"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7455,17 +6746,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in plain text format.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: SSMLMessage
 																	"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7479,17 +6764,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.LengthBetween(1, 1000),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "A message in Speech Synthesis Markup Language (SSML).",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "The primary message that Amazon Lex should send to the user.",
@@ -7498,9 +6777,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Object{ /*START VALIDATORS*/
 																	fwvalidators.NotNullObject(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: Variations
 															"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -7518,17 +6794,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in a custom format defined by the client application.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: ImageResponseCard
 																		"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7546,9 +6816,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: Value
 																							"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7559,9 +6826,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 50),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -7573,7 +6837,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageUrl
@@ -7584,9 +6847,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Subtitle
 																				"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7596,9 +6856,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.String{ /*START VALIDATORS*/
 																						stringvalidator.LengthBetween(1, 250),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Title
 																				"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7609,17 +6866,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 250),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message that defines a response card that the client application can show to the user.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: PlainTextMessage
 																		"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7633,17 +6884,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in plain text format.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: SSMLMessage
 																		"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7657,17 +6902,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						stringvalidator.LengthBetween(1, 1000),
 																						fwvalidators.NotNullString(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																						stringplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "A message in Speech Synthesis Markup Language (SSML).",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -7679,7 +6918,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
@@ -7693,7 +6931,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													}, /*END VALIDATORS*/
 													PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 														generic.Multiset(),
-														listplanmodifier.UseStateForUnknown(),
 													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: MessageSelectionStrategy
@@ -7707,9 +6944,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															"Ordered",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 												// Property: PromptAttemptsSpecification
 												"prompt_attempts_specification": // Pattern: ""
@@ -7721,9 +6955,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Description: "Indicates whether the user can interrupt a speech prompt attempt from the bot.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: AllowedInputTypes
 															"allowed_input_types": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7736,9 +6967,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Bool{ /*START VALIDATORS*/
 																			fwvalidators.NotNullBool(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: AllowDTMFInput
 																	"allow_dtmf_input": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -7748,17 +6976,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Validators: []validator.Bool{ /*START VALIDATORS*/
 																			fwvalidators.NotNullBool(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Specifies the allowed input types.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: AudioAndDTMFInputSpecification
 															"audio_and_dtmf_input_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7775,9 +6997,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					int64validator.AtLeast(1),
 																					fwvalidators.NotNullInt64(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																					int64planmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: MaxLengthMs
 																			"max_length_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -7788,17 +7007,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					int64validator.AtLeast(1),
 																					fwvalidators.NotNullInt64(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																					int64planmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Specifies the audio input specifications.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: DTMFSpecification
 																	"dtmf_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7812,9 +7025,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.RegexMatches(regexp.MustCompile("^[A-D0-9#*]{1}$"), ""),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: EndCharacter
 																			"end_character": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7825,9 +7035,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					stringvalidator.RegexMatches(regexp.MustCompile("^[A-D0-9#*]{1}$"), ""),
 																					fwvalidators.NotNullString(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																					stringplanmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: EndTimeoutMs
 																			"end_timeout_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -7838,9 +7045,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					int64validator.AtLeast(1),
 																					fwvalidators.NotNullInt64(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																					int64planmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																			// Property: MaxLength
 																			"max_length": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -7851,17 +7055,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					int64validator.Between(1, 1024),
 																					fwvalidators.NotNullInt64(),
 																				}, /*END VALIDATORS*/
-																				PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																					int64planmodifier.UseStateForUnknown(),
-																				}, /*END PLAN MODIFIERS*/
 																			}, /*END ATTRIBUTE*/
 																		}, /*END SCHEMA*/
 																		Description: "Specifies the settings on DTMF input.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																			objectplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: StartTimeoutMs
 																	"start_timeout_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -7872,17 +7070,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			int64validator.AtLeast(1),
 																			fwvalidators.NotNullInt64(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Specifies the audio and DTMF input specification.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: TextInputSpecification
 															"text_input_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7896,26 +7088,17 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			int64validator.AtLeast(1),
 																			fwvalidators.NotNullInt64(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "Specifies the text input specifications.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 													}, /*END NESTED OBJECT*/
 													Description: "Specifies the advanced settings on each attempt of the prompt.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-														mapplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Prompts the user to confirm the intent.",
@@ -7924,17 +7107,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.Object{ /*START VALIDATORS*/
 												fwvalidators.NotNullObject(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Prompts that Amazon Lex sends to the user to confirm the completion of an intent.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: KendraConfiguration
 								"kendra_configuration": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -7949,9 +7126,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-zA-Z-]*:kendra:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:index/[a-zA-Z0-9][a-zA-Z0-9_-]*$"), ""),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: QueryFilterString
 										"query_filter_string": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7961,26 +7135,17 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 											Validators: []validator.String{ /*START VALIDATORS*/
 												stringvalidator.LengthBetween(1, 5000),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: QueryFilterStringEnabled
 										"query_filter_string_enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
 											Description: "Determines whether the AMAZON.KendraSearchIntent intent uses a custom query string to query the Amazon Kendra index.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Configuration for searching a Amazon Kendra index specified for the intent.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Name
 								"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -7992,9 +7157,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: OutputContexts
 								"output_contexts": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8010,9 +7172,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: TimeToLiveInSeconds
 											"time_to_live_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8023,9 +7182,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													int64validator.Between(5, 86400),
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: TurnsToLive
 											"turns_to_live": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8036,9 +7192,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													int64validator.Between(1, 20),
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -8050,7 +7203,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									}, /*END VALIDATORS*/
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ParentIntentSignature
@@ -8058,9 +7210,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Description: "A unique identifier for the built-in intent to base this intent on.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SampleUtterances
 								"sample_utterances": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8074,9 +7223,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -8085,7 +7231,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Computed:    true,
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SlotPriorities
@@ -8101,9 +7246,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													int64validator.Between(0, 100),
 													fwvalidators.NotNullInt64(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-													int64planmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SlotName
 											"slot_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8115,9 +7257,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -8126,7 +7265,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Computed:    true,
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Slots
@@ -8141,9 +7279,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(200),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: MultipleValuesSetting
 											"multiple_values_setting": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8152,17 +7287,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													"allow_multiple_values": schema.BoolAttribute{ /*START ATTRIBUTE*/
 														Optional: true,
 														Computed: true,
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Indicates whether a slot can return multiple values.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Name
 											"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8174,9 +7303,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 													stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ObfuscationSetting
 											"obfuscation_setting": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8193,17 +7319,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Determines whether Amazon Lex obscures slot values in conversation logs.",
 												Optional:    true,
 												Computed:    true,
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: SlotTypeName
 											"slot_type_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8213,9 +7333,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.String{ /*START VALIDATORS*/
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ValueElicitationSetting
 											"value_elicitation_setting": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8236,9 +7353,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																				stringvalidator.LengthBetween(1, 202),
 																				fwvalidators.NotNullString(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																				stringplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
@@ -8251,16 +7365,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "A list of default values for a slot.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: PromptSpecification
 													"prompt_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8270,9 +7380,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MaxRetries
 															"max_retries": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8283,9 +7390,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																	int64validator.Between(0, 5),
 																	fwvalidators.NotNullInt64(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																	int64planmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MessageGroupsList
 															"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8306,17 +7410,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in a custom format defined by the client application.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: ImageResponseCard
 																				"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8334,9 +7432,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Value
 																									"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8347,9 +7442,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 50),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																							}, /*END NESTED OBJECT*/
@@ -8361,7 +7453,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							}, /*END VALIDATORS*/
 																							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																								generic.Multiset(),
-																								listplanmodifier.UseStateForUnknown(),
 																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageUrl
@@ -8372,9 +7463,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Subtitle
 																						"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8384,9 +7472,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																							Validators: []validator.String{ /*START VALIDATORS*/
 																								stringvalidator.LengthBetween(1, 250),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: Title
 																						"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8397,17 +7482,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 250),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message that defines a response card that the client application can show to the user.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: PlainTextMessage
 																				"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8421,17 +7500,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in plain text format.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: SSMLMessage
 																				"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8445,17 +7518,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.LengthBetween(1, 1000),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "A message in Speech Synthesis Markup Language (SSML).",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "The primary message that Amazon Lex should send to the user.",
@@ -8464,9 +7531,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			Validators: []validator.Object{ /*START VALIDATORS*/
 																				fwvalidators.NotNullObject(),
 																			}, /*END VALIDATORS*/
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: Variations
 																		"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8484,17 +7548,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 1000),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																						Description: "A message in a custom format defined by the client application.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																							objectplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: ImageResponseCard
 																					"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8512,9 +7570,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																												stringvalidator.LengthBetween(1, 50),
 																												fwvalidators.NotNullString(),
 																											}, /*END VALIDATORS*/
-																											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																												stringplanmodifier.UseStateForUnknown(),
-																											}, /*END PLAN MODIFIERS*/
 																										}, /*END ATTRIBUTE*/
 																										// Property: Value
 																										"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8525,9 +7580,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																												stringvalidator.LengthBetween(1, 50),
 																												fwvalidators.NotNullString(),
 																											}, /*END VALIDATORS*/
-																											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																												stringplanmodifier.UseStateForUnknown(),
-																											}, /*END PLAN MODIFIERS*/
 																										}, /*END ATTRIBUTE*/
 																									}, /*END SCHEMA*/
 																								}, /*END NESTED OBJECT*/
@@ -8539,7 +7591,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								}, /*END VALIDATORS*/
 																								PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																									generic.Multiset(),
-																									listplanmodifier.UseStateForUnknown(),
 																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: ImageUrl
@@ -8550,9 +7601,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								Validators: []validator.String{ /*START VALIDATORS*/
 																									stringvalidator.LengthBetween(1, 250),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: Subtitle
 																							"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8562,9 +7610,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								Validators: []validator.String{ /*START VALIDATORS*/
 																									stringvalidator.LengthBetween(1, 250),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: Title
 																							"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8575,17 +7620,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 250),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																						Description: "A message that defines a response card that the client application can show to the user.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																							objectplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: PlainTextMessage
 																					"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8599,17 +7638,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 1000),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																						Description: "A message in plain text format.",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																							objectplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																					// Property: SSMLMessage
 																					"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8623,17 +7656,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									stringvalidator.LengthBetween(1, 1000),
 																									fwvalidators.NotNullString(),
 																								}, /*END VALIDATORS*/
-																								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																									stringplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																						Description: "A message in Speech Synthesis Markup Language (SSML).",
 																						Optional:    true,
 																						Computed:    true,
-																						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																							objectplanmodifier.UseStateForUnknown(),
-																						}, /*END PLAN MODIFIERS*/
 																					}, /*END ATTRIBUTE*/
 																				}, /*END SCHEMA*/
 																			}, /*END NESTED OBJECT*/
@@ -8645,7 +7672,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			}, /*END VALIDATORS*/
 																			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																				generic.Multiset(),
-																				listplanmodifier.UseStateForUnknown(),
 																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
@@ -8659,7 +7685,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																}, /*END VALIDATORS*/
 																PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																	generic.Multiset(),
-																	listplanmodifier.UseStateForUnknown(),
 																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: MessageSelectionStrategy
@@ -8673,9 +7698,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		"Ordered",
 																	),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																	stringplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: PromptAttemptsSpecification
 															"prompt_attempts_specification": // Pattern: ""
@@ -8687,9 +7709,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			Description: "Indicates whether the user can interrupt a speech prompt attempt from the bot.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																				boolplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: AllowedInputTypes
 																		"allowed_input_types": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8702,9 +7721,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Bool{ /*START VALIDATORS*/
 																						fwvalidators.NotNullBool(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																						boolplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: AllowDTMFInput
 																				"allow_dtmf_input": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -8714,17 +7730,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Bool{ /*START VALIDATORS*/
 																						fwvalidators.NotNullBool(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																						boolplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "Specifies the allowed input types.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: AudioAndDTMFInputSpecification
 																		"audio_and_dtmf_input_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8741,9 +7751,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								int64validator.AtLeast(1),
 																								fwvalidators.NotNullInt64(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																								int64planmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: MaxLengthMs
 																						"max_length_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8754,17 +7761,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								int64validator.AtLeast(1),
 																								fwvalidators.NotNullInt64(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																								int64planmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "Specifies the audio input specifications.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: DTMFSpecification
 																				"dtmf_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8778,9 +7779,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.RegexMatches(regexp.MustCompile("^[A-D0-9#*]{1}$"), ""),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: EndCharacter
 																						"end_character": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -8791,9 +7789,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								stringvalidator.RegexMatches(regexp.MustCompile("^[A-D0-9#*]{1}$"), ""),
 																								fwvalidators.NotNullString(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																								stringplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: EndTimeoutMs
 																						"end_timeout_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8804,9 +7799,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								int64validator.AtLeast(1),
 																								fwvalidators.NotNullInt64(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																								int64planmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: MaxLength
 																						"max_length": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8817,17 +7809,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																								int64validator.Between(1, 1024),
 																								fwvalidators.NotNullInt64(),
 																							}, /*END VALIDATORS*/
-																							PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																								int64planmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "Specifies the settings on DTMF input.",
 																					Optional:    true,
 																					Computed:    true,
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: StartTimeoutMs
 																				"start_timeout_ms": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -8838,17 +7824,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						int64validator.AtLeast(1),
 																						fwvalidators.NotNullInt64(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																						int64planmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "Specifies the audio and DTMF input specification.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																		// Property: TextInputSpecification
 																		"text_input_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8862,34 +7842,22 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																						int64validator.AtLeast(1),
 																						fwvalidators.NotNullInt64(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																						int64planmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
 																			Description: "Specifies the text input specifications.",
 																			Optional:    true,
 																			Computed:    true,
-																			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																				objectplanmodifier.UseStateForUnknown(),
-																			}, /*END PLAN MODIFIERS*/
 																		}, /*END ATTRIBUTE*/
 																	}, /*END SCHEMA*/
 																}, /*END NESTED OBJECT*/
 																Description: "Specifies the advanced settings on each attempt of the prompt.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-																	mapplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "The prompt that Amazon Lex uses to elicit the slot value from the user.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: SampleUtterances
 													"sample_utterances": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8903,9 +7871,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																	Validators: []validator.String{ /*START VALIDATORS*/
 																		fwvalidators.NotNullString(),
 																	}, /*END VALIDATORS*/
-																	PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																		stringplanmodifier.UseStateForUnknown(),
-																	}, /*END PLAN MODIFIERS*/
 																}, /*END ATTRIBUTE*/
 															}, /*END SCHEMA*/
 														}, /*END NESTED OBJECT*/
@@ -8914,7 +7879,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 														Computed:    true,
 														PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 															generic.Multiset(),
-															listplanmodifier.UseStateForUnknown(),
 														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: SlotConstraint
@@ -8929,9 +7893,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: WaitAndContinueSpecification
 													"wait_and_continue_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8944,9 +7905,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: MessageGroupsList
 																	"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -8967,17 +7925,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in a custom format defined by the client application.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageResponseCard
 																						"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -8995,9 +7947,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																											// Property: Value
 																											"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9008,9 +7957,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																										}, /*END SCHEMA*/
 																									}, /*END NESTED OBJECT*/
@@ -9022,7 +7968,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									}, /*END VALIDATORS*/
 																									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																										generic.Multiset(),
-																										listplanmodifier.UseStateForUnknown(),
 																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: ImageUrl
@@ -9033,9 +7978,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Subtitle
 																								"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9045,9 +7987,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Title
 																								"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9058,17 +7997,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 250),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message that defines a response card that the client application can show to the user.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: PlainTextMessage
 																						"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9082,17 +8015,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in plain text format.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: SSMLMessage
 																						"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9106,17 +8033,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in Speech Synthesis Markup Language (SSML).",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "The primary message that Amazon Lex should send to the user.",
@@ -9125,9 +8046,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Object{ /*START VALIDATORS*/
 																						fwvalidators.NotNullObject(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Variations
 																				"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -9145,17 +8063,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in a custom format defined by the client application.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: ImageResponseCard
 																							"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9173,9 +8085,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																												// Property: Value
 																												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9186,9 +8095,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																											}, /*END SCHEMA*/
 																										}, /*END NESTED OBJECT*/
@@ -9200,7 +8106,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										}, /*END VALIDATORS*/
 																										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																											generic.Multiset(),
-																											listplanmodifier.UseStateForUnknown(),
 																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: ImageUrl
@@ -9211,9 +8116,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Subtitle
 																									"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9223,9 +8125,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Title
 																									"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9236,17 +8135,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 250),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message that defines a response card that the client application can show to the user.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: PlainTextMessage
 																							"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9260,17 +8153,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in plain text format.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: SSMLMessage
 																							"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9284,17 +8171,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in Speech Synthesis Markup Language (SSML).",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -9306,7 +8187,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
@@ -9320,7 +8200,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -9330,18 +8209,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Object{ /*START VALIDATORS*/
 																	fwvalidators.NotNullObject(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: IsActive
 															"is_active": schema.BoolAttribute{ /*START ATTRIBUTE*/
 																Description: "Specifies whether the bot will wait for a user to respond.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: StillWaitingResponse
 															"still_waiting_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9351,9 +8224,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: FrequencyInSeconds
 																	"frequency_in_seconds": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -9364,9 +8234,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			int64validator.Between(1, 300),
 																			fwvalidators.NotNullInt64(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: MessageGroupsList
 																	"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -9387,17 +8254,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in a custom format defined by the client application.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageResponseCard
 																						"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9415,9 +8276,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																											// Property: Value
 																											"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9428,9 +8286,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																										}, /*END SCHEMA*/
 																									}, /*END NESTED OBJECT*/
@@ -9442,7 +8297,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									}, /*END VALIDATORS*/
 																									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																										generic.Multiset(),
-																										listplanmodifier.UseStateForUnknown(),
 																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: ImageUrl
@@ -9453,9 +8307,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Subtitle
 																								"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9465,9 +8316,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Title
 																								"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9478,17 +8326,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 250),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message that defines a response card that the client application can show to the user.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: PlainTextMessage
 																						"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9502,17 +8344,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in plain text format.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: SSMLMessage
 																						"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9526,17 +8362,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in Speech Synthesis Markup Language (SSML).",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "The primary message that Amazon Lex should send to the user.",
@@ -9545,9 +8375,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Object{ /*START VALIDATORS*/
 																						fwvalidators.NotNullObject(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Variations
 																				"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -9565,17 +8392,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in a custom format defined by the client application.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: ImageResponseCard
 																							"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9593,9 +8414,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																												// Property: Value
 																												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9606,9 +8424,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																											}, /*END SCHEMA*/
 																										}, /*END NESTED OBJECT*/
@@ -9620,7 +8435,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										}, /*END VALIDATORS*/
 																										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																											generic.Multiset(),
-																											listplanmodifier.UseStateForUnknown(),
 																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: ImageUrl
@@ -9631,9 +8445,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Subtitle
 																									"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9643,9 +8454,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Title
 																									"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9656,17 +8464,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 250),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message that defines a response card that the client application can show to the user.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: PlainTextMessage
 																							"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9680,17 +8482,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in plain text format.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: SSMLMessage
 																							"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9704,17 +8500,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in Speech Synthesis Markup Language (SSML).",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -9726,7 +8516,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
@@ -9740,7 +8529,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: TimeoutInSeconds
@@ -9752,17 +8540,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																			int64validator.Between(1, 900),
 																			fwvalidators.NotNullInt64(),
 																		}, /*END VALIDATORS*/
-																		PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-																			int64planmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
 																Description: "The response that Amazon Lex sends periodically to the user to indicate that the bot is still waiting for input from the user.",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 															// Property: WaitingResponse
 															"waiting_response": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9772,9 +8554,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		Description: "Indicates whether the user can interrupt a speech prompt from the bot.",
 																		Optional:    true,
 																		Computed:    true,
-																		PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																			boolplanmodifier.UseStateForUnknown(),
-																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																	// Property: MessageGroupsList
 																	"message_groups_list": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -9795,17 +8574,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in a custom format defined by the client application.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: ImageResponseCard
 																						"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9823,9 +8596,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																											// Property: Value
 																											"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9836,9 +8606,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																													stringvalidator.LengthBetween(1, 50),
 																													fwvalidators.NotNullString(),
 																												}, /*END VALIDATORS*/
-																												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																													stringplanmodifier.UseStateForUnknown(),
-																												}, /*END PLAN MODIFIERS*/
 																											}, /*END ATTRIBUTE*/
 																										}, /*END SCHEMA*/
 																									}, /*END NESTED OBJECT*/
@@ -9850,7 +8617,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									}, /*END VALIDATORS*/
 																									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																										generic.Multiset(),
-																										listplanmodifier.UseStateForUnknown(),
 																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: ImageUrl
@@ -9861,9 +8627,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Subtitle
 																								"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9873,9 +8636,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																									Validators: []validator.String{ /*START VALIDATORS*/
 																										stringvalidator.LengthBetween(1, 250),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																								// Property: Title
 																								"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -9886,17 +8646,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 250),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message that defines a response card that the client application can show to the user.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: PlainTextMessage
 																						"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9910,17 +8664,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in plain text format.",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																						// Property: SSMLMessage
 																						"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -9934,17 +8682,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										stringvalidator.LengthBetween(1, 1000),
 																										fwvalidators.NotNullString(),
 																									}, /*END VALIDATORS*/
-																									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																										stringplanmodifier.UseStateForUnknown(),
-																									}, /*END PLAN MODIFIERS*/
 																								}, /*END ATTRIBUTE*/
 																							}, /*END SCHEMA*/
 																							Description: "A message in Speech Synthesis Markup Language (SSML).",
 																							Optional:    true,
 																							Computed:    true,
-																							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																								objectplanmodifier.UseStateForUnknown(),
-																							}, /*END PLAN MODIFIERS*/
 																						}, /*END ATTRIBUTE*/
 																					}, /*END SCHEMA*/
 																					Description: "The primary message that Amazon Lex should send to the user.",
@@ -9953,9 +8695,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					Validators: []validator.Object{ /*START VALIDATORS*/
 																						fwvalidators.NotNullObject(),
 																					}, /*END VALIDATORS*/
-																					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																						objectplanmodifier.UseStateForUnknown(),
-																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																				// Property: Variations
 																				"variations": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -9973,17 +8712,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in a custom format defined by the client application.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: ImageResponseCard
 																							"image_response_card": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10001,9 +8734,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																												// Property: Value
 																												"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10014,9 +8744,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																														stringvalidator.LengthBetween(1, 50),
 																														fwvalidators.NotNullString(),
 																													}, /*END VALIDATORS*/
-																													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																														stringplanmodifier.UseStateForUnknown(),
-																													}, /*END PLAN MODIFIERS*/
 																												}, /*END ATTRIBUTE*/
 																											}, /*END SCHEMA*/
 																										}, /*END NESTED OBJECT*/
@@ -10028,7 +8755,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										}, /*END VALIDATORS*/
 																										PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																											generic.Multiset(),
-																											listplanmodifier.UseStateForUnknown(),
 																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: ImageUrl
@@ -10039,9 +8765,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Subtitle
 																									"subtitle": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10051,9 +8774,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																										Validators: []validator.String{ /*START VALIDATORS*/
 																											stringvalidator.LengthBetween(1, 250),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																									// Property: Title
 																									"title": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10064,17 +8784,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 250),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message that defines a response card that the client application can show to the user.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: PlainTextMessage
 																							"plain_text_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10088,17 +8802,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in plain text format.",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																							// Property: SSMLMessage
 																							"ssml_message": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10112,17 +8820,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																											stringvalidator.LengthBetween(1, 1000),
 																											fwvalidators.NotNullString(),
 																										}, /*END VALIDATORS*/
-																										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																											stringplanmodifier.UseStateForUnknown(),
-																										}, /*END PLAN MODIFIERS*/
 																									}, /*END ATTRIBUTE*/
 																								}, /*END SCHEMA*/
 																								Description: "A message in Speech Synthesis Markup Language (SSML).",
 																								Optional:    true,
 																								Computed:    true,
-																								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																									objectplanmodifier.UseStateForUnknown(),
-																								}, /*END PLAN MODIFIERS*/
 																							}, /*END ATTRIBUTE*/
 																						}, /*END SCHEMA*/
 																					}, /*END NESTED OBJECT*/
@@ -10134,7 +8836,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																					}, /*END VALIDATORS*/
 																					PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																						generic.Multiset(),
-																						listplanmodifier.UseStateForUnknown(),
 																					}, /*END PLAN MODIFIERS*/
 																				}, /*END ATTRIBUTE*/
 																			}, /*END SCHEMA*/
@@ -10148,7 +8849,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																		}, /*END VALIDATORS*/
 																		PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 																			generic.Multiset(),
-																			listplanmodifier.UseStateForUnknown(),
 																		}, /*END PLAN MODIFIERS*/
 																	}, /*END ATTRIBUTE*/
 																}, /*END SCHEMA*/
@@ -10158,17 +8858,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																Validators: []validator.Object{ /*START VALIDATORS*/
 																	fwvalidators.NotNullObject(),
 																}, /*END VALIDATORS*/
-																PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-																	objectplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "Specifies the prompts that Amazon Lex uses while a bot is waiting for customer input.",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Settings that you can use for eliciting a slot value.",
@@ -10177,9 +8871,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -10189,9 +8880,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.Set{ /*START VALIDATORS*/
 										setvalidator.SizeAtMost(100),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-										setplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -10201,9 +8889,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Set{ /*START VALIDATORS*/
 							setvalidator.SizeAtMost(1000),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: LocaleId
 					"locale_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10213,9 +8898,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: NluConfidenceThreshold
 					"nlu_confidence_threshold": schema.Float64Attribute{ /*START ATTRIBUTE*/
@@ -10226,9 +8908,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							float64validator.Between(0.000000, 1.000000),
 							fwvalidators.NotNullFloat64(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-							float64planmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: SlotTypes
 					"slot_types": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -10242,9 +8921,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									Validators: []validator.String{ /*START VALIDATORS*/
 										stringvalidator.LengthAtMost(200),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ExternalSourceSetting
 								"external_source_setting": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10264,9 +8940,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.LengthBetween(20, 2048),
 																stringvalidator.RegexMatches(regexp.MustCompile("^arn:[\\w\\-]+:kms:[\\w\\-]+:[\\d]{12}:(?:key\\/[\\w\\-]+|alias\\/[a-zA-Z0-9:\\/_\\-]{1,256})$"), ""),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: S3BucketName
 														"s3_bucket_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10278,9 +8951,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("^[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 														// Property: S3ObjectKey
 														"s3_object_key": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10292,33 +8962,21 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.RegexMatches(regexp.MustCompile("[\\.\\-\\!\\*\\_\\'\\(\\)a-zA-Z0-9][\\.\\-\\!\\*\\_\\'\\(\\)\\/a-zA-Z0-9]*$"), ""),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 													Description: "Describes the Amazon S3 bucket name and location for the grammar that is the source for the slot type.",
 													Optional:    true,
 													Computed:    true,
-													PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-														objectplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Settings required for a slot type based on a grammar that you provide.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Provides information about the external source of the slot type's definition.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Name
 								"name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10330,18 +8988,12 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										stringvalidator.RegexMatches(regexp.MustCompile("^([0-9a-zA-Z][_-]?)+$"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ParentSlotTypeSignature
 								"parent_slot_type_signature": schema.StringAttribute{ /*START ATTRIBUTE*/
 									Description: "The built-in slot type used as a parent of this slot type.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: SlotTypeValues
 								"slot_type_values": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -10359,9 +9011,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 140),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Defines one of the values for a slot type.",
@@ -10370,9 +9019,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: Synonyms
 											"synonyms": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -10387,9 +9033,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 																stringvalidator.LengthBetween(1, 140),
 																fwvalidators.NotNullString(),
 															}, /*END VALIDATORS*/
-															PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-																stringplanmodifier.UseStateForUnknown(),
-															}, /*END PLAN MODIFIERS*/
 														}, /*END ATTRIBUTE*/
 													}, /*END SCHEMA*/
 												}, /*END NESTED OBJECT*/
@@ -10401,7 +9044,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												}, /*END VALIDATORS*/
 												PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 													generic.Multiset(),
-													listplanmodifier.UseStateForUnknown(),
 												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
@@ -10414,7 +9056,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									}, /*END VALIDATORS*/
 									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 										generic.Multiset(),
-										listplanmodifier.UseStateForUnknown(),
 									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ValueSelectionSetting
@@ -10433,17 +9074,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															"UseSlotValuesAsCustomVocabulary",
 														),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "Provides settings that enable advanced recognition settings for slot values.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: RegexFilter
 										"regex_filter": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10457,17 +9092,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 														stringvalidator.LengthBetween(1, 300),
 														fwvalidators.NotNullString(),
 													}, /*END VALIDATORS*/
-													PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-														stringplanmodifier.UseStateForUnknown(),
-													}, /*END PLAN MODIFIERS*/
 												}, /*END ATTRIBUTE*/
 											}, /*END SCHEMA*/
 											Description: "A regular expression used to validate the value of a slot.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-												objectplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: ResolutionStrategy
 										"resolution_strategy": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10480,17 +9109,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												),
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Contains settings used by Amazon Lex to select a slot value.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 						}, /*END NESTED OBJECT*/
@@ -10500,9 +9123,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.Set{ /*START VALIDATORS*/
 							setvalidator.SizeAtMost(250),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-							setplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: VoiceSettings
 					"voice_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -10518,9 +9138,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										"neural",
 									),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: VoiceId
 							"voice_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10530,26 +9147,17 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.String{ /*START VALIDATORS*/
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 						Description: "Settings for using an Amazon Polly voice to communicate with a user.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-							objectplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "List of bot locales",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BotLocales is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: BotTags
@@ -10597,9 +9205,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -10610,9 +9215,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -10622,9 +9224,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// BotTags is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: DataPrivacy
@@ -10670,9 +9269,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Id
 		// CloudFormation resource type schema:
@@ -10991,9 +9587,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 5),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: LambdaArn
 													"lambda_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11004,9 +9597,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(20, 2048),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Contains information about code hooks that Amazon Lex calls during a conversation.",
@@ -11015,17 +9605,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Contains information about code hooks that Amazon Lex calls during a conversation.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Enabled
 									"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -11035,9 +9619,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Bool{ /*START VALIDATORS*/
 											fwvalidators.NotNullBool(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 								Description: "You can use this parameter to specify a specific Lambda function to run different functions in different locales.",
@@ -11046,9 +9627,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 								Validators: []validator.Object{ /*START VALIDATORS*/
 									fwvalidators.NotNullObject(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-									objectplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 							// Property: LocaleId
 							"locale_id": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11059,9 +9637,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 									stringvalidator.LengthBetween(1, 128),
 									fwvalidators.NotNullString(),
 								}, /*END VALIDATORS*/
-								PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-									stringplanmodifier.UseStateForUnknown(),
-								}, /*END PLAN MODIFIERS*/
 							}, /*END ATTRIBUTE*/
 						}, /*END SCHEMA*/
 					}, /*END NESTED OBJECT*/
@@ -11071,9 +9646,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.Set{ /*START VALIDATORS*/
 						setvalidator.SizeAtMost(50),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-						setplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConversationLogSettings
 				"conversation_log_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -11097,9 +9669,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(20, 2048),
 															stringvalidator.RegexMatches(regexp.MustCompile("^arn:[\\w\\-]+:kms:[\\w\\-]+:[\\d]{12}:(?:key\\/[\\w\\-]+|alias\\/[a-zA-Z0-9:\\/_\\-]{1,256})$"), ""),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: LogPrefix
 													"log_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11110,9 +9679,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(0, 1024),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: S3BucketArn
 													"s3_bucket_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11124,9 +9690,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.RegexMatches(regexp.MustCompile("^arn:[\\w\\-]+:s3:::[a-z0-9][\\.\\-a-z0-9]{1,61}[a-z0-9]$"), ""),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Specifies an Amazon S3 bucket for logging audio conversations",
@@ -11135,9 +9698,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The location of audio log files collected when conversation logging is enabled for a bot.",
@@ -11146,9 +9706,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Enabled
 									"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -11158,9 +9715,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Bool{ /*START VALIDATORS*/
 											fwvalidators.NotNullBool(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -11170,9 +9724,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Set{ /*START VALIDATORS*/
 								setvalidator.SizeAtMost(1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: TextLogSettings
 						"text_log_settings": schema.SetNestedAttribute{ /*START ATTRIBUTE*/
@@ -11193,9 +9744,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(1, 2048),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: LogPrefix
 													"log_prefix": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11206,9 +9754,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 															stringvalidator.LengthBetween(0, 1024),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Optional: true,
@@ -11216,9 +9761,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "Defines the Amazon CloudWatch Logs destination log group for conversation text logs.",
@@ -11227,9 +9769,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Object{ /*START VALIDATORS*/
 											fwvalidators.NotNullObject(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: Enabled
 									"enabled": schema.BoolAttribute{ /*START ATTRIBUTE*/
@@ -11239,9 +9778,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 										Validators: []validator.Bool{ /*START VALIDATORS*/
 											fwvalidators.NotNullBool(),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-											boolplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -11251,17 +9787,11 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Set{ /*START VALIDATORS*/
 								setvalidator.SizeAtMost(1),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-								setplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Contains information about code hooks that Amazon Lex calls during a conversation.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: Description
 				"description": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11271,9 +9801,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(200),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SentimentAnalysisSettings
 				"sentiment_analysis_settings": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -11286,25 +9813,16 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							Validators: []validator.Bool{ /*START VALIDATORS*/
 								fwvalidators.NotNullBool(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-								boolplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Determines whether Amazon Lex will use Amazon Comprehend to detect the sentiment of user utterances.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Configuring the test bot alias settings for a given bot",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TestBotAliasTags
 		// CloudFormation resource type schema:
@@ -11351,9 +9869,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -11364,9 +9879,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(0, 256),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -11376,9 +9888,6 @@ func botResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Set{ /*START VALIDATORS*/
 				setvalidator.SizeAtMost(200),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Set{ /*START PLAN MODIFIERS*/
-				setplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// TestBotAliasTags is a write-only property.
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/

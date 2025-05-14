@@ -14,11 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -67,9 +62,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 				stringvalidator.LengthAtMost(63),
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: FailureReason
 		// CloudFormation resource type schema:
@@ -87,9 +79,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.LengthBetween(1, 1024),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: LastModifiedTime
 		// CloudFormation resource type schema:
@@ -179,9 +168,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EndpointName
 				"endpoint_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -192,9 +178,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: FailureReason
 				"failure_reason": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -204,9 +187,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						stringvalidator.LengthAtMost(1024),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: LastModifiedTime
 				"last_modified_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -216,9 +196,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MonitoringExecutionStatus
 				"monitoring_execution_status": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -237,9 +214,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 						),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MonitoringScheduleName
 				"monitoring_schedule_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -251,9 +225,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ProcessingJobArn
 				"processing_job_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -264,9 +235,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthAtMost(256),
 						stringvalidator.RegexMatches(regexp.MustCompile("aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:processing-job/.*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ScheduledTime
 				"scheduled_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -276,17 +244,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 					Validators: []validator.String{ /*START VALIDATORS*/
 						fwvalidators.NotNullString(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Describes metadata on the last execution to run, if there was one.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MonitoringScheduleArn
 		// CloudFormation resource type schema:
@@ -804,17 +766,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.LengthAtMost(1024),
 												stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The baseline constraints resource for a monitoring job.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: StatisticsResource
 								"statistics_resource": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -828,25 +784,16 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												stringvalidator.LengthAtMost(1024),
 												stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The baseline statistics resource for a monitoring job.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Baseline configuration used to validate that the data conforms to the specified constraints and statistics.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Environment
 						"environment":       // Pattern: ""
@@ -856,9 +803,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							Description: "Sets the environment variables in the Docker container",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-								mapplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringAppSpecification
 						"monitoring_app_specification": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -875,9 +819,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 											stringvalidator.LengthBetween(1, 256),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ContainerEntrypoint
 								"container_entrypoint": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -891,9 +832,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 											stringvalidator.LengthBetween(1, 256),
 										),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: ImageUri
 								"image_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -905,9 +843,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 										fwvalidators.NotNullString(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: PostAnalyticsProcessorSourceUri
 								"post_analytics_processor_source_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -918,9 +853,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.LengthAtMost(1024),
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: RecordPreprocessorSourceUri
 								"record_preprocessor_source_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -931,9 +863,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.LengthAtMost(1024),
 										stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Container image configuration object for the monitoring job.",
@@ -942,9 +871,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringInputs
 						"monitoring_inputs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -963,9 +889,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 													stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: DatasetFormat
 											"dataset_format": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -978,17 +901,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 																Description: "A boolean flag indicating if given CSV has header",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "The CSV format",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Json
 													"json": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -998,26 +915,17 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 																Description: "A boolean flag indicating if it is JSON line format",
 																Optional:    true,
 																Computed:    true,
-																PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-																	boolplanmodifier.UseStateForUnknown(),
-																}, /*END PLAN MODIFIERS*/
 															}, /*END ATTRIBUTE*/
 														}, /*END SCHEMA*/
 														Description: "The Json format",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-															objectplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: Parquet
 													"parquet": schema.BoolAttribute{ /*START ATTRIBUTE*/
 														Description: "A flag indicating if the dataset format is Parquet",
 														Optional:    true,
 														Computed:    true,
-														PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-															boolplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "The dataset format of the data to monitor",
@@ -1026,9 +934,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ExcludeFeaturesAttribute
 											"exclude_features_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1038,9 +943,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(100),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LocalPath
 											"local_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1052,9 +954,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3DataDistributionType
 											"s3_data_distribution_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1067,9 +966,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 														"ShardedByS3Key",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3InputMode
 											"s3_input_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1082,17 +978,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 														"File",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The batch transform input for a monitoring job.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: EndpointInput
 									"endpoint_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1107,9 +997,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 													stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: ExcludeFeaturesAttribute
 											"exclude_features_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1119,9 +1006,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												Validators: []validator.String{ /*START VALIDATORS*/
 													stringvalidator.LengthAtMost(100),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: LocalPath
 											"local_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1133,9 +1017,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 													stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 													fwvalidators.NotNullString(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3DataDistributionType
 											"s3_data_distribution_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1148,9 +1029,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 														"ShardedByS3Key",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 											// Property: S3InputMode
 											"s3_input_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1163,17 +1041,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 														"File",
 													),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-													stringplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 										Description: "The endpoint for a monitoring job.",
 										Optional:    true,
 										Computed:    true,
-										PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-											objectplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 								}, /*END SCHEMA*/
 							}, /*END NESTED OBJECT*/
@@ -1184,9 +1056,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 								listvalidator.SizeBetween(1, 1),
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringOutputConfig
 						"monitoring_output_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1200,9 +1069,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 										stringvalidator.LengthAtMost(2048),
 										stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-										stringplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: MonitoringOutputs
 								"monitoring_outputs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1221,9 +1087,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 															stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: S3UploadMode
 													"s3_upload_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1236,9 +1099,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 																"EndOfJob",
 															),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 													// Property: S3Uri
 													"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1250,9 +1110,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 															stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 															fwvalidators.NotNullString(),
 														}, /*END VALIDATORS*/
-														PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-															stringplanmodifier.UseStateForUnknown(),
-														}, /*END PLAN MODIFIERS*/
 													}, /*END ATTRIBUTE*/
 												}, /*END SCHEMA*/
 												Description: "Information about where and how to store the results of a monitoring job.",
@@ -1261,9 +1118,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												Validators: []validator.Object{ /*START VALIDATORS*/
 													fwvalidators.NotNullObject(),
 												}, /*END VALIDATORS*/
-												PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-													objectplanmodifier.UseStateForUnknown(),
-												}, /*END PLAN MODIFIERS*/
 											}, /*END ATTRIBUTE*/
 										}, /*END SCHEMA*/
 									}, /*END NESTED OBJECT*/
@@ -1273,9 +1127,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 									Validators: []validator.List{ /*START VALIDATORS*/
 										fwvalidators.NotNullList(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-										listplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The output configuration for monitoring jobs.",
@@ -1284,9 +1135,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: MonitoringResources
 						"monitoring_resources": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1303,9 +1151,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												int64validator.Between(1, 100),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: InstanceType
 										"instance_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1315,18 +1160,12 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 											Validators: []validator.String{ /*START VALIDATORS*/
 												fwvalidators.NotNullString(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: VolumeKmsKeyId
 										"volume_kms_key_id": schema.StringAttribute{ /*START ATTRIBUTE*/
 											Description: "The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the model monitoring job.",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-												stringplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: VolumeSizeInGB
 										"volume_size_in_gb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -1337,9 +1176,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												int64validator.Between(1, 16384),
 												fwvalidators.NotNullInt64(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-												int64planmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Configuration for the cluster used to run model monitoring jobs.",
@@ -1348,9 +1184,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 									Validators: []validator.Object{ /*START VALIDATORS*/
 										fwvalidators.NotNullObject(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Identifies the resources to deploy for a monitoring job.",
@@ -1359,9 +1192,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: NetworkConfig
 						"network_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1371,18 +1201,12 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 									Description: "Whether to encrypt all communications between distributed processing jobs. Choose True to encrypt communications. Encryption provides greater security for distributed processing jobs, but the processing might take longer.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: EnableNetworkIsolation
 								"enable_network_isolation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "Whether to allow inbound and outbound network calls to and from the containers used for the processing job.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: VpcConfig
 								"vpc_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1401,9 +1225,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 										// Property: Subnets
 										"subnets": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1419,25 +1240,16 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 												),
 												fwvalidators.NotNullList(),
 											}, /*END VALIDATORS*/
-											PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-												listplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "Specifies a VPC that your training jobs and hosted models have access to. Control access to and from your training and model containers by configuring the VPC.",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Networking options for a job, such as network traffic encryption between containers, whether to allow inbound and outbound network calls to and from containers, and the VPC subnets and security groups to use for VPC-enabled jobs.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: RoleArn
 						"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1449,9 +1261,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.RegexMatches(regexp.MustCompile("^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StoppingCondition
 						"stopping_condition": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1465,25 +1274,16 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 										int64validator.Between(1, 86400),
 										fwvalidators.NotNullInt64(),
 									}, /*END VALIDATORS*/
-									PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-										int64planmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "Specifies a time limit for how long the monitoring job is allowed to run.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Defines the monitoring job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MonitoringJobDefinitionName
 				"monitoring_job_definition_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1494,9 +1294,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 						stringvalidator.LengthBetween(1, 63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MonitoringType
 				"monitoring_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1511,9 +1308,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							"ModelExplainability",
 						),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ScheduleConfig
 				"schedule_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1527,9 +1321,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DataAnalysisStartTime
 						"data_analysis_start_time": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1540,9 +1331,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ScheduleExpression
 						"schedule_expression": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1553,17 +1341,11 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 								stringvalidator.LengthBetween(1, 256),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Configuration details about the monitoring schedule.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "The configuration object that specifies the monitoring schedule and defines the monitoring job.",
@@ -1614,9 +1396,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 					"Stopped",
 				),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -1662,9 +1441,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1676,9 +1452,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1688,9 +1461,6 @@ func monitoringScheduleResource(ctx context.Context) (resource.Resource, error) 
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

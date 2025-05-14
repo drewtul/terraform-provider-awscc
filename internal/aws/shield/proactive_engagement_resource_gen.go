@@ -93,9 +93,6 @@ func proactiveEngagementResource(ctx context.Context) (resource.Resource, error)
 							stringvalidator.LengthBetween(1, 1024),
 							stringvalidator.RegexMatches(regexp.MustCompile("^[\\w\\s\\.\\-,:/()+@]*$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: EmailAddress
 					"email_address": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -115,9 +112,6 @@ func proactiveEngagementResource(ctx context.Context) (resource.Resource, error)
 							stringvalidator.LengthBetween(1, 16),
 							stringvalidator.RegexMatches(regexp.MustCompile("^\\+[1-9]\\d{1,14}$"), ""),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/

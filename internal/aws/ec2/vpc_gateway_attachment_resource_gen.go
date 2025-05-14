@@ -49,9 +49,6 @@ func vPCGatewayAttachmentResource(ctx context.Context) (resource.Resource, error
 			Description: "The ID of the internet gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: VpcId
 		// CloudFormation resource type schema:
@@ -78,9 +75,6 @@ func vPCGatewayAttachmentResource(ctx context.Context) (resource.Resource, error
 			Description: "The ID of the virtual private gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

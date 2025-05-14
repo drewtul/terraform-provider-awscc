@@ -16,8 +16,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -51,9 +49,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^[0-9]*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AllowMajorVersionUpgrade
 		// CloudFormation resource type schema:
@@ -66,9 +61,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A value that indicates whether major version upgrades are allowed. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible.\n Constraints: Major version upgrades must be allowed when specifying a value for the ``EngineVersion`` parameter that is a different major version than the DB instance's current version.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AllowMajorVersionUpgrade is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: ApplyImmediately
@@ -82,9 +74,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether changes to the DB instance and any pending modifications are applied immediately, regardless of the ``PreferredMaintenanceWindow`` setting. If set to ``false``, changes are applied during the next maintenance window. Until RDS applies the changes, the DB instance remains in a drift state. As a result, the configuration doesn't fully reflect the requested modifications and temporarily diverges from the intended state.\n In addition to the settings described in [Modifying a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html), this property also determines whether the DB instance reboots when a static parameter is modified in the associated DB parameter group.\n Default: ``true``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// ApplyImmediately is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: AssociatedRoles
@@ -124,9 +113,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: RoleArn
 					"role_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -136,18 +122,12 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The IAMlong (IAM) roles associated with the DB instance. \n  *Amazon Aurora* \n Not applicable. The associated roles are managed by the DB cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AutoMinorVersionUpgrade
 		// CloudFormation resource type schema:
@@ -160,9 +140,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the maintenance window. By default, minor engine upgrades are applied automatically.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AutomaticBackupReplicationKmsKeyId
 		// CloudFormation resource type schema:
@@ -175,9 +152,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The AWS KMS key identifier for encryption of the replicated automated backups. The KMS key ID is the Amazon Resource Name (ARN) for the KMS encryption key in the destination AWS-Region, for example, ``arn:aws:kms:us-east-1:123456789012:key/AKIAIOSFODNN7EXAMPLE``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// AutomaticBackupReplicationKmsKeyId is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: AutomaticBackupReplicationRegion
@@ -191,9 +165,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The AWS-Region associated with the automated backup.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AutomaticBackupReplicationRetentionPeriod
 		// CloudFormation resource type schema:
@@ -210,9 +181,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.AtLeast(1),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: AvailabilityZone
 		// CloudFormation resource type schema:
@@ -225,9 +193,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Availability Zone (AZ) where the database will be created. For information on AWS-Regions and Availability Zones, see [Regions and Availability Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).\n For Amazon Aurora, each Aurora DB cluster hosts copies of its storage in three separate Availability Zones. Specify one of these Availability Zones. Aurora automatically chooses an appropriate Availability Zone if you don't specify one.\n Default: A random, system-chosen Availability Zone in the endpoint's AWS-Region.\n Constraints:\n  +  The ``AvailabilityZone`` parameter can't be specified if the DB instance is a Multi-AZ deployment.\n  +  The specified Availability Zone must be in the same AWS-Region as the current endpoint.\n  \n Example: ``us-east-1d``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: BackupRetentionPeriod
 		// CloudFormation resource type schema:
@@ -244,9 +209,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.AtLeast(0),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CACertificateIdentifier
 		// CloudFormation resource type schema:
@@ -259,9 +221,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The identifier of the CA certificate for this DB instance.\n For more information, see [Using SSL/TLS to encrypt a connection to a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) in the *Amazon RDS User Guide* and [Using SSL/TLS to encrypt a connection to a DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html) in the *Amazon Aurora User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CertificateDetails
 		// CloudFormation resource type schema:
@@ -313,9 +272,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.\n By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated until the DB instance is restarted.\n  Set this parameter only if you are *not* using SSL/TLS to connect to the DB instance.\n  If you are using SSL/TLS to connect to the DB instance, follow the appropriate instructions for your DB engine to rotate your SSL/TLS certificate:\n  +  For more information about rotating your SSL/TLS certificate for RDS DB engines, see [Rotating Your SSL/TLS Certificate.](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html) in the *Amazon RDS User Guide.*\n  +  For more information about rotating your SSL/TLS certificate for Aurora DB engines, see [Rotating Your SSL/TLS Certificate](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL-certificate-rotation.html) in the *Amazon Aurora User Guide*.\n  \n This setting doesn't apply to RDS Custom DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// CertificateRotationRestart is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: CharacterSetName
@@ -330,7 +286,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -345,9 +300,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to copy tags from the DB instance to snapshots of the DB instance. By default, tags are not copied.\n This setting doesn't apply to Amazon Aurora DB instances. Copying tags to snapshots is managed by the DB cluster. Setting this value for an Aurora DB instance has no effect on the DB cluster setting.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: CustomIAMInstanceProfile
 		// CloudFormation resource type schema:
@@ -361,7 +313,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -377,7 +328,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -392,9 +342,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The identifier for the Multi-AZ DB cluster snapshot to restore from.\n For more information on Multi-AZ DB clusters, see [Multi-AZ DB cluster deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html) in the *Amazon RDS User Guide*.\n Constraints:\n  +  Must match the identifier of an existing Multi-AZ DB cluster snapshot.\n  +  Can't be specified when ``DBSnapshotIdentifier`` is specified.\n  +  Must be specified when ``DBSnapshotIdentifier`` isn't specified.\n  +  If you are restoring from a shared manual Multi-AZ DB cluster snapshot, the ``DBClusterSnapshotIdentifier`` must be the ARN of the shared snapshot.\n  +  Can't be the identifier of an Aurora DB cluster snapshot.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBInstanceArn
 		// CloudFormation resource type schema:
@@ -421,9 +368,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The compute and memory capacity of the DB instance, for example ``db.m5.large``. Not all DB instance classes are available in all AWS-Regions, or for all database engines. For the full list of DB instance classes, and availability for your engine, see [DB instance classes](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) in the *Amazon RDS User Guide* or [Aurora DB instance classes](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.DBInstanceClass.html) in the *Amazon Aurora User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBInstanceIdentifier
 		// CloudFormation resource type schema:
@@ -444,7 +388,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^$|^[a-zA-Z]{1}(?:-?[a-zA-Z0-9]){0,62}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -460,7 +403,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -475,9 +417,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of an existing DB parameter group or a reference to an [AWS::RDS::DBParameterGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html) resource created in the template.\n To list all of the available DB parameter group names, use the following command:\n  ``aws rds describe-db-parameter-groups --query \"DBParameterGroups[].DBParameterGroupName\" --output text`` \n  If any of the data members of the referenced parameter group are changed during an update, the DB instance might need to be restarted, which causes some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.\n  If you don't specify a value for ``DBParameterGroupName`` property, the default DB parameter group for the specified engine and engine version is used.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBSecurityGroups
 		// CloudFormation resource type schema:
@@ -498,9 +437,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DBSnapshotIdentifier
 		// CloudFormation resource type schema:
@@ -513,9 +449,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name or Amazon Resource Name (ARN) of the DB snapshot that's used to restore the DB instance. If you're restoring from a shared manual DB snapshot, you must specify the ARN of the snapshot.\n By specifying this property, you can create a DB instance from the specified DB snapshot. If the ``DBSnapshotIdentifier`` property is an empty string or the ``AWS::RDS::DBInstance`` declaration has no ``DBSnapshotIdentifier`` property, AWS CloudFormation creates a new database. If the property contains a value (other than an empty string), AWS CloudFormation creates a database from the specified snapshot. If a snapshot with the specified name doesn't exist, AWS CloudFormation can't create the database and it rolls back the stack.\n Some DB instance properties aren't valid when you restore from a snapshot, such as the ``MasterUsername`` and ``MasterUserPassword`` properties, and the point-in-time recovery properties ``RestoreTime`` and ``UseLatestRestorableTime``. For information about the properties that you can specify, see the [RestoreDBInstanceFromDBSnapshot](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_RestoreDBInstanceFromDBSnapshot.html) action in the *Amazon RDS API Reference*.\n After you restore a DB instance with a ``DBSnapshotIdentifier`` property, you must specify the same ``DBSnapshotIdentifier`` property for any future updates to the DB instance. When you specify this property for an update, the DB instance is not restored from the DB snapshot again, and the data in the database is not changed. However, if you don't specify the ``DBSnapshotIdentifier`` property, an empty DB instance is created, and the original DB instance is deleted. If you specify a property that is different from the previous snapshot restore property, a new DB instance is restored from the specified ``DBSnapshotIdentifier`` property, and the original DB instance is deleted.\n If you specify the ``DBSnapshotIdentifier`` property to restore a DB instance (as opposed to specifying it for DB instance updates), then don't specify the following properties:\n  +   ``CharacterSetName`` \n  +   ``DBClusterIdentifier`` \n  +   ``DBName`` \n  +   ``KmsKeyId`` \n  +   ``MasterUsername`` \n  +   ``MasterUserPassword`` \n  +   ``PromotionTier`` \n  +   ``SourceDBInstanceIdentifier`` \n  +   ``SourceRegion`` \n  +  ``StorageEncrypted`` (for an unencrypted snapshot)\n  +   ``Timezone`` \n  \n  *Amazon Aurora* \n Not applicable. Snapshot restore is managed by the DB cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// DBSnapshotIdentifier is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: DBSubnetGroupName
@@ -530,7 +463,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -546,7 +478,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -561,9 +492,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The mode of Database Insights to enable for the DB instance.\n  Aurora DB instances inherit this value from the DB cluster, so you can't change this value.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DbiResourceId
 		// CloudFormation resource type schema:
@@ -590,9 +518,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the DB instance has a dedicated log volume (DLV) enabled.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DeleteAutomatedBackups
 		// CloudFormation resource type schema:
@@ -605,9 +530,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A value that indicates whether to remove automated backups immediately after the DB instance is deleted. This parameter isn't case-sensitive. The default is to remove automated backups immediately after the DB instance is deleted.\n  *Amazon Aurora* \n Not applicable. When you delete a DB cluster, all automated backups for that DB cluster are deleted and can't be recovered. Manual DB cluster snapshots of the DB cluster are not deleted.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// DeleteAutomatedBackups is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: DeletionProtection
@@ -621,9 +543,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).\n This setting doesn't apply to Amazon Aurora DB instances. You can enable or disable deletion protection for the DB cluster. For more information, see ``CreateDBCluster``. DB instances in a DB cluster can be deleted even when deletion protection is enabled for the DB cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Domain
 		// CloudFormation resource type schema:
@@ -636,9 +555,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Active Directory directory ID to create the DB instance in. Currently, only Db2, MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an Active Directory Domain.\n For more information, see [Kerberos Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html) in the *Amazon RDS User Guide*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainAuthSecretArn
 		// CloudFormation resource type schema:
@@ -651,9 +567,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ARN for the Secrets Manager secret with the credentials for the user joining the domain.\n Example: ``arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainDnsIps
 		// CloudFormation resource type schema:
@@ -670,9 +583,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.\n Constraints:\n  +  Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the primary domain controller for both entries in the list.\n  \n Example: ``123.124.125.126,234.235.236.237``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainFqdn
 		// CloudFormation resource type schema:
@@ -685,9 +595,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The fully qualified domain name (FQDN) of an Active Directory domain.\n Constraints:\n  +  Can't be longer than 64 characters.\n  \n Example: ``mymanagedADtest.mymanagedAD.mydomain``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainIAMRoleName
 		// CloudFormation resource type schema:
@@ -700,9 +607,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the IAM role to use when making API calls to the Directory Service.\n This setting doesn't apply to the following DB instances:\n  +  Amazon Aurora (The domain is managed by the DB cluster.)\n  +  RDS Custom",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: DomainOu
 		// CloudFormation resource type schema:
@@ -715,9 +619,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Active Directory organizational unit for your DB instance to join.\n Constraints:\n  +  Must be in the distinguished name format.\n  +  Can't be longer than 64 characters.\n  \n Example: ``OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnableCloudwatchLogsExports
 		// CloudFormation resource type schema:
@@ -734,9 +635,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch) in the *Amazon Relational Database Service User Guide*.\n  *Amazon Aurora* \n Not applicable. CloudWatch Logs exports are managed by the DB cluster. \n  *Db2* \n Valid values: ``diag.log``, ``notify.log``\n  *MariaDB* \n Valid values: ``audit``, ``error``, ``general``, ``slowquery``\n  *Microsoft SQL Server* \n Valid values: ``agent``, ``error``\n  *MySQL* \n Valid values: ``audit``, ``error``, ``general``, ``slowquery``\n  *Oracle* \n Valid values: ``alert``, ``audit``, ``listener``, ``trace``, ``oemagent``\n  *PostgreSQL* \n Valid values: ``postgresql``, ``upgrade``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnableIAMDatabaseAuthentication
 		// CloudFormation resource type schema:
@@ -749,9 +647,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled.\n This property is supported for RDS for MariaDB, RDS for MySQL, and RDS for PostgreSQL. For more information, see [IAM Database Authentication for MariaDB, MySQL, and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) in the *Amazon RDS User Guide.*\n  *Amazon Aurora* \n Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EnablePerformanceInsights
 		// CloudFormation resource type schema:
@@ -764,9 +659,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to enable Performance Insights for the DB instance. For more information, see [Using Amazon Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html) in the *Amazon RDS User Guide*.\n This setting doesn't apply to RDS Custom DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Endpoint
 		// CloudFormation resource type schema:
@@ -825,9 +717,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The name of the database engine to use for this DB instance. Not every database engine is available in every AWS Region.\n This property is required when creating a DB instance.\n  You can convert an Oracle database from the non-CDB architecture to the container database (CDB) architecture by updating the ``Engine`` value in your templates from ``oracle-ee`` to ``oracle-ee-cdb`` or from ``oracle-se2`` to ``oracle-se2-cdb``. Converting to the CDB architecture requires an interruption.\n  Valid Values:\n  +  ``aurora-mysql`` (for Aurora MySQL DB instances)\n  +  ``aurora-postgresql`` (for Aurora PostgreSQL DB instances)\n  +  ``custom-oracle-ee`` (for RDS Custom for Oracle DB instances)\n  +  ``custom-oracle-ee-cdb`` (for RDS Custom for Oracle DB instances)\n  +  ``custom-sqlserver-ee`` (for RDS Custom for SQL Server DB instances)\n  +  ``custom-sqlserver-se`` (for RDS Custom for SQL Server DB instances)\n  +  ``custom-sqlserver-web`` (for RDS Custom for SQL Server DB instances)\n  +   ``db2-ae`` \n  +   ``db2-se`` \n  +   ``mariadb`` \n  +   ``mysql`` \n  +   ``oracle-ee`` \n  +   ``oracle-ee-cdb`` \n  +   ``oracle-se2`` \n  +   ``oracle-se2-cdb`` \n  +   ``postgres`` \n  +   ``sqlserver-ee`` \n  +   ``sqlserver-se`` \n  +   ``sqlserver-ex`` \n  +   ``sqlserver-web``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EngineLifecycleSupport
 		// CloudFormation resource type schema:
@@ -840,9 +729,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The life cycle type for this DB instance.\n  By default, this value is set to ``open-source-rds-extended-support``, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to ``open-source-rds-extended-support-disabled``. In this case, creating the DB instance will fail if the DB major version is past its end of standard support date.\n  This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle type is managed by the DB cluster.\n You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see [Using Amazon RDS Extended Support](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html) in the *Amazon RDS User Guide*.\n Valid Values: ``open-source-rds-extended-support | open-source-rds-extended-support-disabled``\n Default: ``open-source-rds-extended-support``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: EngineVersion
 		// CloudFormation resource type schema:
@@ -855,9 +741,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The version number of the database engine to use.\n For a list of valid engine versions, use the ``DescribeDBEngineVersions`` action.\n The following are the database engines and links to information about the major and minor versions that are available with Amazon RDS. Not every database engine is available for every AWS Region.\n  *Amazon Aurora* \n Not applicable. The version number of the database engine to be used by the DB instance is managed by the DB cluster.\n  *Db2* \n See [Amazon RDS for Db2](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Db2.html#Db2.Concepts.VersionMgmt) in the *Amazon RDS User Guide.*\n  *MariaDB* \n See [MariaDB on Amazon RDS Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MariaDB.html#MariaDB.Concepts.VersionMgmt) in the *Amazon RDS User Guide.*\n  *Microsoft SQL Server* \n See [Microsoft SQL Server Versions on Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport) in the *Amazon RDS User Guide.*\n  *MySQL* \n See [MySQL on Amazon RDS Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt) in the *Amazon RDS User Guide.*\n  *Oracle* \n See [Oracle Database Engine Release Notes](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.Oracle.PatchComposition.html) in the *Amazon RDS User Guide.*\n  *PostgreSQL* \n See [Supported PostgreSQL Database Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.DBVersions) in the *Amazon RDS User Guide.*",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Iops
 		// CloudFormation resource type schema:
@@ -870,9 +753,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of I/O operations per second (IOPS) that the database provisions. The value must be equal to or greater than 1000. \n If you specify this property, you must follow the range of allowed ratios of your requested IOPS rate to the amount of storage that you allocate (IOPS to allocated storage). For example, you can provision an Oracle database instance with 1000 IOPS and 200 GiB of storage (a ratio of 5:1), or specify 2000 IOPS with 200 GiB of storage (a ratio of 10:1). For more information, see [Amazon RDS Provisioned IOPS Storage to Improve Performance](https://docs.aws.amazon.com/AmazonRDS/latest/DeveloperGuide/CHAP_Storage.html#USER_PIOPS) in the *Amazon RDS User Guide*.\n  If you specify ``io1`` for the ``StorageType`` property, then you must also specify the ``Iops`` property.\n  Constraints:\n  +  For RDS for Db2, MariaDB, MySQL, Oracle, and PostgreSQL - Must be a multiple between .5 and 50 of the storage amount for the DB instance.\n  +  For RDS for SQL Server - Must be a multiple between 1 and 50 of the storage amount for the DB instance.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: KmsKeyId
 		// CloudFormation resource type schema:
@@ -886,7 +766,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -901,9 +780,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "License model information for this DB instance.\n  Valid Values:\n  +  Aurora MySQL - ``general-public-license``\n  +  Aurora PostgreSQL - ``postgresql-license``\n  +  RDS for Db2 - ``bring-your-own-license``. For more information about RDS for Db2 licensing, see [](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html) in the *Amazon RDS User Guide.*\n  +  RDS for MariaDB - ``general-public-license``\n  +  RDS for Microsoft SQL Server - ``license-included``\n  +  RDS for MySQL - ``general-public-license``\n  +  RDS for Oracle - ``bring-your-own-license`` or ``license-included``\n  +  RDS for PostgreSQL - ``postgresql-license``\n  \n  If you've specified ``DBSecurityGroups`` and then you update the license model, AWS CloudFormation replaces the underlying DB instance. This will incur some interruptions to database availability.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ManageMasterUserPassword
 		// CloudFormation resource type schema:
@@ -916,9 +792,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether to manage the master user password with AWS Secrets Manager.\n For more information, see [Password management with Secrets Manager](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html) in the *Amazon RDS User Guide.*\n Constraints:\n  +  Can't manage the master user password with AWS Secrets Manager if ``MasterUserPassword`` is specified.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MasterUserPassword
 		// CloudFormation resource type schema:
@@ -931,9 +804,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The password for the master user. The password can include any printable ASCII character except \"/\", \"\"\", or \"@\".\n  *Amazon Aurora* \n Not applicable. The password for the master user is managed by the DB cluster.\n  *RDS for Db2* \n Must contain from 8 to 255 characters.\n  *RDS for MariaDB* \n Constraints: Must contain from 8 to 41 characters.\n  *RDS for Microsoft SQL Server* \n Constraints: Must contain from 8 to 128 characters.\n  *RDS for MySQL* \n Constraints: Must contain from 8 to 41 characters.\n  *RDS for Oracle* \n Constraints: Must contain from 8 to 30 characters.\n  *RDS for PostgreSQL* \n Constraints: Must contain from 8 to 128 characters.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// MasterUserPassword is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: MasterUserSecret
@@ -961,9 +831,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 					Description: "The AWS KMS key identifier that is used to encrypt the secret.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: SecretArn
 				"secret_arn": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -977,9 +844,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The secret managed by RDS in AWS Secrets Manager for the master user password.\n For more information, see [Password management with Secrets Manager](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html) in the *Amazon RDS User Guide.*",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MasterUsername
 		// CloudFormation resource type schema:
@@ -1000,7 +864,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]{0,127}$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1015,9 +878,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.\n For more information about this setting, including limitations that apply to it, see [Managing capacity automatically with Amazon RDS storage autoscaling](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling) in the *Amazon RDS User Guide*.\n This setting doesn't apply to the following DB instances:\n  +  Amazon Aurora (Storage is managed by the DB cluster.)\n  +  RDS Custom",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MonitoringInterval
 		// CloudFormation resource type schema:
@@ -1030,9 +890,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collection of Enhanced Monitoring metrics, specify ``0``.\n If ``MonitoringRoleArn`` is specified, then you must set ``MonitoringInterval`` to a value other than ``0``.\n This setting doesn't apply to RDS Custom DB instances.\n Valid Values: ``0 | 1 | 5 | 10 | 15 | 30 | 60``\n Default: ``0``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MonitoringRoleArn
 		// CloudFormation resource type schema:
@@ -1045,9 +902,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to Amazon CloudWatch Logs. For example, ``arn:aws:iam:123456789012:role/emaccess``. For information on creating a monitoring role, see [Setting Up and Enabling Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling) in the *Amazon RDS User Guide*.\n If ``MonitoringInterval`` is set to a value other than ``0``, then you must supply a ``MonitoringRoleArn`` value.\n This setting doesn't apply to RDS Custom DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: MultiAZ
 		// CloudFormation resource type schema:
@@ -1060,9 +914,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the DB instance is a Multi-AZ deployment. You can't set the ``AvailabilityZone`` parameter if the DB instance is a Multi-AZ deployment.\n This setting doesn't apply to the following DB instances:\n  +  Amazon Aurora (DB instance Availability Zones (AZs) are managed by the DB cluster.)\n  +  RDS Custom",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: NcharCharacterSetName
 		// CloudFormation resource type schema:
@@ -1076,7 +927,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1091,9 +941,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The network type of the DB instance.\n Valid values:\n  +   ``IPV4`` \n  +   ``DUAL`` \n  \n The network type is determined by the ``DBSubnetGroup`` specified for the DB instance. A ``DBSubnetGroup`` can support only the IPv4 protocol or the IPv4 and IPv6 protocols (``DUAL``).\n For more information, see [Working with a DB instance in a VPC](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html) in the *Amazon RDS User Guide.*",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: OptionGroupName
 		// CloudFormation resource type schema:
@@ -1106,9 +953,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates that the DB instance should be associated with the specified option group.\n Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option group. Also, that option group can't be removed from a DB instance once it is associated with a DB instance.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PerformanceInsightsKMSKeyId
 		// CloudFormation resource type schema:
@@ -1121,9 +965,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The AWS KMS key identifier for encryption of Performance Insights data.\n The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.\n If you do not specify a value for ``PerformanceInsightsKMSKeyId``, then Amazon RDS uses your default KMS key. There is a default KMS key for your AWS account. Your AWS account has a different default KMS key for each AWS Region.\n For information about enabling Performance Insights, see [EnablePerformanceInsights](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enableperformanceinsights).",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PerformanceInsightsRetentionPeriod
 		// CloudFormation resource type schema:
@@ -1136,9 +977,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The number of days to retain Performance Insights data. When creating a DB instance without enabling Performance Insights, you can't specify the parameter ``PerformanceInsightsRetentionPeriod``.\n This setting doesn't apply to RDS Custom DB instances.\n Valid Values:\n  +   ``7`` \n  +  *month* * 31, where *month* is a number of months from 1-23. Examples: ``93`` (3 months * 31), ``341`` (11 months * 31), ``589`` (19 months * 31)\n  +   ``731`` \n  \n Default: ``7`` days\n If you specify a retention period that isn't valid, such as ``94``, Amazon RDS returns an error.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Port
 		// CloudFormation resource type schema:
@@ -1155,9 +993,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.String{ /*START VALIDATORS*/
 				stringvalidator.RegexMatches(regexp.MustCompile("^\\d*$"), ""),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PreferredBackupWindow
 		// CloudFormation resource type schema:
@@ -1170,9 +1005,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The daily time range during which automated backups are created if automated backups are enabled, using the ``BackupRetentionPeriod`` parameter. For more information, see [Backup Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow) in the *Amazon RDS User Guide.*\n Constraints:\n  +  Must be in the format ``hh24:mi-hh24:mi``.\n  +  Must be in Universal Coordinated Time (UTC).\n  +  Must not conflict with the preferred maintenance window.\n  +  Must be at least 30 minutes.\n  \n  *Amazon Aurora* \n Not applicable. The daily time range for creating automated backups is managed by the DB cluster.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PreferredMaintenanceWindow
 		// CloudFormation resource type schema:
@@ -1185,9 +1017,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).\n Format: ``ddd:hh24:mi-ddd:hh24:mi``\n The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring on a random day of the week. To see the time blocks available, see [Maintaining a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow) in the *Amazon RDS User Guide.*\n  This property applies when AWS CloudFormation initially creates the DB instance. If you use AWS CloudFormation to update the DB instance, those updates are applied immediately.\n  Constraints: Minimum 30-minute window.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ProcessorFeatures
 		// CloudFormation resource type schema:
@@ -1229,27 +1058,18 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 								"threadsPerCore",
 							),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
 						Description: "The value of a processor feature.",
 						Optional:    true,
 						Computed:    true,
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
 			Description: "The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.\n This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PromotionTier
 		// CloudFormation resource type schema:
@@ -1266,9 +1086,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.Int64{ /*START VALIDATORS*/
 				int64validator.AtLeast(0),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: PubliclyAccessible
 		// CloudFormation resource type schema:
@@ -1281,9 +1098,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Indicates whether the DB instance is an internet-facing instance. If you specify true, AWS CloudFormation creates an instance with a publicly resolvable DNS name, which resolves to a public IP address. If you specify false, AWS CloudFormation creates an internal instance with a DNS name that resolves to a private IP address. \n The default behavior value depends on your VPC setup and the database subnet group. For more information, see the ``PubliclyAccessible`` parameter in the [CreateDBInstance](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html) in the *Amazon RDS API Reference*.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: ReplicaMode
 		// CloudFormation resource type schema:
@@ -1296,9 +1110,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The open mode of an Oracle read replica. For more information, see [Working with Oracle Read Replicas for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html) in the *Amazon RDS User Guide*.\n This setting is only supported in RDS for Oracle.\n Default: ``open-read-only``\n Valid Values: ``open-read-only`` or ``mounted``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: RestoreTime
 		// CloudFormation resource type schema:
@@ -1313,9 +1124,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The date and time to restore from. This parameter applies to point-in-time recovery. For more information, see [Restoring a DB instance to a specified time](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html) in the in the *Amazon RDS User Guide*.\n Constraints:\n  +  Must be a time in Universal Coordinated Time (UTC) format.\n  +  Must be before the latest restorable time for the DB instance.\n  +  Can't be specified if the ``UseLatestRestorableTime`` parameter is enabled.\n  \n Example: ``2009-09-07T23:45:00Z``",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// RestoreTime is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: SourceDBClusterIdentifier
@@ -1329,9 +1137,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The identifier of the Multi-AZ DB cluster that will act as the source for the read replica. Each DB cluster can have up to 15 read replicas.\n Constraints:\n  +  Must be the identifier of an existing Multi-AZ DB cluster.\n  +  Can't be specified if the ``SourceDBInstanceIdentifier`` parameter is also specified.\n  +  The specified DB cluster must have automatic backups enabled, that is, its backup retention period must be greater than 0.\n  +  The source DB cluster must be in the same AWS-Region as the read replica. Cross-Region replication isn't supported.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: SourceDBInstanceAutomatedBackupsArn
 		// CloudFormation resource type schema:
@@ -1344,9 +1149,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example, ``arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE``.\n This setting doesn't apply to RDS Custom.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// SourceDBInstanceAutomatedBackupsArn is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: SourceDBInstanceIdentifier
@@ -1360,9 +1162,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "If you want to create a read replica DB instance, specify the ID of the source DB instance. Each DB instance can have a limited number of read replicas. For more information, see [Working with Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/DeveloperGuide/USER_ReadRepl.html) in the *Amazon RDS User Guide*.\n For information about constraints that apply to DB instance identifiers, see [Naming constraints in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html#RDS_Limits.Constraints) in the *Amazon RDS User Guide*.\n The ``SourceDBInstanceIdentifier`` property determines whether a DB instance is a read replica. If you remove the ``SourceDBInstanceIdentifier`` property from your template and then update your stack, AWS CloudFormation promotes the read replica to a standalone DB instance.\n If you specify the ``UseLatestRestorableTime`` or ``RestoreTime`` properties in conjunction with the ``SourceDBInstanceIdentifier`` property, RDS restores the DB instance to the requested point in time, thereby creating a new DB instance.\n   +  If you specify a source DB instance that uses VPC security groups, we recommend that you specify the ``VPCSecurityGroups`` property. If you don't specify the property, the read replica inherits the value of the ``VPCSecurityGroups`` property from the source DB when you create the replica. However, if you update the stack, AWS CloudFormation reverts the replica's ``VPCSecurityGroups`` property to the default value because it's not defined in the stack's template. This change might cause unexpected issues.\n  +  Read replicas don't support deletion policies. AWS CloudFormation ignores any deletion policy that's associated with a read replica.\n  +  If you specify ``SourceDBInstanceIdentifier``, don't specify the ``DBSnapshotIdentifier`` property. You can't create a read replica from a snapshot.\n  +  Don't set the ``BackupRetentionPeriod``, ``DBName``, ``MasterUsername``, ``MasterUserPassword``, and ``PreferredBackupWindow`` properties. The database attributes are inherited from the source DB instance, and backups are disabled for read replicas.\n  +  If the source DB instance is in a different region than the read replica, specify the source region in ``SourceRegion``, and specify an ARN for a valid DB instance in ``SourceDBInstanceIdentifier``. For more information, see [Constructing a Amazon RDS Amazon Resource Name (ARN)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN) in the *Amazon RDS User Guide*.\n  +  For DB instances in Amazon Aurora clusters, don't specify this property. Amazon RDS automatically assigns writer and reader DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// SourceDBInstanceIdentifier is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: SourceDbiResourceId
@@ -1376,9 +1175,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The resource ID of the source DB instance from which to restore.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// SourceDbiResourceId is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: SourceRegion
@@ -1393,7 +1189,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// SourceRegion is a write-only property.
@@ -1410,7 +1205,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
 				boolplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1425,9 +1219,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies the storage throughput value, in mebibyte per second (MiBps), for the DB instance. This setting applies only to the ``gp3`` storage type. \n This setting doesn't apply to RDS Custom or Amazon Aurora.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-				int64planmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: StorageType
 		// CloudFormation resource type schema:
@@ -1440,9 +1231,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "The storage type to associate with the DB instance.\n If you specify ``io1``, ``io2``, or ``gp3``, you must also include a value for the ``Iops`` parameter.\n This setting doesn't apply to Amazon Aurora DB instances. Storage is managed by the DB cluster.\n Valid Values: ``gp2 | gp3 | io1 | io2 | standard``\n Default: ``io1``, if the ``Iops`` parameter is specified. Otherwise, ``gp3``.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: Tags
 		// CloudFormation resource type schema:
@@ -1487,9 +1275,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 							stringvalidator.LengthBetween(1, 128),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1499,9 +1284,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 						Validators: []validator.String{ /*START VALIDATORS*/
 							stringvalidator.LengthBetween(0, 256),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1510,7 +1292,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Computed:    true,
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
 				generic.Multiset(),
-				listplanmodifier.UseStateForUnknown(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TdeCredentialArn
@@ -1524,9 +1305,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 		// Property: TdeCredentialPassword
 		// CloudFormation resource type schema:
@@ -1539,9 +1317,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// TdeCredentialPassword is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: Timezone
@@ -1556,7 +1331,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1571,9 +1345,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the DB instance class of the DB instance uses its default processor features.\n This setting doesn't apply to RDS Custom DB instances.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// UseDefaultProcessorFeatures is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: UseLatestRestorableTime
@@ -1587,9 +1358,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Description: "Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't restored from the latest backup time. This parameter applies to point-in-time recovery. For more information, see [Restoring a DB instance to a specified time](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html) in the in the *Amazon RDS User Guide*.\n Constraints:\n  +  Can't be specified if the ``RestoreTime`` parameter is provided.",
 			Optional:    true,
 			Computed:    true,
-			PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-				boolplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 			// UseLatestRestorableTime is a write-only property.
 		}, /*END ATTRIBUTE*/
 		// Property: VPCSecurityGroups
@@ -1611,9 +1379,6 @@ func dBInstanceResource(ctx context.Context) (resource.Resource, error) {
 			Validators: []validator.List{ /*START VALIDATORS*/
 				listvalidator.UniqueValues(),
 			}, /*END VALIDATORS*/
-			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
-			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
 	} /*END SCHEMA*/
 

@@ -14,11 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -69,7 +65,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 			// EndpointName is a write-only property.
@@ -108,7 +103,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 				stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-				stringplanmodifier.UseStateForUnknown(),
 				stringplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -182,9 +176,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Description: "The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the model monitoring job.",
 							Optional:    true,
 							Computed:    true,
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: VolumeSizeInGB
 						"volume_size_in_gb": schema.Int64Attribute{ /*START ATTRIBUTE*/
@@ -266,9 +257,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 					Description: "Sets the environment variables in the Docker container",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Map{ /*START PLAN MODIFIERS*/
-						mapplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ImageUri
 				"image_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -327,9 +315,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 						stringvalidator.LengthBetween(1, 63),
 						stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: ConstraintsResource
 				"constraints_resource": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -343,24 +328,17 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.LengthAtMost(1024),
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The baseline constraints resource for a monitoring job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Baseline configuration used to validate that the data conforms to the specified constraints and statistics.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -583,9 +561,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile("^(https|s3)://([^/]+)/?(.*)$"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: DatasetFormat
 						"dataset_format": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -598,17 +573,11 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 											Description: "A boolean flag indicating if given CSV has header",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The CSV format",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Json
 								"json": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -618,26 +587,17 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 											Description: "A boolean flag indicating if it is JSON line format",
 											Optional:    true,
 											Computed:    true,
-											PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-												boolplanmodifier.UseStateForUnknown(),
-											}, /*END PLAN MODIFIERS*/
 										}, /*END ATTRIBUTE*/
 									}, /*END SCHEMA*/
 									Description: "The Json format",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-										objectplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 								// Property: Parquet
 								"parquet": schema.BoolAttribute{ /*START ATTRIBUTE*/
 									Description: "A flag indicate if the dataset format is Parquet",
 									Optional:    true,
 									Computed:    true,
-									PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-										boolplanmodifier.UseStateForUnknown(),
-									}, /*END PLAN MODIFIERS*/
 								}, /*END ATTRIBUTE*/
 							}, /*END SCHEMA*/
 							Description: "The dataset format of the data to monitor",
@@ -646,9 +606,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.Object{ /*START VALIDATORS*/
 								fwvalidators.NotNullObject(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-								objectplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EndTimeOffset
 						"end_time_offset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -659,9 +616,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: FeaturesAttribute
 						"features_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -671,9 +625,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InferenceAttribute
 						"inference_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -683,9 +634,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LocalPath
 						"local_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -697,9 +645,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ProbabilityAttribute
 						"probability_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -709,17 +654,11 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ProbabilityThresholdAttribute
 						"probability_threshold_attribute": schema.Float64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3DataDistributionType
 						"s3_data_distribution_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -732,9 +671,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 									"ShardedByS3Key",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3InputMode
 						"s3_input_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -747,9 +683,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 									"File",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StartTimeOffset
 						"start_time_offset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -760,17 +693,11 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The batch transform input for a monitoring job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EndpointInput
 				"endpoint_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -784,9 +711,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: EndpointName
 						"endpoint_name": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -798,9 +722,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile("^[a-zA-Z0-9](-*[a-zA-Z0-9])*"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: FeaturesAttribute
 						"features_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -810,9 +731,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: InferenceAttribute
 						"inference_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -822,9 +740,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: LocalPath
 						"local_path": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -836,9 +751,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 								fwvalidators.NotNullString(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ProbabilityAttribute
 						"probability_attribute": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -848,17 +760,11 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							Validators: []validator.String{ /*START VALIDATORS*/
 								stringvalidator.LengthAtMost(256),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: ProbabilityThresholdAttribute
 						"probability_threshold_attribute": schema.Float64Attribute{ /*START ATTRIBUTE*/
 							Optional: true,
 							Computed: true,
-							PlanModifiers: []planmodifier.Float64{ /*START PLAN MODIFIERS*/
-								float64planmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3DataDistributionType
 						"s3_data_distribution_type": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -871,9 +777,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 									"ShardedByS3Key",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: S3InputMode
 						"s3_input_mode": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -886,9 +789,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 									"File",
 								),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: StartTimeOffset
 						"start_time_offset": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -899,17 +799,11 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								stringvalidator.LengthBetween(1, 15),
 								stringvalidator.RegexMatches(regexp.MustCompile("^.?P.*"), ""),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-								stringplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "The endpoint for a monitoring job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: GroundTruthS3Input
 				"ground_truth_s3_input": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1011,9 +905,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 						stringvalidator.LengthAtMost(2048),
 						stringvalidator.RegexMatches(regexp.MustCompile(".*"), ""),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-						stringplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: MonitoringOutputs
 				"monitoring_outputs": schema.ListNestedAttribute{ /*START ATTRIBUTE*/
@@ -1042,9 +933,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 												"EndOfJob",
 											),
 										}, /*END VALIDATORS*/
-										PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-											stringplanmodifier.UseStateForUnknown(),
-										}, /*END PLAN MODIFIERS*/
 									}, /*END ATTRIBUTE*/
 									// Property: S3Uri
 									"s3_uri": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1129,18 +1017,12 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 					Description: "Whether to encrypt all communications between distributed processing jobs. Choose True to encrypt communications. Encryption provides greater security for distributed processing jobs, but the processing might take longer.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: EnableNetworkIsolation
 				"enable_network_isolation": schema.BoolAttribute{ /*START ATTRIBUTE*/
 					Description: "Whether to allow inbound and outbound network calls to and from the containers used for the processing job.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Bool{ /*START PLAN MODIFIERS*/
-						boolplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 				// Property: VpcConfig
 				"vpc_config": schema.SingleNestedAttribute{ /*START ATTRIBUTE*/
@@ -1159,9 +1041,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								),
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 						// Property: Subnets
 						"subnets": schema.ListAttribute{ /*START ATTRIBUTE*/
@@ -1177,24 +1056,17 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 								),
 								fwvalidators.NotNullList(),
 							}, /*END VALIDATORS*/
-							PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-								listplanmodifier.UseStateForUnknown(),
-							}, /*END PLAN MODIFIERS*/
 						}, /*END ATTRIBUTE*/
 					}, /*END SCHEMA*/
 					Description: "Specifies a VPC that your training jobs and hosted models have access to. Control access to and from your training and model containers by configuring the VPC.",
 					Optional:    true,
 					Computed:    true,
-					PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-						objectplanmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Networking options for a job, such as network traffic encryption between containers, whether to allow inbound and outbound network calls to and from containers, and the VPC subnets and security groups to use for VPC-enabled jobs.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1249,16 +1121,12 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 						int64validator.Between(1, 86400),
 						fwvalidators.NotNullInt64(),
 					}, /*END VALIDATORS*/
-					PlanModifiers: []planmodifier.Int64{ /*START PLAN MODIFIERS*/
-						int64planmodifier.UseStateForUnknown(),
-					}, /*END PLAN MODIFIERS*/
 				}, /*END ATTRIBUTE*/
 			}, /*END SCHEMA*/
 			Description: "Specifies a time limit for how long the monitoring job is allowed to run.",
 			Optional:    true,
 			Computed:    true,
 			PlanModifiers: []planmodifier.Object{ /*START PLAN MODIFIERS*/
-				objectplanmodifier.UseStateForUnknown(),
 				objectplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
@@ -1307,9 +1175,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 					// Property: Value
 					"value": schema.StringAttribute{ /*START ATTRIBUTE*/
@@ -1321,9 +1186,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 							stringvalidator.RegexMatches(regexp.MustCompile("^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"), ""),
 							fwvalidators.NotNullString(),
 						}, /*END VALIDATORS*/
-						PlanModifiers: []planmodifier.String{ /*START PLAN MODIFIERS*/
-							stringplanmodifier.UseStateForUnknown(),
-						}, /*END PLAN MODIFIERS*/
 					}, /*END ATTRIBUTE*/
 				}, /*END SCHEMA*/
 			}, /*END NESTED OBJECT*/
@@ -1334,7 +1196,6 @@ func modelBiasJobDefinitionResource(ctx context.Context) (resource.Resource, err
 				listvalidator.SizeAtMost(50),
 			}, /*END VALIDATORS*/
 			PlanModifiers: []planmodifier.List{ /*START PLAN MODIFIERS*/
-				listplanmodifier.UseStateForUnknown(),
 				listplanmodifier.RequiresReplaceIfConfigured(),
 			}, /*END PLAN MODIFIERS*/
 		}, /*END ATTRIBUTE*/
